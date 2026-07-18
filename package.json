@@ -1,0 +1,19 @@
+{
+  "name": "call-or-fall",
+  "version": "1.0.0",
+  "workspaces": [
+    "front-end",
+    "back-end",
+    "shared-code"
+  ],
+  "scripts": {
+    "front": "npm run -w=front-end",
+    "back": "npm run -w=back-end",
+    "shared": "npm run -w=shared-code",
+    "dev": "concurrently --names \"SHARED,FRONT,BACK\" --prefix-colors \"auto\" --timestamped false \"npm run -w=shared-code dev\" \"npm run -w=front-end dev\" \"npm run -w=back-end dev\"",
+    "test": "concurrently --names \"SHARED,FRONT,BACK\" \"npm run -w=shared-code dev\" \"npm run -w=front-end test\" \"npm run -w=back-end test\""
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

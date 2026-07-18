@@ -1,0 +1,21 @@
+{
+  "title": "Call or Fall",
+  "join-online-game": "Join online game",
+  "create-online-game": "Create online game",
+  "play-offline-game": "Play offline game",
+  "tutorial": "Tutorial",
+  "submit-username": "Save",
+  "username-field": "Username",
+  "random-username": "Use random username",
+  "please-set-username-first": "Please set your username first.",
+  "please-enter-room-code-first": "Please enter a room code first.",
+  "waiting-for-players": "Waiting for players...",
+  "room-code": "Room Code",
+  "loading": "Loading...",
+  "start-game": "Start Game",
+  "your-turn": "Your turn",
+  "opponent-turn": "Opponent's turn",
+  "you-won": "You won!",
+  "you-lost": "You lost!",
+  "draw": "It's a draw!"
+}
