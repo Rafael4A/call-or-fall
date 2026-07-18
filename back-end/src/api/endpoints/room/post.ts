@@ -2,7 +2,7 @@ import { type Request, type Response } from "express";
 import type { CreateRoomResponse } from "shared-code";
 import { addRoom } from "../../state/index.js";
 
-export function createRoom(req: Request, res: Response) {
+export function createRoomEndpoint(req: Request, res: Response) {
   console.log(req.params, req.path, req.body);
   const username = req.body?.username;
 

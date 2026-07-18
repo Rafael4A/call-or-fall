@@ -1,8 +1,8 @@
 import { type Request, type Response } from "express";
 import type { CreateRoomResponse } from "shared-code";
-import { addPlayerToRoom, getRoomById } from "../../state/index.js";
+import { addPlayerToRoom, getRoomById } from "../../../../state/index.js";
 
-export function joinRoom(req: Request, res: Response) {
+export function joinRoomEndpoint(req: Request, res: Response) {
   console.log(req.params, req.path, req.body);
 
   const username = req.body?.username;

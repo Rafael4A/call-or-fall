@@ -1,6 +1,7 @@
 export const GAME_STATE = {
   WaitingForPlayers: "W",
-  Playing: "P",
+  Playing: "PL",
+  Predicting: "PR",
   RoundOver: "RO",
   GameOver: "GO",
 } as const;

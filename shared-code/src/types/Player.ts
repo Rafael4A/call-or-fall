@@ -6,6 +6,7 @@ export interface Player {
   cards: CardCode[];
   score: number;
   isBot: boolean;
+  prediction?: number;
 }
 
 export interface PlayerOpponentDTO extends Omit<Player, "id" | "cards"> {}

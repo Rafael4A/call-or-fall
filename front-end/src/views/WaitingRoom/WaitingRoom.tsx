@@ -30,8 +30,8 @@ export function WaitingRoom() {
 
   const handleStartGame = () => {
     startGameMutation.mutate({
-      roomId: room.data!.id,
-      userId: room.data!.player.id,
+      roomId: room.data?.id ?? "",
+      userId: room.data?.player.id ?? "",
     });
   };
 
@@ -45,7 +45,7 @@ export function WaitingRoom() {
           fontWeight="400"
           sx={{ mb: 2 }}
         >
-          {t("room-code")}: {room.data!.id}
+          {t("room-code")}: {room.data?.id}
         </Typography>
 
         <Typography

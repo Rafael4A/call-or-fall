@@ -3,7 +3,7 @@ import type { RoomDTO } from "shared-code";
 import { mapRoomToRoomDTO } from "../../mappers/index.js";
 import { getRoomByIdWithUser } from "../../state/index.js";
 
-export function getRoom(req: Request, res: Response) {
+export function getRoomEndpoint(req: Request, res: Response) {
   console.log(req.params, req.query);
 
   const roomId = req.params?.id;

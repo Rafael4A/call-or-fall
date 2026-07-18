@@ -12,7 +12,7 @@ export function startGame(room: Room): Room {
   if (_room.players.length < 2)
     throw new Error("Not enough players to start the game");
 
-  _room.gameState = GAME_STATE.Playing;
+  _room.gameState = GAME_STATE.Predicting;
 
   const randomIndex = Math.floor(Math.random() * _room.players.length);
   _room.roundFirstPlayerName = _room.players[randomIndex]?.username;

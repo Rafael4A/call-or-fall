@@ -7,5 +7,6 @@ export function createPlayer(username: string, isBot = false): Player {
     cards: [],
     isBot,
     score: 0,
+    prediction: undefined,
   };
 }

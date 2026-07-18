@@ -1,6 +1,7 @@
 import {
   createPlayer,
   createRoom,
+  predictTurn as logicPredictTurn,
   startGame as logicStartGame,
   type Player,
   type Room,
@@ -33,6 +34,18 @@ export function addPlayerToRoom(
 export function startGame(room: Room): Room {
   const newRoom = logicStartGame(room);
   Rooms.set(newRoom.id, newRoom);
+  return newRoom;
+}
+
+export function predictTurn(
+  room: Room,
+  playerId: string,
+  prediction: number,
+): Room {
+  const player = room.players.find((p) => p.id === playerId);
+  if (!player) throw new Error("Player not found");
+  const newRoom = logicPredictTurn(room, playerId, prediction);
+  Rooms.set(room.id, newRoom);
   return newRoom;
 }
 

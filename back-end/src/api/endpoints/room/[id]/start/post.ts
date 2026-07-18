@@ -1,12 +1,9 @@
 import { type Request, type Response } from "express";
 import { GAME_STATE, SOCKET_EVENTS } from "shared-code";
-import {
-  getRoomByIdWithUser,
-  startGame as stateStartGame,
-} from "../../../../state/index.js";
+import { getRoomByIdWithUser, startGame } from "../../../../state/index.js";
 import { getSocketio } from "../../../../utils/index.js";
 
-export function startGame(req: Request, res: Response) {
+export function startGameEndpoint(req: Request, res: Response) {
   console.log(req.params, req.path, req.body);
 
   const roomId = req.params?.id;
@@ -50,7 +47,7 @@ export function startGame(req: Request, res: Response) {
     return res.status(403).send({ error: "Only the host can start the game" });
   }
 
-  stateStartGame(room);
+  startGame(room);
 
   const io = getSocketio(req.app);
 

@@ -1,4 +1,5 @@
 import {
+  Button,
   Container,
   LinearProgress,
   Paper,
@@ -8,6 +9,7 @@ import {
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useRoomContext } from "../../contexts";
+import { Prediction } from "./components";
 
 export function Game() {
   const { t } = useTranslation();
@@ -15,6 +17,14 @@ export function Game() {
   const { updateConnection, room } = useRoomContext();
 
   useEffect(updateConnection, [updateConnection]);
+
+  const isCurrentPlayer =
+    room.data?.currentPlayerName === room.data?.player.username;
+
+  const handlePlayCard = (event: React.MouseEvent<HTMLButtonElement>) => {
+    console.log(event);
+    console.log(event.target);
+  };
 
   return (
     <Container maxWidth="md">
@@ -26,30 +36,31 @@ export function Game() {
           fontWeight="400"
           sx={{ mb: 2 }}
         >
-          {room.data?.currentPlayerName === room.data?.player.username
-            ? t("your-turn")
-            : t("opponent-turn")}
-        </Typography>
-
-        <Typography
-          textAlign="center"
-          component="h2"
-          variant="h5"
-          sx={{ mb: 2 }}
-        >
-          {t("waiting-for-players")}
+          {isCurrentPlayer ? t("your-turn") : t("opponent-turn")}
         </Typography>
 
         <Stack direction="column" spacing={2} sx={{ mb: 4 }}>
           {room.isLoading ? (
             <LinearProgress />
           ) : (
-            room.data?.opponents.map((player) => (
-              <Typography key={player.username} textAlign="center">
-                {player.username}
-                {player.isBot ? " 🤖" : ""}
-              </Typography>
-            ))
+            <>
+              {room.data?.table.map((card, index) => (
+                <Typography key={index} textAlign="center">
+                  {card}
+                </Typography>
+              ))}
+
+              <Prediction />
+
+              <hr />
+
+              {room.data?.player.cards.map((card) => (
+                // TODO - THINK OF A BETTER KEY SINCE CARDS CAN BE DUPLICATES WHEN MULTIPLE DECKS ARE USED
+                <Button variant="contained" key={card} onClick={handlePlayCard}>
+                  {card}
+                </Button>
+              ))}
+            </>
           )}
         </Stack>
       </Paper>

@@ -16,6 +16,7 @@
 - Finalizar partida e mostrar ranking
 - Opção de desistir durante a partida.
 - Cancelar partida (só o criador da sala pode cancelar) antes de começar a partida e durante
+- remover jogador da partida caso socket desconecte no lobby
 - Compartilhar link de convite para a sala
 - Handler de erros de API
 - Refactor view passada por props para context
@@ -26,6 +27,7 @@
 - Melhorar visual drasticamente
 - Opção de mostrar borda dourada na carta ganhando -> Mod escolhe ao criar partida
 - Lógica de aviso de player desconectado? -> modal imperativa? primeiro usar alert
+- Aviso para qualquer erro de backend com toast
 
 ## Tasks (Done):
 
@@ -33,6 +35,7 @@
 - Entrar na sala
 - Outros jogadores entrarem na sala
 - Iniciar partida
+- Predizer quantas jogadas vai ganhar
 
 ## API endpoints (Mostly Done):
 

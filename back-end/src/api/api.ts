@@ -3,10 +3,14 @@ import express, {
   type Request,
   type Response,
 } from "express";
-import { createRoom, getRoom } from "./endpoints/index.js";
-import { joinRoom } from "./endpoints/join/post.js";
-
-import { startGame } from "./endpoints/room/[id]/start/post.js";
+import {
+  createRoomEndpoint,
+  getRoomEndpoint,
+  joinRoomEndpoint,
+  predictTurnEndpoint,
+  startGameEndpoint,
+} from "./endpoints/index.js";
+import { playerInRoomMiddleware } from "./middlewares/index.js";
 import { Rooms } from "./state/index.js";
 
 export const apiRouter = express.Router();
@@ -23,7 +27,12 @@ apiRouter.get("/", (req, res) => {
   res.send(Array.from(Rooms.values()));
 });
 
-apiRouter.post("/room", createRoom);
-apiRouter.get("/room/:id", getRoom);
-apiRouter.post("/room/:id/join", joinRoom);
-apiRouter.post("/room/:id/start", startGame);
+apiRouter.post("/room", createRoomEndpoint);
+apiRouter.post("/room/:id/join", joinRoomEndpoint);
+apiRouter.get("/room/:id", playerInRoomMiddleware, getRoomEndpoint);
+apiRouter.post("/room/:id/start", playerInRoomMiddleware, startGameEndpoint);
+apiRouter.post(
+  "/room/:id/predict",
+  playerInRoomMiddleware,
+  predictTurnEndpoint,
+);

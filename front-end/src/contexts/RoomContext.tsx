@@ -1,6 +1,11 @@
 import { useQuery, type UseQueryResult } from "@tanstack/react-query";
 import { createContext, useContext, type PropsWithChildren } from "react";
-import { GAME_STATE, SOCKET_EVENTS, type RoomDTO } from "shared-code";
+import {
+  GAME_STATE,
+  SOCKET_EVENTS,
+  type GameState,
+  type RoomDTO,
+} from "shared-code";
 import { getRoomRequest } from "../api";
 import { STORAGE_KEYS, VIEWS } from "../constants";
 import { useWebsocket } from "../hooks";
@@ -22,7 +27,7 @@ export function useRoomContext() {
 }
 
 export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
-  const { setView } = useViewContext();
+  const { setView, view } = useViewContext();
 
   const { connectSocket, registerEvent } = useWebsocket();
 
@@ -33,6 +38,10 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
         sessionStorage.getItem(STORAGE_KEYS.ROOM_ID)!,
         sessionStorage.getItem(STORAGE_KEYS.PLAYER_ID)!,
       ),
+    enabled:
+      sessionStorage.getItem(STORAGE_KEYS.ROOM_ID) != null &&
+      sessionStorage.getItem(STORAGE_KEYS.PLAYER_ID) != null &&
+      view !== VIEWS.HOME,
   });
 
   const updateConnection = () => {
@@ -42,7 +51,14 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
       setView(VIEWS.HOME);
     }
 
-    if (room.data?.gameState === GAME_STATE.Playing) setView(VIEWS.GAME);
+    if (
+      (
+        [GAME_STATE.Playing, GAME_STATE.Predicting] as (GameState | undefined)[]
+      ).includes(room.data?.gameState)
+    ) {
+      console.log("swtiched to game view by context");
+      setView(VIEWS.GAME);
+    }
 
     connectSocket(roomId, userId);
     registerEvent(SOCKET_EVENTS.ROOM_UPDATE, () => {
