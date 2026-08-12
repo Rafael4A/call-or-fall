@@ -6,39 +6,13 @@ import { getSocketio } from "../../../../utils/index.js";
 export function startGameEndpoint(req: Request, res: Response) {
   console.log(req.params, req.path, req.body);
 
-  const roomId = req.params?.id;
-  const userId = req.query?.userId;
+  const roomId = req.params?.id as string;
+  const userId = req.query?.userId as string;
 
-  if (
-    roomId === undefined ||
-    typeof roomId !== "string" ||
-    roomId.trim() === ""
-  ) {
-    return res.status(400).send({ error: "Invalid or missing roomId" });
-  }
-
-  if (
-    userId === undefined ||
-    typeof userId !== "string" ||
-    userId.trim() === ""
-  ) {
-    return res.status(400).send({ error: "Invalid or missing userId" });
-  }
-
-  const room = getRoomByIdWithUser(roomId, userId);
-
-  if (!room) {
-    return res.status(404).send({ error: "Room with player not found" });
-  }
+  const room = getRoomByIdWithUser(roomId, userId)!;
 
   if (room.gameState !== GAME_STATE.WaitingForPlayers) {
     return res.status(404).send({ error: "Room is not waiting for players" });
-  }
-
-  console.log(room);
-
-  if (!room) {
-    return res.status(404).send({ error: "Room not found" });
   }
 
   const hostPlayerId = room.players[0]?.id;

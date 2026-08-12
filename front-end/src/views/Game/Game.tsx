@@ -1,28 +1,25 @@
 import {
-  Box,
   Button,
   Container,
   LinearProgress,
-  Modal,
   Paper,
   Stack,
   Typography,
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect, useId } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GAME_STATE, type CardCode, type GameState } from "shared-code";
 import { playCardRequest } from "../../api";
+import { LeaveRoomButton } from "../../components";
 import { useRoomContext } from "../../contexts";
 import { Prediction } from "./components";
+import { ResultsModal } from "./components/ResultsModal";
 
 export function Game() {
-  const baseId = useId();
   const { t } = useTranslation();
 
-  const { updateConnection, room } = useRoomContext();
-
-  useEffect(updateConnection, [updateConnection]);
+  const { room } = useRoomContext();
 
   const isCurrentPlayer =
     room.data?.currentPlayerName === room.data?.player.username;
@@ -44,15 +41,25 @@ export function Game() {
     });
   };
 
-  const showScoreModal = (
+  const currentGameState = room.data?.gameState;
+  const [showScoreModal, setShowScoreModal] = useState(false);
+  const [lastSeenGameState, setLastSeenGameState] = useState(currentGameState);
+
+  const showScoreModalGameState = (
     [GAME_STATE.TurnOver, GAME_STATE.GameOver, GAME_STATE.RoundOver] as (
       | GameState
       | undefined
     )[]
-  ).includes(room.data?.gameState);
+  ).includes(currentGameState);
+
+  if (currentGameState !== lastSeenGameState) {
+    setLastSeenGameState(currentGameState);
+    setShowScoreModal(showScoreModalGameState);
+  }
 
   return (
     <Container maxWidth="md">
+      <LeaveRoomButton />
       <Paper sx={{ p: 4 }}>
         <Typography
           component="h1"
@@ -63,7 +70,9 @@ export function Game() {
         >
           {isCurrentPlayer ? t("your-turn") : t("opponent-turn")}
         </Typography>
-
+        <Button onClick={() => setShowScoreModal(true)}>
+          {t("show-score")}
+        </Button>
         <Stack direction="column" spacing={2} sx={{ mb: 4 }}>
           {room.isLoading ? (
             <LinearProgress />
@@ -98,16 +107,13 @@ export function Game() {
           )}
         </Stack>
       </Paper>
-      <Modal
-        open={showScoreModal}
-        aria-labelledby={`${baseId}-modal-title`}
-        aria-describedby={`${baseId}-modal-description`}
-      >
-        <Box>
-          <h2 id={`${baseId}-modal-title`}>My Title</h2>
-          <p id={`${baseId}-modal-description`}>My Description</p>
-        </Box>
-      </Modal>
+      <ResultsModal
+        isVisible={showScoreModal}
+        room={room.data}
+        onCloseClick={() => {
+          setShowScoreModal(false);
+        }}
+      />
     </Container>
   );
 }

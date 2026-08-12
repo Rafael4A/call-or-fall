@@ -43,6 +43,12 @@ export function startGame(room: Room): Room {
     _room.roundFirstPlayerName = _room.currentPlayerName;
 
     _room.gameState = GAME_STATE.Predicting;
+
+    for (const player of _room.players) {
+      player.prediction = undefined;
+      player.currentRoundScore = 0;
+    }
+
     const newDeck = Array.from(
       { length: _room.options.deckCount },
       () => CARDS_CODES,

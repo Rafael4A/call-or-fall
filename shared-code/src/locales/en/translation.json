@@ -17,5 +17,7 @@
   "opponent-turn": "Opponent's turn",
   "you-won": "You won!",
   "you-lost": "You lost!",
-  "draw": "It's a draw!"
+  "draw": "It's a draw!",
+  "show-score": "Show Score",
+  "leave-room": "Leave Room"
 }

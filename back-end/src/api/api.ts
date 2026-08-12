@@ -11,6 +11,7 @@ import {
   predictTurnEndpoint,
   startGameEndpoint,
 } from "./endpoints/index.js";
+import { leaveRoomEndpoint } from "./endpoints/room/[id]/leave/post.js";
 import { playerInRoomMiddleware } from "./middlewares/index.js";
 import { Rooms } from "./state/index.js";
 
@@ -30,6 +31,7 @@ apiRouter.get("/", (req, res) => {
 
 apiRouter.post("/room", createRoomEndpoint);
 apiRouter.post("/room/:id/join", joinRoomEndpoint);
+apiRouter.post("/room/:id/leave", playerInRoomMiddleware, leaveRoomEndpoint);
 apiRouter.get("/room/:id", playerInRoomMiddleware, getRoomEndpoint);
 apiRouter.post("/room/:id/start", playerInRoomMiddleware, startGameEndpoint);
 apiRouter.post(

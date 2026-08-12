@@ -11,21 +11,16 @@
 
 ## Tasks (TODO):
 
-- Mostrar ranking
-- Opção de desistir durante a partida.
-- Cancelar partida (só o criador da sala pode cancelar) antes de começar a partida e durante
-- Remover jogador da partida caso socket desconecte no lobby
+- Opção de escolher limite de pontos -> Mod escolhe ao criar partida
 - Compartilhar link de convite para a sala
 - Handler de erros de API
-- Refactor view passada por props para context
-- Refactor room para vir de context
-- Clear room id when leaving room, game ends, or new room is created
 - Enviar reações (somente partidas online)
 - Bots (partida offline)
 - Melhorar visual drasticamente
 - Opção de mostrar borda dourada na carta ganhando -> Mod escolhe ao criar partida
 - Lógica de aviso de player desconectado? -> modal imperativa? primeiro usar alert
 - Aviso para qualquer erro de backend com toast
+- Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
 
 ## Tasks (Done):
 
@@ -34,9 +29,14 @@
 - Outros jogadores entrarem na sala
 - Iniciar partida
 - Predizer quantas jogadas vai ganhar
+- Refactor view passada por props para context
+- Refactor room para vir de context
 - Jogar carta
 - Avaliar rodada e atribuir pontos, depois disparar nova rodada
 - Finalizar partida
+- Clear room id when leaving room, game ends, or new room is created
+- Mostrar ranking
+- Opção de desistir durante a partida.
 
 ## API endpoints (Mostly Done):
 
@@ -53,10 +53,8 @@
 ## Verificar antes de concluir:
 
 - adicionar evento no socket de oponente desconectado
-- reconectar ao recarregar
 - lidar com erros da api
 - Terminar TODOs
-- reafatorar state da view para context
 - tirar console.logs
 
 ## Features:

@@ -7,6 +7,7 @@ export interface Player {
   score: number;
   isBot: boolean;
   prediction?: number;
+  currentRoundScore: number;
 }
 
 export interface PlayerOpponentDTO extends Omit<Player, "id" | "cards"> {}

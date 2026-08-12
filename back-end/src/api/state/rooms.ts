@@ -109,8 +109,29 @@ export function removePlayerFromRoom(roomId: string, playerId: string) {
   if (!room) return false;
 
   const playerIndex = room.players.findIndex((p) => p.id === playerId);
+  console.log(
+    "!!!",
+    room.currentPlayerName,
+    room.players[playerIndex]?.username,
+  );
+  if (room.currentPlayerName === room.players[playerIndex]?.username) {
+    const nextPlayerIndex = playerIndex % room.players.length;
+
+    console.log("!-!", room.players[nextPlayerIndex]?.username);
+    room.currentPlayerName = room.players[nextPlayerIndex]?.username;
+  }
+
   if (playerIndex === -1) return false;
   room.players.splice(playerIndex, 1);
+
+  if (
+    room.players.length === 0 ||
+    (room.gameState !== GAME_STATE.WaitingForPlayers &&
+      room.players.length <= 1)
+  ) {
+    return Rooms.delete(roomId);
+  }
+
   return true;
 }
 

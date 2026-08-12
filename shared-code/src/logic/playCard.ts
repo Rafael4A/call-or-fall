@@ -61,6 +61,7 @@ export function playCard(room: Room, playerId: string, card: CardCode): Room {
 
       console.log("#", "cardOwner", cardOwner);
       cardOwner.prediction -= 1;
+      cardOwner.currentRoundScore += 1;
       roomWithNewPlayer.currentPlayerName = cardOwner.username;
     }
 
@@ -70,7 +71,6 @@ export function playCard(room: Room, playerId: string, card: CardCode): Room {
       console.log("#", "roundOver");
       for (const player of roomWithNewPlayer.players) {
         player.score += Math.abs(player.prediction ?? 0);
-        player.prediction = undefined;
       }
       roomWithNewPlayer.gameState = GAME_STATE.RoundOver;
       roomWithNewPlayer.currentRound += 1;

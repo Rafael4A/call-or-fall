@@ -9,11 +9,12 @@ export function mapRoomToRoomDTO(room: Room, userId: string): RoomDTO {
 
   const opponents = players
     .filter(({ id }) => id !== userId)
-    .map(({ username, score, isBot, prediction }) => ({
+    .map(({ username, score, isBot, prediction, currentRoundScore }) => ({
       username,
       score,
       isBot,
       prediction,
+      currentRoundScore,
     }));
 
   const censoredPlayer = structuredClone(player);

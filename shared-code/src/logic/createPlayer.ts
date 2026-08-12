@@ -8,5 +8,6 @@ export function createPlayer(username: string, isBot = false): Player {
     isBot,
     score: 0,
     prediction: undefined,
+    currentRoundScore: 0,
   };
 }

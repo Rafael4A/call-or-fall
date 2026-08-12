@@ -26,7 +26,8 @@ export function useWebsocket() {
 
   const registerEvent = (
     event: string,
-    callback: (...args: unknown[]) => void,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    callback: (...args: any[]) => void,
   ) => {
     socketRef.current?.on(event, callback);
   };

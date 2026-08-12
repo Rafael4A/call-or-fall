@@ -7,17 +7,15 @@ import {
   Typography,
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { startGameRequest } from "../../api";
+import { LeaveRoomButton } from "../../components";
 import { useRoomContext } from "../../contexts";
 
 export function WaitingRoom() {
   const { t } = useTranslation();
 
-  const { updateConnection, room } = useRoomContext();
-
-  useEffect(updateConnection, [updateConnection]);
+  const { room } = useRoomContext();
 
   const handleStartGameSuccess = () => {
     console.log("Game started successfully");
@@ -37,6 +35,7 @@ export function WaitingRoom() {
 
   return (
     <Container maxWidth="md">
+      <LeaveRoomButton />
       <Paper sx={{ p: 4 }}>
         <Typography
           component="h1"
