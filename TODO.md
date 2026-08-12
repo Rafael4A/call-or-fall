@@ -11,12 +11,10 @@
 
 ## Tasks (TODO):
 
-- Jogar carta
-- Avaliar rodada e atribuir pontos, depois disparar nova rodada
-- Finalizar partida e mostrar ranking
+- Mostrar ranking
 - Opção de desistir durante a partida.
 - Cancelar partida (só o criador da sala pode cancelar) antes de começar a partida e durante
-- remover jogador da partida caso socket desconecte no lobby
+- Remover jogador da partida caso socket desconecte no lobby
 - Compartilhar link de convite para a sala
 - Handler de erros de API
 - Refactor view passada por props para context
@@ -36,6 +34,9 @@
 - Outros jogadores entrarem na sala
 - Iniciar partida
 - Predizer quantas jogadas vai ganhar
+- Jogar carta
+- Avaliar rodada e atribuir pontos, depois disparar nova rodada
+- Finalizar partida
 
 ## API endpoints (Mostly Done):
 

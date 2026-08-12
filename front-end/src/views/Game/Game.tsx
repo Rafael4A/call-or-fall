@@ -1,17 +1,23 @@
 import {
+  Box,
   Button,
   Container,
   LinearProgress,
+  Modal,
   Paper,
   Stack,
   Typography,
 } from "@mui/material";
-import { useEffect } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useEffect, useId } from "react";
 import { useTranslation } from "react-i18next";
+import { GAME_STATE, type CardCode, type GameState } from "shared-code";
+import { playCardRequest } from "../../api";
 import { useRoomContext } from "../../contexts";
 import { Prediction } from "./components";
 
 export function Game() {
+  const baseId = useId();
   const { t } = useTranslation();
 
   const { updateConnection, room } = useRoomContext();
@@ -21,10 +27,29 @@ export function Game() {
   const isCurrentPlayer =
     room.data?.currentPlayerName === room.data?.player.username;
 
-  const handlePlayCard = (event: React.MouseEvent<HTMLButtonElement>) => {
-    console.log(event);
-    console.log(event.target);
+  const handlePlayCardSuccess = () => {
+    console.log("Card played successfully");
   };
+
+  const playCardMutation = useMutation({
+    mutationFn: playCardRequest,
+    onSuccess: handlePlayCardSuccess,
+  });
+
+  const handlePlayCard = (card: CardCode) => {
+    playCardMutation.mutate({
+      roomId: room.data?.id ?? "",
+      userId: room.data?.player.id ?? "",
+      card,
+    });
+  };
+
+  const showScoreModal = (
+    [GAME_STATE.TurnOver, GAME_STATE.GameOver, GAME_STATE.RoundOver] as (
+      | GameState
+      | undefined
+    )[]
+  ).includes(room.data?.gameState);
 
   return (
     <Container maxWidth="md">
@@ -44,9 +69,9 @@ export function Game() {
             <LinearProgress />
           ) : (
             <>
-              {room.data?.table.map((card, index) => (
+              {room.data?.table.map((tableCard, index) => (
                 <Typography key={index} textAlign="center">
-                  {card}
+                  {tableCard.card} - {tableCard.owner}
                 </Typography>
               ))}
 
@@ -56,7 +81,16 @@ export function Game() {
 
               {room.data?.player.cards.map((card) => (
                 // TODO - THINK OF A BETTER KEY SINCE CARDS CAN BE DUPLICATES WHEN MULTIPLE DECKS ARE USED
-                <Button variant="contained" key={card} onClick={handlePlayCard}>
+                <Button
+                  variant="contained"
+                  key={card}
+                  onClick={() => handlePlayCard(card)}
+                  disabled={
+                    !isCurrentPlayer ||
+                    playCardMutation.isPending ||
+                    room.data?.gameState !== GAME_STATE.Playing
+                  }
+                >
                   {card}
                 </Button>
               ))}
@@ -64,6 +98,16 @@ export function Game() {
           )}
         </Stack>
       </Paper>
+      <Modal
+        open={showScoreModal}
+        aria-labelledby={`${baseId}-modal-title`}
+        aria-describedby={`${baseId}-modal-description`}
+      >
+        <Box>
+          <h2 id={`${baseId}-modal-title`}>My Title</h2>
+          <p id={`${baseId}-modal-description`}>My Description</p>
+        </Box>
+      </Modal>
     </Container>
   );
 }

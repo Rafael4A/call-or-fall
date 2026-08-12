@@ -13,7 +13,7 @@ export function createRoom(username: string) {
     id: randomRoomId,
     players: [createPlayer(username)],
     options: {
-      scoreLimit: 100,
+      scoreLimit: 4,
       showWinningCard: true,
       deckCount: 1,
     },

@@ -11,6 +11,7 @@
     "back": "npm run -w=back-end",
     "shared": "npm run -w=shared-code",
     "dev": "concurrently --names \"SHARED,FRONT,BACK\" --prefix-colors \"auto\" --timestamped false \"npm run -w=shared-code dev\" \"npm run -w=front-end dev\" \"npm run -w=back-end dev\"",
+    "build": "concurrently --names \"SHARED,FRONT,BACK\" --prefix-colors \"auto\" --timestamped false \"npm run -w=shared-code build\" \"npm run -w=front-end build\" \"npm run -w=back-end build\"",
     "test": "concurrently --names \"SHARED,FRONT,BACK\" \"npm run -w=shared-code dev\" \"npm run -w=front-end test\" \"npm run -w=back-end test\""
   },
   "devDependencies": {

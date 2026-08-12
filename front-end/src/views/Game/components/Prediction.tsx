@@ -46,7 +46,11 @@ export function Prediction() {
           <Button
             variant="contained"
             key={i}
-            disabled={shouldDisableAll || i === prohibited}
+            disabled={
+              shouldDisableAll ||
+              i === prohibited ||
+              sendPredictionMutation.isPending
+            }
             onClick={() => handleClick(i)}
           >
             {i}
