@@ -25,7 +25,7 @@ export function LeaveRoomButton() {
           userId: room.data?.player.id ?? "",
         })
       }
-      disabled={leaveRoomMutation.isPending}
+      disabled={!room.data || leaveRoomMutation.isPending}
     >
       {t("leave-room")}
     </Button>

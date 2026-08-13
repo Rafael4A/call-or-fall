@@ -19,7 +19,7 @@ export const apiRouter = express.Router();
 
 // TODO REMOVE middleware that is specific to this router
 const reqLog = (req: Request, res: Response, next: NextFunction) => {
-  console.log("Requested: ", req.originalUrl);
+  console.log("Requested: ", req.originalUrl, req.params, req.path, req.body);
   next();
 };
 apiRouter.use(reqLog);

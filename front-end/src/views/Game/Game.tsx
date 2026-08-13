@@ -11,7 +11,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GAME_STATE, type CardCode, type GameState } from "shared-code";
 import { playCardRequest } from "../../api";
-import { LeaveRoomButton } from "../../components";
+import { CardImage, LeaveRoomButton } from "../../components";
 import { useRoomContext } from "../../contexts";
 import { Prediction } from "./components";
 import { ResultsModal } from "./components/ResultsModal";
@@ -78,10 +78,10 @@ export function Game() {
             <LinearProgress />
           ) : (
             <>
-              {room.data?.table.map((tableCard, index) => (
-                <Typography key={index} textAlign="center">
-                  {tableCard.card} - {tableCard.owner}
-                </Typography>
+              {room.data?.table.map((tableCard) => (
+                <div key={tableCard.owner}>
+                  <CardImage cardCode={tableCard.card} />- {tableCard.owner}
+                </div>
               ))}
 
               <Prediction />
@@ -100,7 +100,7 @@ export function Game() {
                     room.data?.gameState !== GAME_STATE.Playing
                   }
                 >
-                  {card}
+                  <CardImage cardCode={card} />
                 </Button>
               ))}
             </>
