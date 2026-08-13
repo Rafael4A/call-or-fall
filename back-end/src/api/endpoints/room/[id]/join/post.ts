@@ -3,8 +3,6 @@ import type { CreateRoomResponse } from "shared-code";
 import { addPlayerToRoom, getRoomById } from "../../../../state/index.js";
 
 export function joinRoomEndpoint(req: Request, res: Response) {
-  console.log(req.params, req.path, req.body);
-
   const username = req.body?.username;
 
   if (!username || typeof username !== "string" || username.trim() === "") {
@@ -21,8 +19,6 @@ export function joinRoomEndpoint(req: Request, res: Response) {
   }
 
   const room = getRoomById(roomId);
-
-  console.log(room);
 
   if (!room) {
     return res.status(404).send({ error: "Room not found" });

@@ -4,8 +4,6 @@ import { getRoomByIdWithUser, startGame } from "../../../../state/index.js";
 import { getSocketio } from "../../../../utils/index.js";
 
 export function startGameEndpoint(req: Request, res: Response) {
-  console.log(req.params, req.path, req.body);
-
   const roomId = req.params?.id as string;
   const userId = req.query?.userId as string;
 

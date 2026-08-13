@@ -19,6 +19,7 @@ import {
 import { getRoomRequest } from "../api";
 import { STORAGE_KEYS, VIEWS } from "../constants";
 import { useWebsocket } from "../hooks";
+import type { APIError } from "../types";
 import { useViewContext } from "./ViewContext";
 import { useSnackAlert } from "./useSnackAlert";
 
@@ -61,6 +62,13 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
       sessionStorage.getItem(STORAGE_KEYS.ROOM_ID) != null &&
       sessionStorage.getItem(STORAGE_KEYS.PLAYER_ID) != null,
   });
+
+  const clearRoomData = () => {
+    queryClient.removeQueries({ queryKey: ["room"], exact: true });
+    sessionStorage.removeItem(STORAGE_KEYS.ROOM_ID);
+    sessionStorage.removeItem(STORAGE_KEYS.PLAYER_ID);
+    setView(VIEWS.HOME);
+  };
 
   const updateConnection = () => {
     const roomId = sessionStorage.getItem(STORAGE_KEYS.ROOM_ID)!;
@@ -106,17 +114,13 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
 
     if (room.isError) {
       console.log("#!!$", room.error);
+      if ((room.error as APIError)?.status === 404) {
+        clearRoomData();
+      }
       setView(VIEWS.HOME);
     }
   };
   useEffect(updateConnection, [updateConnection]);
-
-  const clearRoomData = () => {
-    queryClient.removeQueries({ queryKey: ["room"], exact: true });
-    sessionStorage.removeItem(STORAGE_KEYS.ROOM_ID);
-    sessionStorage.removeItem(STORAGE_KEYS.PLAYER_ID);
-    setView(VIEWS.HOME);
-  };
 
   return (
     <RoomContext value={{ updateConnection, room, clearRoomData }}>

@@ -1,4 +1,5 @@
 import type { CardCode } from "shared-code";
+import type { APIError } from "../types";
 
 interface PlayCardRequestParams {
   roomId: string;
@@ -20,7 +21,11 @@ export async function playCardRequest({
   }).then((res) => {
     if (!res.ok) {
       return res.json().then((data) => {
-        throw new Error(data.error || "Failed to play card");
+        const error = new Error(
+          data.error || "Failed to play card",
+        ) as APIError;
+        error.status = res.status;
+        throw error;
       });
     }
     return res.ok;

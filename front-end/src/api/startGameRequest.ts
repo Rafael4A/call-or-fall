@@ -1,3 +1,5 @@
+import type { APIError } from "../types";
+
 interface StartGameRequestParams {
   roomId: string;
   userId: string;
@@ -15,7 +17,11 @@ export async function startGameRequest({
   }).then((res) => {
     if (!res.ok) {
       return res.json().then((data) => {
-        throw new Error(data.error || "Failed to start game");
+        const error = new Error(
+          data.error || "Failed to start game",
+        ) as APIError;
+        error.status = res.status;
+        throw error;
       });
     }
     return res.ok;

@@ -1,3 +1,5 @@
+import type { APIError } from "../types";
+
 interface SendPredictionRequestParams {
   roomId: string;
   userId: string;
@@ -18,7 +20,11 @@ export async function sendPredictionRequest({
   }).then((res) => {
     if (!res.ok) {
       return res.json().then((data) => {
-        throw new Error(data.error || "Failed to send prediction");
+        const error = new Error(
+          data.error || "Failed to send prediction",
+        ) as APIError;
+        error.status = res.status;
+        throw error;
       });
     }
     return res.ok;

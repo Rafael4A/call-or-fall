@@ -4,8 +4,6 @@ import { getRoomByIdWithUser, predictTurn } from "../../../../state/index.js";
 import { getSocketio } from "../../../../utils/index.js";
 
 export function predictTurnEndpoint(req: Request, res: Response) {
-  console.log(req.params, req.path, req.body);
-
   const roomId = req.params?.id as string;
   const userId = req.query?.userId as string;
 
@@ -14,8 +12,6 @@ export function predictTurnEndpoint(req: Request, res: Response) {
   if (room.gameState !== GAME_STATE.Predicting) {
     return res.status(404).send({ error: "Room is not predicting" });
   }
-
-  console.log(room);
 
   const user = room.players.find((player) => player.id === userId)!;
 
