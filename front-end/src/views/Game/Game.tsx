@@ -1,5 +1,5 @@
 import { Button, Container, Paper, Stack } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { GAME_STATE, type GameState } from "shared-code";
 import { LeaveRoomButton } from "../../components";
@@ -16,19 +16,25 @@ export function Game() {
 
   const currentGameState = room.data?.gameState;
   const [showScoreModal, setShowScoreModal] = useState(false);
-  const [lastSeenGameState, setLastSeenGameState] = useState(currentGameState);
 
-  const showScoreModalGameState = (
-    [GAME_STATE.TurnOver, GAME_STATE.GameOver, GAME_STATE.RoundOver] as (
-      | GameState
-      | undefined
-    )[]
-  ).includes(currentGameState);
+  useEffect(() => {
+    const showScoreModalGameState = (
+      [GAME_STATE.TurnOver, GAME_STATE.GameOver, GAME_STATE.RoundOver] as (
+        | GameState
+        | undefined
+      )[]
+    ).includes(currentGameState);
 
-  if (currentGameState !== lastSeenGameState) {
-    setLastSeenGameState(currentGameState);
-    setShowScoreModal(showScoreModalGameState);
-  }
+    if (showScoreModalGameState) {
+      const timer = setTimeout(() => {
+        setShowScoreModal(true);
+      }, 1500);
+
+      return () => clearTimeout(timer);
+    } else {
+      setShowScoreModal(false);
+    }
+  }, [currentGameState]);
 
   return (
     <Container

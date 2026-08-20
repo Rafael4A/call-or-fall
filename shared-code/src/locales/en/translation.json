@@ -41,5 +41,8 @@
   "unexpected-view-error": "UNEXPECTED ERROR - (UNKNOWN VIEW)",
   "waiting-for-opponent-to-predict": "Waiting for opponent to predict",
   "make-your-prediction": "Make your prediction",
-  "card-alt": "Card"
+  "card-alt": "Card",
+  "round-over": "Round over",
+  "game-over": "Game over",
+  "turn-over": "Turn over"
 }

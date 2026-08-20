@@ -11,7 +11,6 @@
 
 ## Tasks (TODO):
 
-- Adicionar delay de 1 segundo ao exibir modal QUANDO TRIGADA AUTOMATICAMENTE (apenas quando o modal é disparado automaticamente, não quando o jogador clica no botão de ver resultados)
 - Investigar bug de quando uma sala é criada, a view não é trocada automaticamente E quando é trocada, fica carregando infinitamente, mesmo quando a request ja terminou
 - Opção de escolher limite de pontos -> Mod escolhe ao criar partida
 - Opção de mostrar borda dourada na carta ganhando -> Mod escolhe ao criar partida
@@ -20,6 +19,7 @@
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
 - corrigir alt das cards
 - Enviar reações (somente partidas online) -> Verificar se está no escopo do TCC1
+- Usar form nos inputs de criar sala e entrar na sala, para que o enter funcione
 
 ## Tasks (extra, caso sobre tempo):
 

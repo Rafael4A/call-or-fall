@@ -11,7 +11,7 @@ export function CardTable() {
 
   const tableCards = room.data?.table ?? [];
 
-  const shouldHighlightCard = room.data?.options.showWinningCard || true;
+  const shouldHighlightCard = room.data?.options.showWinningCard;
 
   const highestCard = getBestTableCard(room.data?.table ?? []);
 
