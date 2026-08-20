@@ -34,7 +34,7 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={theme} defaultMode="light">
+      <ThemeProvider theme={theme}>
         <SnackAlertProvider>
           <SocketProvider>
             <Box

@@ -18,9 +18,7 @@ export function useWebsocket() {
       path: "/api/socket.io",
     });
     socketRef.current.onAny((event, ...args) => {
-      console.log("# event received:");
-      console.log(event);
-      console.log(args);
+      console.log("event received:", event, "args:", args);
     });
   };
 

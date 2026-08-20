@@ -1,10 +1,12 @@
-import { Stack, TextField } from "@mui/material";
-import { useState } from "react";
+import KeyIcon from "@mui/icons-material/Key";
+import { Stack, TextField, Typography } from "@mui/material";
+import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { STORAGE_KEYS } from "../../../constants";
 
 export function RoomIdInput() {
   const { t } = useTranslation();
+  const componentId = useId();
 
   const sessionStorageRoomId =
     sessionStorage.getItem(STORAGE_KEYS.ROOM_ID) || "";
@@ -17,17 +19,41 @@ export function RoomIdInput() {
   };
 
   return (
-    <Stack direction="column" spacing={0.25} sx={{ mb: 4 }}>
-      <Stack direction="row" spacing={1} sx={{ mb: 4 }}>
-        <TextField
-          id="roomId"
-          label={t("room-code")}
-          name="roomId"
-          fullWidth
-          value={roomId}
-          onChange={handleChange}
-        />
-      </Stack>
+    <Stack spacing={1.5}>
+      <Typography
+        component="label"
+        htmlFor={componentId}
+        variant="subtitle2"
+        sx={(theme) => ({
+          color: theme.palette.text.secondary,
+          fontWeight: 600,
+          textTransform: "uppercase",
+          letterSpacing: "0.05rem",
+          fontSize: "0.75rem",
+        })}
+      >
+        {t("room-code")}
+      </Typography>
+      <TextField
+        id={componentId}
+        fullWidth
+        value={roomId}
+        onChange={handleChange}
+        placeholder="Enter room code"
+        slotProps={{
+          input: {
+            startAdornment: (
+              <KeyIcon
+                sx={(theme) => ({
+                  color: theme.palette.text.secondary,
+                  mr: 0.5,
+                  fontSize: 20,
+                })}
+              />
+            ),
+          },
+        }}
+      />
     </Stack>
   );
 }

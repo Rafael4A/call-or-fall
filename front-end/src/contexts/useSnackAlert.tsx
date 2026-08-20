@@ -22,7 +22,8 @@ const DEFAULT_ANCHOR_ORIGIN: SnackbarOrigin = {
 };
 
 export interface SnackAlertParams
-  extends Pick<SnackbarProps, "anchorOrigin" | "autoHideDuration">,
+  extends
+    Pick<SnackbarProps, "anchorOrigin" | "autoHideDuration">,
     Pick<AlertProps, "icon" | "variant" | "severity"> {
   content: ReactNode;
   title?: ReactNode;
@@ -34,7 +35,7 @@ interface SnackAlertContext {
 }
 
 const SnackAlertContext = createContext<SnackAlertContext>(
-  {} as SnackAlertContext
+  {} as SnackAlertContext,
 );
 
 //eslint-disable-next-line react-refresh/only-export-components
@@ -53,7 +54,7 @@ export function SnackAlertProvider({ children }: Readonly<PropsWithChildren>) {
     setVisible(true);
     const timeout = alertParams?.autoHideDuration ?? DEFAULT_AUTO_HIDE;
     setAutoHideDuration(
-      alertParams?.autoHideDuration === null ? null : timeout
+      alertParams?.autoHideDuration === null ? null : timeout,
     );
     setParams(alertParams);
   };
@@ -68,7 +69,7 @@ export function SnackAlertProvider({ children }: Readonly<PropsWithChildren>) {
       dismissAlert,
       openAlert,
     }),
-    []
+    [],
   );
 
   return (
@@ -85,7 +86,11 @@ export function SnackAlertProvider({ children }: Readonly<PropsWithChildren>) {
           variant={params?.variant ?? "filled"}
           severity={params?.severity ?? "info"}
           icon={params?.icon}
-          elevation={24} //CHECK
+          elevation={24}
+          sx={(theme) => ({
+            backgroundColor: theme.palette.background.paper,
+            color: theme.palette.text.primary,
+          })}
         >
           {!!params?.title && <AlertTitle>{params?.title}</AlertTitle>}
           {params?.content}

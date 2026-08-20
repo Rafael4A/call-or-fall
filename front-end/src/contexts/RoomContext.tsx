@@ -7,6 +7,7 @@ import {
   createContext,
   useContext,
   useEffect,
+  useEffectEvent,
   type PropsWithChildren,
 } from "react";
 import {
@@ -24,13 +25,9 @@ import { useViewContext } from "./ViewContext";
 import { useSnackAlert } from "./useSnackAlert";
 
 const RoomContext = createContext<{
-  updateConnection: () => void;
   clearRoomData: () => void;
   room: UseQueryResult<RoomDTO, unknown>;
 }>({
-  updateConnection: () => {
-    throw new Error("updateConnection function not implemented");
-  },
   clearRoomData: () => {
     throw new Error("clearRoomData function not implemented");
   },
@@ -43,7 +40,7 @@ export function useRoomContext() {
 }
 
 export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
-  const { setView } = useViewContext();
+  const { view, setView } = useViewContext();
 
   const queryClient = useQueryClient();
 
@@ -61,6 +58,7 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
     enabled:
       sessionStorage.getItem(STORAGE_KEYS.ROOM_ID) != null &&
       sessionStorage.getItem(STORAGE_KEYS.PLAYER_ID) != null,
+    retryDelay: 0,
   });
 
   const clearRoomData = () => {
@@ -70,15 +68,20 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
     setView(VIEWS.HOME);
   };
 
-  const updateConnection = () => {
+  const updateConnection = useEffectEvent(() => {
     const roomId = sessionStorage.getItem(STORAGE_KEYS.ROOM_ID)!;
     const userId = sessionStorage.getItem(STORAGE_KEYS.PLAYER_ID)!;
 
-    if (!roomId || !userId || room.data?.gameState === GAME_STATE.GameOver) {
+    if (
+      (view !== VIEWS.HOME && !roomId) ||
+      !userId ||
+      room.data?.gameState === GAME_STATE.GameOver
+    ) {
       setView(VIEWS.HOME);
     }
-    console.log("passei");
+
     if (
+      view !== VIEWS.GAME &&
       (
         [
           GAME_STATE.Playing,
@@ -88,11 +91,14 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
         ] as (GameState | undefined)[]
       ).includes(room.data?.gameState)
     ) {
-      console.log("swtiched to game view by context");
+      console.log("switched to game view by context");
       setView(VIEWS.GAME);
     }
-    if (room.data?.gameState === GAME_STATE.WaitingForPlayers) {
-      console.log("swtiched to game view by context");
+    if (
+      view !== VIEWS.WAITING_ROOM &&
+      room.data?.gameState === GAME_STATE.WaitingForPlayers
+    ) {
+      console.log("switched to waiting room view by context");
       setView(VIEWS.WAITING_ROOM);
     }
 
@@ -119,12 +125,8 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
       }
       setView(VIEWS.HOME);
     }
-  };
+  });
   useEffect(updateConnection, [updateConnection]);
 
-  return (
-    <RoomContext value={{ updateConnection, room, clearRoomData }}>
-      {children}
-    </RoomContext>
-  );
+  return <RoomContext value={{ room, clearRoomData }}>{children}</RoomContext>;
 }

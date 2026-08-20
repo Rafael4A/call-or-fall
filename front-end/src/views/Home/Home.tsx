@@ -7,6 +7,7 @@ import { createRoomRequest, joinRoomRequest } from "../../api";
 import { STORAGE_KEYS, VIEWS } from "../../constants";
 import { useSnackAlert } from "../../contexts";
 import { RoomIdInput, UsernameInput } from "./components";
+import { MenuButtonStyles } from "./HomeStyles";
 
 interface HomeProps {
   setView: Dispatch<SetStateAction<(typeof VIEWS)[keyof typeof VIEWS]>>;
@@ -72,50 +73,102 @@ export function Home({ setView }: HomeProps) {
   const isAnythingLoading = createRoomMutation.isPending;
 
   return (
-    <Container maxWidth="md">
-      <Paper sx={{ p: 4 }}>
-        <Typography
-          component="h1"
-          variant="h1"
-          textAlign="center"
-          fontWeight="400"
-          sx={{ mb: 2 }}
-        >
-          {t("title")}
-        </Typography>
+    <Container
+      maxWidth="sm"
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "calc(100vh - 64px)",
+        py: 4,
+      }}
+    >
+      <Paper elevation={4} sx={{ p: { xs: 3, sm: 5 }, width: "100%" }}>
+        <Stack spacing={3} alignItems="center">
+          <Stack spacing={1} alignItems="center">
+            <Typography
+              component="h1"
+              variant="h1"
+              textAlign="center"
+              sx={(theme) => ({
+                color: theme.palette.primary.main,
+                fontSize: { xs: "2.25rem", sm: "3rem" },
+                letterSpacing: "-0.02em",
+              })}
+            >
+              {t("title")}
+            </Typography>
+            <Typography
+              textAlign="center"
+              variant="body1"
+              sx={(theme) => ({
+                color: theme.palette.text.secondary,
+                maxWidth: 400,
+              })}
+            >
+              {t(
+                "game-description",
+                "A thrilling card game of bluff and prediction",
+              )}
+            </Typography>
+          </Stack>
 
-        <Typography textAlign="center" sx={{ mb: 2 }}>
-          TODO: Brief description
-        </Typography>
+          <Stack spacing={2} sx={{ width: "100%" }}>
+            <UsernameInput />
+            <RoomIdInput />
+          </Stack>
 
-        <UsernameInput />
-        <RoomIdInput />
-
-        <Stack direction="column" spacing={2} sx={{ mb: 4 }}>
-          <Stack direction="column" spacing={1}>
+          <Stack spacing={2} sx={{ width: "100%" }}>
             <Button
-              disabled={isAnythingLoading}
+              fullWidth
+              size="large"
               variant="contained"
+              disabled={isAnythingLoading}
               onClick={handleJoinOnlineGame}
+              sx={(theme) =>
+                MenuButtonStyles(theme.palette.background.joinRoomButton)
+              }
             >
               {t("join-online-game")}
             </Button>
             <Button
+              fullWidth
+              size="large"
               variant="contained"
               disabled={isAnythingLoading}
               onClick={handleCreateOnlineGame}
+              sx={(theme) =>
+                MenuButtonStyles(theme.palette.background.createRoomButton)
+              }
             >
               {t("create-online-game")}
             </Button>
           </Stack>
 
-          <Button variant="contained" disabled={isAnythingLoading}>
-            {t("play-offline-game")}
-          </Button>
-
-          <Button variant="contained" disabled={isAnythingLoading}>
-            {t("tutorial")}
-          </Button>
+          <Stack spacing={1.5} sx={{ width: "100%" }}>
+            <Button
+              fullWidth
+              size="large"
+              variant="contained"
+              disabled={isAnythingLoading}
+              sx={(theme) =>
+                MenuButtonStyles(theme.palette.background.playOfflineButton)
+              }
+            >
+              {t("play-offline-game")}
+            </Button>
+            <Button
+              fullWidth
+              size="large"
+              variant="contained"
+              disabled={isAnythingLoading}
+              sx={(theme) =>
+                MenuButtonStyles(theme.palette.background.tutorialButton)
+              }
+            >
+              {t("tutorial")}
+            </Button>
+          </Stack>
         </Stack>
       </Paper>
     </Container>

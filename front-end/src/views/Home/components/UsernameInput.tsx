@@ -1,5 +1,6 @@
-import { Button, Stack, TextField } from "@mui/material";
-import { useState } from "react";
+import PersonIcon from "@mui/icons-material/Person";
+import { Button, Stack, TextField, Typography } from "@mui/material";
+import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { MAX_USERNAME_SIZE } from "shared-code";
 import { generateUsername } from "unique-username-generator";
@@ -7,12 +8,13 @@ import { STORAGE_KEYS } from "../../../constants";
 
 export function UsernameInput() {
   const { t } = useTranslation();
+  const componentId = useId();
 
   const localStorageUsername =
     localStorage.getItem(STORAGE_KEYS.USERNAME) || "";
 
   const [username, _setUsername] = useState(
-    localStorageUsername.substring(0, MAX_USERNAME_SIZE)
+    localStorageUsername.substring(0, MAX_USERNAME_SIZE),
   );
 
   const setUsername = (newUsername: string) => {
@@ -31,20 +33,57 @@ export function UsernameInput() {
   };
 
   return (
-    <Stack direction="column" spacing={0.25} sx={{ mb: 2 }}>
-      <Stack direction="row" spacing={1} sx={{ mb: 4 }}>
+    <Stack spacing={1.5}>
+      <Typography
+        component="label"
+        htmlFor={componentId}
+        variant="subtitle2"
+        sx={(theme) => ({
+          color: theme.palette.text.secondary,
+          fontWeight: 600,
+          textTransform: "uppercase",
+          letterSpacing: "0.05rem",
+          fontSize: "0.75rem",
+        })}
+      >
+        {t("username-field")}
+      </Typography>
+      <Stack direction="row" spacing={1.5} alignItems="center">
         <TextField
-          id="username"
-          label={t("username-field")}
-          name="username"
+          id={componentId}
           required
           fullWidth
           value={username}
           onChange={handleChange}
+          placeholder="Enter your username"
+          slotProps={{
+            input: {
+              startAdornment: (
+                <PersonIcon
+                  sx={(theme) => ({
+                    color: theme.palette.text.secondary,
+                    mr: 0.5,
+                    fontSize: 20,
+                  })}
+                />
+              ),
+            },
+          }}
+          sx={{ height: "100%" }}
         />
-      </Stack>
-      <Stack direction="row">
-        <Button type="button" onClick={handleRandomUsername}>
+        <Button
+          variant="outlined"
+          onClick={handleRandomUsername}
+          sx={(theme) => ({
+            px: 2,
+            borderColor: theme.palette.divider,
+            color: theme.palette.text.secondary,
+            backgroundColor: theme.palette.background.input,
+            "&:hover": {
+              borderColor: theme.palette.primary.main,
+            },
+          })}
+        >
           {t("random-username")}
         </Button>
       </Stack>

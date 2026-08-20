@@ -18,7 +18,7 @@ export function mapRoomToRoomDTO(room: Room, userId: string): RoomDTO {
     }));
 
   const censoredPlayer = structuredClone(player);
-  if (room.currentRound === 1) {
+  if (censoredPlayer.cards.length > 0 && room.currentRound === 1) {
     censoredPlayer.cards = ["HIDDEN"];
   }
 

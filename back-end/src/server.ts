@@ -32,7 +32,7 @@ app.get("/{*any}", (req, res) => {
 });
 
 const server = app.listen(PORT, () => {
-  console.log(`Example app listening on port ${PORT}`);
+  console.log(`App listening on port ${PORT}`);
 });
 
 const io = new Server(server, { path: "/api/socket.io" });

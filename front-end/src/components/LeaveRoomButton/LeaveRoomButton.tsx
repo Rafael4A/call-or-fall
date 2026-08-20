@@ -1,8 +1,9 @@
 import { Button } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { leaveRoomRequest } from "../api";
-import { useRoomContext } from "../contexts";
+import { leaveRoomRequest } from "../../api";
+import { useRoomContext } from "../../contexts";
+import { ButtonStyles } from "./LeaveRoomButtonStyles";
 
 export function LeaveRoomButton() {
   const { t } = useTranslation();
@@ -18,7 +19,7 @@ export function LeaveRoomButton() {
   return (
     <Button
       variant="contained"
-      color="secondary"
+      size="small"
       onClick={() =>
         leaveRoomMutation.mutate({
           roomId: room.data?.id ?? "",
@@ -26,6 +27,7 @@ export function LeaveRoomButton() {
         })
       }
       disabled={!room.data || leaveRoomMutation.isPending}
+      sx={ButtonStyles()}
     >
       {t("leave-room")}
     </Button>

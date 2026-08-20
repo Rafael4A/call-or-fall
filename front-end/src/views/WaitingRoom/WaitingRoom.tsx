@@ -11,19 +11,15 @@ import { useTranslation } from "react-i18next";
 import { startGameRequest } from "../../api";
 import { LeaveRoomButton } from "../../components";
 import { useRoomContext } from "../../contexts";
+import { ContainerStyles, SubtitleStyles } from "./WaitingRoomStyles";
 
 export function WaitingRoom() {
   const { t } = useTranslation();
 
   const { room } = useRoomContext();
 
-  const handleStartGameSuccess = () => {
-    console.log("Game started successfully");
-  };
-
   const startGameMutation = useMutation({
     mutationFn: startGameRequest,
-    onSuccess: handleStartGameSuccess,
   });
 
   const handleStartGame = () => {
@@ -33,48 +29,122 @@ export function WaitingRoom() {
     });
   };
 
+  const opponents = room.data?.opponents ?? [];
+  const playerCount = room.data ? 1 + opponents.length : 0;
+
   return (
-    <Container maxWidth="md">
-      <LeaveRoomButton />
-      <Paper sx={{ p: 4 }}>
-        <Typography
-          component="h1"
-          variant="h4"
-          textAlign="center"
-          fontWeight="400"
-          sx={{ mb: 2 }}
-        >
-          {t("room-code")}: {room.data?.id}
-        </Typography>
-
-        <Typography
-          textAlign="center"
-          component="h2"
-          variant="h5"
-          sx={{ mb: 2 }}
-        >
-          {t("waiting-for-players")}
-        </Typography>
-
-        <Stack direction="column" spacing={2} sx={{ mb: 4 }}>
-          {room.isLoading ? (
-            <LinearProgress />
-          ) : (
-            room.data?.opponents.map((player) => (
-              <Typography key={player.username} textAlign="center">
-                {player.username}
-                {player.isBot ? " 🤖" : ""}
+    <Container maxWidth="sm" sx={ContainerStyles()}>
+      <Stack spacing={3} sx={{ width: "100%" }}>
+        <LeaveRoomButton />
+        <Paper elevation={4} sx={{ p: { xs: 3, sm: 4 }, width: "100%" }}>
+          <Stack spacing={3}>
+            <Stack spacing={1} alignItems="center">
+              <Typography
+                variant="h4"
+                textAlign="center"
+                sx={(theme) => ({
+                  color: theme.palette.primary.main,
+                })}
+              >
+                {t("waiting-for-players")}
               </Typography>
-            ))
-          )}
-        </Stack>
+              <Paper elevation={2} sx={{ px: 3, py: 1.5 }}>
+                <Typography
+                  variant="h3"
+                  sx={(theme) => ({
+                    color: theme.palette.primary.main,
+                    letterSpacing: "0.25rem",
+                    fontWeight: 700,
+                  })}
+                >
+                  {room.data?.id}
+                </Typography>
+              </Paper>
+            </Stack>
 
-        {room?.data?.isHost && room.data?.opponents?.length > 0 && (
-          <Button variant="contained" onClick={handleStartGame}>
-            {t("start-game")}
-          </Button>
-        )}
-      </Paper>
+            <Stack spacing={1.5}>
+              <Typography
+                variant="subtitle2"
+                textAlign="center"
+                sx={SubtitleStyles()}
+              >
+                Players ({playerCount})
+              </Typography>
+
+              {room.isLoading ? (
+                <LinearProgress
+                  sx={(theme) => ({
+                    borderRadius: 2,
+                    backgroundColor: theme.palette.progressBar.dark,
+                    "& .MuiLinearProgress-bar": {
+                      backgroundColor: theme.palette.progressBar.main,
+                    },
+                  })}
+                />
+              ) : (
+                <Stack spacing={1}>
+                  {room.data?.player && (
+                    <Paper elevation={1} sx={{ px: 2.5, py: 1.5 }}>
+                      <Typography
+                        sx={(theme) => ({
+                          color: theme.palette.text.primary,
+                          fontWeight: 600,
+                        })}
+                      >
+                        {room.data.player.username}
+                      </Typography>
+                    </Paper>
+                  )}
+                  {opponents.map((player) => (
+                    <Paper
+                      key={player.username}
+                      elevation={1}
+                      sx={{ px: 2.5, py: 1.5 }}
+                    >
+                      <Typography
+                        sx={(theme) => ({
+                          color: theme.palette.text.primary,
+                          fontWeight: 500,
+                        })}
+                      >
+                        {player.username}
+                      </Typography>
+                      {player.isBot && (
+                        <Typography
+                          sx={(theme) => ({
+                            color: theme.palette.text.secondary,
+                            fontSize: "0.875rem",
+                          })}
+                        >
+                          Bot
+                        </Typography>
+                      )}
+                    </Paper>
+                  ))}
+                </Stack>
+              )}
+            </Stack>
+
+            {room?.data?.isHost && room.data?.opponents?.length > 0 && (
+              <Button
+                fullWidth
+                size="large"
+                variant="contained"
+                onClick={handleStartGame}
+                disabled={startGameMutation.isPending}
+                sx={(theme) => ({
+                  py: 1.5,
+                  fontSize: "1rem",
+                  background: theme.palette.background.startGameButton,
+                  boxShadow: 3,
+                })}
+              >
+                {t("start-game")}
+              </Button>
+            )}
+          </Stack>
+        </Paper>
+      </Stack>
     </Container>
   );
 }

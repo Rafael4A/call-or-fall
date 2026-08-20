@@ -1,45 +1,18 @@
-import {
-  Button,
-  Container,
-  LinearProgress,
-  Paper,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { useMutation } from "@tanstack/react-query";
+import { Button, Container, Paper, Stack } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { GAME_STATE, type CardCode, type GameState } from "shared-code";
-import { playCardRequest } from "../../api";
-import { CardImage, LeaveRoomButton } from "../../components";
+import { GAME_STATE, type GameState } from "shared-code";
+import { LeaveRoomButton } from "../../components";
 import { useRoomContext } from "../../contexts";
-import { Prediction } from "./components";
-import { ResultsModal } from "./components/ResultsModal";
+import { CardTable, PlayerHand, Prediction, ResultsModal } from "./components";
+
+import { PrimaryContainerStyles, ShowScoreButtonStyles } from "./GameStyles";
+import { TurnIndicator } from "./components/TurnIndicator";
 
 export function Game() {
   const { t } = useTranslation();
 
   const { room } = useRoomContext();
-
-  const isCurrentPlayer =
-    room.data?.currentPlayerName === room.data?.player.username;
-
-  const handlePlayCardSuccess = () => {
-    console.log("Card played successfully");
-  };
-
-  const playCardMutation = useMutation({
-    mutationFn: playCardRequest,
-    onSuccess: handlePlayCardSuccess,
-  });
-
-  const handlePlayCard = (card: CardCode) => {
-    playCardMutation.mutate({
-      roomId: room.data?.id ?? "",
-      userId: room.data?.player.id ?? "",
-      card,
-    });
-  };
 
   const currentGameState = room.data?.gameState;
   const [showScoreModal, setShowScoreModal] = useState(false);
@@ -58,55 +31,46 @@ export function Game() {
   }
 
   return (
-    <Container maxWidth="md">
-      <LeaveRoomButton />
-      <Paper sx={{ p: 4 }}>
-        <Typography
-          component="h1"
-          variant="h4"
-          textAlign="center"
-          fontWeight="400"
-          sx={{ mb: 2 }}
+    <Container
+      maxWidth="lg"
+      sx={{
+        minHeight: "calc(100vh - 64px)",
+        py: 2,
+      }}
+    >
+      <Stack spacing={2} sx={{ height: "100%" }}>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
         >
-          {isCurrentPlayer ? t("your-turn") : t("opponent-turn")}
-        </Typography>
-        <Button onClick={() => setShowScoreModal(true)}>
-          {t("show-score")}
-        </Button>
-        <Stack direction="column" spacing={2} sx={{ mb: 4 }}>
-          {room.isLoading ? (
-            <LinearProgress />
-          ) : (
-            <>
-              {room.data?.table.map((tableCard) => (
-                <div key={tableCard.owner}>
-                  <CardImage cardCode={tableCard.card} />- {tableCard.owner}
-                </div>
-              ))}
-
-              <Prediction />
-
-              <hr />
-
-              {room.data?.player.cards.map((card) => (
-                // TODO - THINK OF A BETTER KEY SINCE CARDS CAN BE DUPLICATES WHEN MULTIPLE DECKS ARE USED
-                <Button
-                  variant="contained"
-                  key={card}
-                  onClick={() => handlePlayCard(card)}
-                  disabled={
-                    !isCurrentPlayer ||
-                    playCardMutation.isPending ||
-                    room.data?.gameState !== GAME_STATE.Playing
-                  }
-                >
-                  <CardImage cardCode={card} />
-                </Button>
-              ))}
-            </>
-          )}
+          <LeaveRoomButton />
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => setShowScoreModal(true)}
+            sx={ShowScoreButtonStyles()}
+          >
+            {t("show-score")}
+          </Button>
         </Stack>
-      </Paper>
+
+        <Paper elevation={4} sx={PrimaryContainerStyles()}>
+          <Stack
+            spacing={2}
+            sx={{ flex: 1, display: "flex", flexDirection: "column" }}
+          >
+            <TurnIndicator />
+
+            <CardTable />
+
+            <Prediction />
+
+            <PlayerHand />
+          </Stack>
+        </Paper>
+      </Stack>
+
       <ResultsModal
         isVisible={showScoreModal}
         room={room.data}
