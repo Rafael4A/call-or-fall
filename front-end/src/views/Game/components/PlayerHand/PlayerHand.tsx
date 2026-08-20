@@ -41,7 +41,7 @@ export function PlayerHand() {
           fontSize: "0.75rem",
         })}
       >
-        {t("your-hand", "Your Hand")} ({playerCards.length})
+        {t("your-hand")} ({playerCards.length})
       </Typography>
       <Stack
         direction="row"

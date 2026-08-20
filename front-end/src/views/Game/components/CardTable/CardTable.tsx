@@ -36,7 +36,7 @@ export function CardTable() {
             fontStyle: "italic",
           })}
         >
-          {t("no-cards-on-table", "No cards on the table yet")}
+          {t("no-cards-on-table")}
         </Typography>
       ) : (
         <Stack

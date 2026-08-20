@@ -1,6 +1,7 @@
 import { Box, ThemeProvider } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { CARDS_CODES } from "shared-code";
 import { VIEWS } from "./constants";
 import {
@@ -59,6 +60,7 @@ function App() {
 
 function ViewSwitcher() {
   const { setView, view } = useViewContext();
+  const { t } = useTranslation();
   const renderView = () => {
     switch (view) {
       case VIEWS.HOME:
@@ -68,7 +70,7 @@ function ViewSwitcher() {
       case VIEWS.GAME:
         return <Game />;
       default:
-        return <span>UNEXPECTED ERROR - (UNKNOWN VIEW)</span>;
+        return <span>{t("unexpected-view-error")}</span>;
     }
   };
 

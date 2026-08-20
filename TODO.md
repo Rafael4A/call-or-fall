@@ -11,16 +11,23 @@
 
 ## Tasks (TODO):
 
+- Adicionar delay de 1 segundo ao exibir modal QUANDO TRIGADA AUTOMATICAMENTE (apenas quando o modal é disparado automaticamente, não quando o jogador clica no botão de ver resultados)
+- Investigar bug de quando uma sala é criada, a view não é trocada automaticamente E quando é trocada, fica carregando infinitamente, mesmo quando a request ja terminou
 - Opção de escolher limite de pontos -> Mod escolhe ao criar partida
-- Compartilhar link de convite para a sala
-- Handler de erros de API
-- Enviar reações (somente partidas online)
-- Bots (partida offline)
-- Melhorar visual drasticamente
 - Opção de mostrar borda dourada na carta ganhando -> Mod escolhe ao criar partida
-- Lógica de aviso de player desconectado? -> modal imperativa? primeiro usar alert
-- Aviso para qualquer erro de backend com toast
+- Compartilhar link de convite para a sala
+- Bots (partida offline)
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
+- corrigir alt das cards
+- Enviar reações (somente partidas online) -> Verificar se está no escopo do TCC1
+
+## Tasks (extra, caso sobre tempo):
+
+- Atençao para textos de wins over prediction (atentar ao plural/singular)
+- Handler de erros de API
+- Lógica de aviso de player desconectado? -> modal imperativa? primeiro usar alert
+- Make sections glow when it's time to use them (quando for a sua vez e precisar predizer, paper deve ter um glow, quando for a sua vez de jogar, paper das cartas deve ter glow)
+- Aviso para qualquer erro de backend com toast
 
 ## Tasks (Done):
 

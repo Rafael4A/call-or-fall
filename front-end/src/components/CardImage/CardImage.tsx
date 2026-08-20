@@ -1,5 +1,6 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import type { CardCode } from "shared-code";
 import { ContainerStyles, ImageStyles } from "./CardImageStyles";
 
@@ -9,6 +10,7 @@ interface CardImageProps {
 }
 
 export function CardImage({ cardCode, highlight }: CardImageProps) {
+  const { t } = useTranslation();
   const [useDefault, setUseDefault] = useState(true);
 
   const fallbackImage = "/resources/cards/default_webp/card-back.webp";
@@ -24,7 +26,7 @@ export function CardImage({ cardCode, highlight }: CardImageProps) {
         height={140}
         src={isHidden ? fallbackImage : cardImageUrl}
         onLoad={() => setUseDefault(false)}
-        alt="Card"
+        alt={t("card-alt")}
         draggable={false}
         style={ImageStyles()}
       />

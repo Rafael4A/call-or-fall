@@ -39,7 +39,7 @@ export function RoomIdInput() {
         fullWidth
         value={roomId}
         onChange={handleChange}
-        placeholder="Enter room code"
+        placeholder={t("enter-room-code-placeholder")}
         slotProps={{
           input: {
             startAdornment: (

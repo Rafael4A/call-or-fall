@@ -106,10 +106,7 @@ export function Home({ setView }: HomeProps) {
                 maxWidth: 400,
               })}
             >
-              {t(
-                "game-description",
-                "A thrilling card game of bluff and prediction",
-              )}
+              {t("game-description")}
             </Typography>
           </Stack>
 

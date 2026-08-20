@@ -1,5 +1,6 @@
 import { Box, Modal, Paper, Stack, Typography } from "@mui/material";
 import { useId } from "react";
+import { useTranslation } from "react-i18next";
 import { GAME_STATE, type PlayerOpponentDTO, type RoomDTO } from "shared-code";
 import {
   ContainerStyles,
@@ -18,6 +19,7 @@ export function ResultsModal({
   isVisible,
   onCloseClick,
 }: ResultsModalProps) {
+  const { t } = useTranslation();
   const baseId = useId();
 
   if (!room) return null;
@@ -43,7 +45,7 @@ export function ResultsModal({
                   fontWeight: 700,
                 })}
               >
-                Results
+                {t("results-modal-title")}
               </Typography>
               <Typography
                 id={`${baseId}-modal-description`}
@@ -52,13 +54,13 @@ export function ResultsModal({
                   color: theme.palette.text.secondary,
                 })}
               >
-                {allPlayers.length} player{allPlayers.length !== 1 ? "s" : ""}
+                {allPlayers.length} {t("player-label", { count: allPlayers.length })}
               </Typography>
             </Stack>
 
             <Stack spacing={1.5}>
               <Typography variant="subtitle2" sx={SubtitleStyles()}>
-                Overall Score
+                {t("overall-score")}
               </Typography>
               <Stack spacing={1}>
                 {allPlayers
@@ -107,7 +109,7 @@ export function ResultsModal({
                                 fontWeight: 600,
                               })}
                             >
-                              YOU
+                              {t("you-label")}
                             </Typography>
                           )}
                         </Stack>
@@ -120,7 +122,7 @@ export function ResultsModal({
             {room.gameState !== GAME_STATE.Predicting && (
               <Stack spacing={1.5}>
                 <Typography variant="subtitle2" sx={SubtitleStyles()}>
-                  Current Round
+                  {t("current-round")}
                 </Typography>
                 <Stack spacing={1}>
                   {allPlayers.map((player) => {
@@ -159,10 +161,10 @@ export function ResultsModal({
                             })}
                           >
                             {player.prediction === 0
-                              ? "On track with prediction"
+                              ? t("on-track-with-prediction")
                               : player.prediction > 0
-                                ? `Still needs ${player.prediction} wins`
-                                : `${Math.abs(player.prediction)} wins over prediction`}
+                                ? t("still-needs-wins", { count: player.prediction })
+                                : t("wins-over-prediction", { count: Math.abs(player.prediction) })}
                           </Typography>
                         </Stack>
                       </Stack>

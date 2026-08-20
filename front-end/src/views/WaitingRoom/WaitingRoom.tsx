@@ -68,7 +68,7 @@ export function WaitingRoom() {
                 textAlign="center"
                 sx={SubtitleStyles()}
               >
-                Players ({playerCount})
+                {t("players-label")} ({playerCount})
               </Typography>
 
               {room.isLoading ? (
@@ -116,7 +116,7 @@ export function WaitingRoom() {
                             fontSize: "0.875rem",
                           })}
                         >
-                          Bot
+                          {t("bot-label")}
                         </Typography>
                       )}
                     </Paper>

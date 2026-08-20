@@ -6,6 +6,7 @@ import {
   type PropsWithChildren,
   type RefObject,
 } from "react";
+import { useTranslation } from "react-i18next";
 import { SOCKET_EVENTS } from "shared-code";
 import type { Socket } from "socket.io-client";
 import { useSnackAlert } from "./useSnackAlert";
@@ -26,6 +27,7 @@ export function SocketProvider({ children }: Readonly<PropsWithChildren>) {
   const intentionalDisconnection = useRef(false);
 
   const { openAlert } = useSnackAlert();
+  const { t } = useTranslation();
 
   useEffect(() => {
     intentionalDisconnection.current = false;
@@ -43,13 +45,13 @@ export function SocketProvider({ children }: Readonly<PropsWithChildren>) {
     socketRef.current?.on(SOCKET_EVENTS.DISCONNECT, () => {
       console.log("disconnected from socket");
       if (!intentionalDisconnection)
-        openAlert({ severity: "error", content: "Lost connection to server" }); //TODO TRADUZIR
+        openAlert({ severity: "error", content: t("lost-connection") });
       hasLostConnection.current = true;
     });
 
     socketRef.current?.on(SOCKET_EVENTS.CONNECT, () => {
       if (hasLostConnection.current) {
-        openAlert({ severity: "error", content: "Reconnected to server" }); //TODO TRADUZIR
+        openAlert({ severity: "error", content: t("reconnected") });
         hasLostConnection.current = false;
       }
     });

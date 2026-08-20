@@ -55,7 +55,7 @@ export function UsernameInput() {
           fullWidth
           value={username}
           onChange={handleChange}
-          placeholder="Enter your username"
+          placeholder={t("enter-username-placeholder")}
           slotProps={{
             input: {
               startAdornment: (

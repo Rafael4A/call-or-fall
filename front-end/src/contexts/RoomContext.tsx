@@ -10,6 +10,7 @@ import {
   useEffectEvent,
   type PropsWithChildren,
 } from "react";
+import { useTranslation } from "react-i18next";
 import {
   GAME_STATE,
   SOCKET_EVENTS,
@@ -47,6 +48,7 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
   const { connectSocket, registerEvent } = useWebsocket();
 
   const { openAlert } = useSnackAlert();
+  const { t } = useTranslation();
 
   const room = useQuery({
     queryKey: ["room"],
@@ -111,7 +113,7 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
       SOCKET_EVENTS.PLAYER_LEFT,
       ({ username }: PlayerLeftEventParams) => {
         openAlert({
-          content: `${username} left the room`,
+          content: t("player-left-room", { username }),
           severity: "warning",
         });
         room.refetch();
