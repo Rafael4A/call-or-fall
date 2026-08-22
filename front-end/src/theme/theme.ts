@@ -24,6 +24,7 @@ declare module "@mui/material" {
     tableBackgroundImage: string;
     tableBackgroundColor: string;
     input: string;
+    paper: string;
   }
 }
 
@@ -43,6 +44,7 @@ export const theme: Theme = createTheme({
           tableBackgroundImage:
             "radial-gradient(ellipse at center, rgba(255,255,255,0.05) 0%, transparent 70%)",
           input: "white",
+          paper: "linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%)",
         },
         primary: { main: "#22577A" },
         secondary: { main: "#459699" },
@@ -78,6 +80,7 @@ export const theme: Theme = createTheme({
           tableBackgroundImage:
             "radial-gradient(ellipse at center, rgba(255,255,255,0.03) 0%, transparent 70%)",
           input: "rgba(255,255,255,0.075)",
+          paper: "linear-gradient(135deg, #1a3a5c 0%, #163757 100%)",
         },
         primary: { main: "#7ea359" },
         secondary: { main: "#459699" },
@@ -150,10 +153,7 @@ export const theme: Theme = createTheme({
       styleOverrides: {
         root: ({ theme, ownerState }) => ({
           borderRadius: 16,
-          background:
-            theme.palette.mode === "light"
-              ? "linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%)"
-              : "linear-gradient(135deg, #1a3a5c 0%, #163757 100%)",
+          background: theme.palette.background.paper,
           ...(theme.palette.mode === "dark" && {
             // Adds the subtle top boundary definition
             border: "1px solid rgba(255, 255, 255, 0.08)",

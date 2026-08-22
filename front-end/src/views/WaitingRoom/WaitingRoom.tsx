@@ -1,3 +1,4 @@
+import IosShareIcon from "@mui/icons-material/IosShare";
 import {
   Button,
   Container,
@@ -12,12 +13,18 @@ import { useTranslation } from "react-i18next";
 import { INITIAL_ROOM_OPTIONS, type RoomOptions } from "shared-code";
 import { startGameRequest } from "../../api";
 import { LeaveRoomButton } from "../../components";
-import { useRoomContext } from "../../contexts";
+import { useRoomContext, useSnackAlert } from "../../contexts";
+import { shareRoom } from "../../utils";
 import { RoomOptionsModal } from "./components";
-import { ContainerStyles, SubtitleStyles } from "./WaitingRoomStyles";
+import {
+  ContainerStyles,
+  ShareRoomButtonStyles,
+  SubtitleStyles,
+} from "./WaitingRoomStyles";
 
 export function WaitingRoom() {
   const { t } = useTranslation();
+  const { openAlert } = useSnackAlert();
 
   const { room } = useRoomContext();
 
@@ -72,18 +79,14 @@ export function WaitingRoom() {
               >
                 {t("waiting-for-players")}
               </Typography>
-              <Paper elevation={2} sx={{ px: 3, py: 1.5 }}>
-                <Typography
-                  variant="h3"
-                  sx={(theme) => ({
-                    color: theme.palette.primary.main,
-                    letterSpacing: "0.25rem",
-                    fontWeight: 700,
-                  })}
-                >
-                  {room.data?.id}
-                </Typography>
-              </Paper>
+
+              <Button
+                variant="contained"
+                sx={ShareRoomButtonStyles()}
+                onClick={() => shareRoom(room.data?.id ?? "", openAlert, t)}
+              >
+                {room.data?.id} <IosShareIcon />
+              </Button>
             </Stack>
 
             <Stack spacing={1.5}>

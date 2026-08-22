@@ -12,7 +12,11 @@ export function RoomIdInput() {
   const sessionStorageRoomId =
     sessionStorage.getItem(STORAGE_KEYS.ROOM_ID) || "";
 
-  const [roomId, setRoomId] = useState(sessionStorageRoomId);
+  const paramRoomId = new URLSearchParams(window.location.search).get("roomId");
+
+  const [roomId, setRoomId] = useState(
+    (paramRoomId ?? sessionStorageRoomId).toUpperCase(),
+  );
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRoomId(event.target.value.toUpperCase());
