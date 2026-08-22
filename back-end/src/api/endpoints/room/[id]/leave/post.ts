@@ -1,7 +1,7 @@
 import { type Request, type Response } from "express";
 import { SOCKET_EVENTS, type PlayerLeftEventParams } from "shared-code";
-import { getRoomById, removePlayerFromRoom } from "../../../../state/index.js";
-import { getSocketio } from "../../../../utils/index.js";
+import { getRoomById, removePlayerFromRoom } from "../../../../state";
+import { getSocketio } from "../../../../utils";
 
 export function leaveRoomEndpoint(req: Request, res: Response) {
   const roomId = req.params?.id as string;

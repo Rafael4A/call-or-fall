@@ -1,7 +1,7 @@
-import type { CardCode } from "./CardCode.js";
-import type { GameState } from "./GameState.js";
-import type { Player, PlayerOpponentDTO } from "./Player.js";
-import type { TableCard } from "./TableCard.js";
+import type { CardCode } from "./CardCode";
+import type { GameState } from "./GameState";
+import type { Player, PlayerOpponentDTO } from "./Player";
+import type { TableCard } from "./TableCard";
 
 export interface Room {
   id: string;

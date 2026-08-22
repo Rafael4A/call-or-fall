@@ -1,11 +1,13 @@
-import { CARDS_CODES } from "../constants/CARD_CODES.js";
-import { GAME_LIMITS } from "../constants/GAME_LIMITS.js";
-import { GAME_STATE } from "../constants/GAME_STATE.js";
-import { INITIAL_ROOM_OPTIONS } from "../constants/INITIAL_ROOM_OPTIONS.js";
-import type { GameState, Room, RoomOptions } from "../types/index.js";
-import { safeClamp } from "../utils/safeClamp.js";
-import { dealCards } from "./dealCards.js";
-import { shuffleDeck } from "./shuffleDeck.js";
+import {
+  CARDS_CODES,
+  GAME_LIMITS,
+  GAME_STATE,
+  INITIAL_ROOM_OPTIONS,
+} from "../constants";
+import type { GameState, Room, RoomOptions } from "../types";
+import { safeClamp } from "../utils";
+import { dealCards } from "./dealCards";
+import { shuffleDeck } from "./shuffleDeck";
 
 export function startGame(room: Room, roomOptions?: RoomOptions): Room {
   const _room = structuredClone(room);

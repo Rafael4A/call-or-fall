@@ -1,7 +1,7 @@
 import { type Request, type Response } from "express";
 import { GAME_STATE, SOCKET_EVENTS, type RoomOptions } from "shared-code";
-import { getRoomByIdWithUser, startGame } from "../../../../state/index.js";
-import { getSocketio } from "../../../../utils/index.js";
+import { getRoomByIdWithUser, startGame } from "../../../../state";
+import { getSocketio } from "../../../../utils";
 
 export function startGameEndpoint(req: Request, res: Response) {
   const roomId = req.params?.id as string;

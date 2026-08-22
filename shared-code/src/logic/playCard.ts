@@ -1,9 +1,7 @@
-import { GAME_STATE } from "../constants/GAME_STATE.js";
-import type { CardCode } from "../types/CardCode.js";
-import type { Player } from "../types/Player.js";
-import type { Room } from "../types/Room.js";
-import { getBestTableCard } from "./getBestTableCard.js";
-import { getNextPlayerName } from "./getNextPlayerName.js";
+import { GAME_STATE } from "../constants";
+import type { CardCode, Player, Room } from "../types";
+import { getBestTableCard } from "./getBestTableCard";
+import { getNextPlayerName } from "./getNextPlayerName";
 
 export function playCard(room: Room, playerId: string, card: CardCode): Room {
   const _room = structuredClone(room);

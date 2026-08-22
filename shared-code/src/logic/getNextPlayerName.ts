@@ -1,4 +1,4 @@
-import type { Room } from "../types/Room.js";
+import type { Room } from "../types";
 
 export function getNextPlayerName(room: Room) {
   const currentPlayerIndex = room.players.findIndex(

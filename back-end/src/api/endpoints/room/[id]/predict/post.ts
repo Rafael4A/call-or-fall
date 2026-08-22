@@ -1,7 +1,7 @@
 import { type Request, type Response } from "express";
 import { GAME_STATE, SOCKET_EVENTS } from "shared-code";
-import { getRoomByIdWithUser, predictTurn } from "../../../../state/index.js";
-import { getSocketio } from "../../../../utils/index.js";
+import { getRoomByIdWithUser, predictTurn } from "../../../../state";
+import { getSocketio } from "../../../../utils";
 
 export function predictTurnEndpoint(req: Request, res: Response) {
   const roomId = req.params?.id as string;

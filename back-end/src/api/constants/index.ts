@@ -1,1 +1,1 @@
-export * from "./SOCKETIO_STRING.js";
+export * from "./SOCKETIO_STRING";

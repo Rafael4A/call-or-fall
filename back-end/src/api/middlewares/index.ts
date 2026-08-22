@@ -1,1 +1,1 @@
-export * from "./playerInRoomMiddleware.js";
+export * from "./playerInRoomMiddleware";

@@ -1,4 +1,4 @@
-import type { Player } from "../types/Player.js";
+import type { Player } from "../types";
 
 export function createPlayer(username: string, isBot = false): Player {
   return {

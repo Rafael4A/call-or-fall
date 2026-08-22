@@ -1,5 +1,5 @@
-import type { CardCode } from "../types/CardCode.js";
-import { getCardValue } from "./getCardValue.js";
+import type { CardCode } from "../types";
+import { getCardValue } from "./getCardValue";
 
 export const cardSortFunc = (a: CardCode, b: CardCode) => {
   const aValue = getCardValue(a);

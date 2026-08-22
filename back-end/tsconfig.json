@@ -7,13 +7,14 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "nodenext",
+    "module": "ESNext",
     "target": "esnext",
     "types": [],
-    // For nodejs:
     "lib": ["esnext"],
-    // "types": ["node"],
-    // and npm install -D @types/node
+
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true, // Build is handled by tsup, so we don't want tsc to emit files
 
     // Other Outputs
     "sourceMap": true,

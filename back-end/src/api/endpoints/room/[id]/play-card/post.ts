@@ -10,8 +10,8 @@ import {
   getRoomByIdWithUser,
   handleTurnOver,
   playCard,
-} from "../../../../state/index.js";
-import { getSocketio } from "../../../../utils/index.js";
+} from "../../../../state";
+import { getSocketio } from "../../../../utils";
 
 export function playCardEndpoint(req: Request, res: Response) {
   const roomId = req.params?.id as string;

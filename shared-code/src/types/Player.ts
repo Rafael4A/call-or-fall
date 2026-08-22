@@ -1,4 +1,4 @@
-import type { CardCode } from "./CardCode.js";
+import type { CardCode } from "./CardCode";
 
 export interface Player {
   username: string;

@@ -1,5 +1,5 @@
-import type { TableCard } from "../types/index.js";
-import { getCardValue } from "./getCardValue.js";
+import type { TableCard } from "../types";
+import { getCardValue } from "./getCardValue";
 
 export function getBestTableCard(cards: TableCard[]): TableCard | undefined {
   const cardArray = cards.map((item) => {

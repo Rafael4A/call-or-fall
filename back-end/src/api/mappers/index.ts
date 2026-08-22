@@ -1,1 +1,1 @@
-export * from "./mapRoomToRoomDTO.js";
+export * from "./mapRoomToRoomDTO";

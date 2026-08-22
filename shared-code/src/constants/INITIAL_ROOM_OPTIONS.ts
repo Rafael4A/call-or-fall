@@ -1,4 +1,4 @@
-import type { RoomOptions } from "../types/index.js";
+import type { RoomOptions } from "../types";
 
 export const INITIAL_ROOM_OPTIONS: RoomOptions = {
   scoreLimit: 10,

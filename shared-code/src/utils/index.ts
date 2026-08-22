@@ -1,1 +1,1 @@
-export * from "./safeClamp.js";
+export * from "./safeClamp";

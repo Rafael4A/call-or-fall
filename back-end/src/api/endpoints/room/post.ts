@@ -1,6 +1,6 @@
 import { type Request, type Response } from "express";
 import type { CreateRoomResponse } from "shared-code";
-import { addRoom } from "../../state/index.js";
+import { addRoom } from "../../state";
 
 export function createRoomEndpoint(req: Request, res: Response) {
   console.log(req.params, req.path, req.body);

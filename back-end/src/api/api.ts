@@ -10,10 +10,10 @@ import {
   playCardEndpoint,
   predictTurnEndpoint,
   startGameEndpoint,
-} from "./endpoints/index.js";
-import { leaveRoomEndpoint } from "./endpoints/room/[id]/leave/post.js";
-import { playerInRoomMiddleware } from "./middlewares/index.js";
-import { Rooms } from "./state/index.js";
+} from "./endpoints";
+import { leaveRoomEndpoint } from "./endpoints/room/[id]/leave/post";
+import { playerInRoomMiddleware } from "./middlewares";
+import { Rooms } from "./state";
 
 export const apiRouter = express.Router();
 

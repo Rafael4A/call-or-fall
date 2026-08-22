@@ -14,8 +14,7 @@
 - Investigar bug de quando uma sala é criada, a view não é trocada automaticamente E quando é trocada, fica carregando infinitamente, mesmo quando a request ja terminou
 - Bots (partida offline)
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
-- corrigir alt das cards
-- Enviar reações (somente partidas online) -> Verificar se está no escopo do TCC1
+- Corrigir alt das cards
 - Usar form nos inputs de criar sala e entrar na sala, para que o enter funcione
 - Deixar claro quando acaba o jogo ao invés de voltar direto pra home
 
@@ -26,6 +25,7 @@
 - Lógica de aviso de player desconectado? -> modal imperativa? primeiro usar alert
 - Make sections glow when it's time to use them (quando for a sua vez e precisar predizer, paper deve ter um glow, quando for a sua vez de jogar, paper das cartas deve ter glow)
 - Aviso para qualquer erro de backend com toast
+- Enviar reações (somente partidas online)
 
 ## Foundation Tasks (Done):
 

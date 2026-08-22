@@ -1,9 +1,7 @@
 import crypto from "node:crypto";
-import { GAME_STATE } from "../constants/GAME_STATE.js";
-import { INITIAL_ROOM_OPTIONS } from "../constants/INITIAL_ROOM_OPTIONS.js";
-import { ROOM_ID_CHARS } from "../constants/ROOM_ID_CHARS.js";
-import type { Room } from "../types/Room.js";
-import { createPlayer } from "./createPlayer.js";
+import { GAME_STATE, INITIAL_ROOM_OPTIONS, ROOM_ID_CHARS } from "../constants";
+import type { Room } from "../types";
+import { createPlayer } from "./createPlayer";
 
 export function createRoom(username: string) {
   const randomRoomId = Array.from({ length: 6 })

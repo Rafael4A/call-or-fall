@@ -1,4 +1,4 @@
-import type { CardCode } from "../types/index.js";
+import type { CardCode } from "../types";
 
 export function getCardValue(card: CardCode): number {
   if (card === "HIDDEN") return -1;

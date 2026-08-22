@@ -1,6 +1,6 @@
 import { SOCKET_EVENTS, type SocketQuery } from "shared-code";
 import type { Server, Socket } from "socket.io";
-import { getRoomByIdWithUser } from "../state/rooms.js";
+import { getRoomByIdWithUser } from "../state/rooms";
 
 export function socketHandler(io: Server) {
   io.on(SOCKET_EVENTS.CONNECTION, (socket: Socket) => {

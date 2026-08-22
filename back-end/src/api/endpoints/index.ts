@@ -1,1 +1,1 @@
-export * from "./room/index.js";
+export * from "./room";

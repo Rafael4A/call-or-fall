@@ -1,1 +1,1 @@
-export * from "./getSocketio.js";
+export * from "./getSocketio";

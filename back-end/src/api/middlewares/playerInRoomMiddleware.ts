@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from "express";
-import { getRoomByIdWithUser } from "../state/rooms.js";
+import { getRoomByIdWithUser } from "../state/rooms";
 
 export function playerInRoomMiddleware(
   req: Request,

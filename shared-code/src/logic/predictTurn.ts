@@ -1,5 +1,5 @@
-import { GAME_STATE } from "../constants/GAME_STATE.js";
-import type { Room } from "../types/Room.js";
+import { GAME_STATE } from "../constants";
+import type { Room } from "../types";
 
 export function predictTurn(
   room: Room,

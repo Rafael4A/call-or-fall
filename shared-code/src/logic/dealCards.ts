@@ -1,4 +1,4 @@
-import type { Room } from "../types/Room.js";
+import type { Room } from "../types";
 
 export function dealCards(room: Room) {
   const _room = structuredClone(room);

@@ -1,9 +1,9 @@
 import express from "express";
 import path from "node:path";
 import { Server } from "socket.io";
-import { apiRouter } from "./api/api.js";
-import { SOCKETIO_STRING } from "./api/constants/SOCKETIO_STRING.js";
-import { socketHandler } from "./api/sockets/index.js";
+import { apiRouter } from "./api/api";
+import { SOCKETIO_STRING } from "./api/constants/SOCKETIO_STRING";
+import { socketHandler } from "./api/sockets";
 
 const app = express();
 const PORT = process.env.PORT || 3001;
