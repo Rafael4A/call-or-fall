@@ -19,7 +19,6 @@
 - Enviar reações (somente partidas online) -> Verificar se está no escopo do TCC1
 - Usar form nos inputs de criar sala e entrar na sala, para que o enter funcione
 - Deixar claro quando acaba o jogo ao invés de voltar direto pra home
-- EXIBIR PREVISOES DOS OUTROS PLAYERS ENQUANTO ATUAL PREDIZ
 - Corrigir gap vertical quando cartas fazem overflow
 
 ## Tasks (extra, caso sobre tempo):

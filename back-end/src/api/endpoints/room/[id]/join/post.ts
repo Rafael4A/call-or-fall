@@ -3,11 +3,16 @@ import type { CreateRoomResponse } from "shared-code";
 import { addPlayerToRoom, getRoomById } from "../../../../state/index.js";
 
 export function joinRoomEndpoint(req: Request, res: Response) {
-  const username = req.body?.username;
+  const usernameParam = req.body?.username;
 
-  if (!username || typeof username !== "string" || username.trim() === "") {
+  if (
+    !usernameParam ||
+    typeof usernameParam !== "string" ||
+    usernameParam.trim() === ""
+  ) {
     return res.status(400).send({ error: "Invalid or missing username" });
   }
+  const username = usernameParam.trim().toUpperCase();
 
   const roomId = req.params?.id;
   if (

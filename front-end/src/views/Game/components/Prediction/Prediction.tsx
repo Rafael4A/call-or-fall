@@ -2,8 +2,9 @@ import { Button, Paper, Stack, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { GAME_STATE } from "shared-code";
-import { sendPredictionRequest } from "../../../api/sendPredictionRequest";
-import { useRoomContext } from "../../../contexts";
+import { sendPredictionRequest } from "../../../../api/sendPredictionRequest";
+import { useRoomContext } from "../../../../contexts";
+import { InputLabelStyles } from "../../../../styles";
 
 export function Prediction() {
   const { t } = useTranslation();
@@ -36,6 +37,10 @@ export function Prediction() {
     });
   };
 
+  const opponentsWithPredictions = room.data?.opponents?.filter(
+    (o) => o.prediction != undefined,
+  );
+
   return (
     <Paper
       elevation={4}
@@ -47,13 +52,7 @@ export function Prediction() {
         <Typography
           variant="subtitle2"
           textAlign="center"
-          sx={(theme) => ({
-            color: theme.palette.text.secondary,
-            fontWeight: 600,
-            textTransform: "uppercase",
-            letterSpacing: "0.05rem",
-            fontSize: "0.8rem",
-          })}
+          sx={InputLabelStyles()}
         >
           {isOpponentTurn
             ? t("waiting-for-opponent-to-predict")
@@ -84,6 +83,31 @@ export function Prediction() {
             );
           })}
         </Stack>
+
+        {opponentsWithPredictions?.length > 0 && (
+          <Stack spacing={0.5} alignItems="center" sx={{ mt: 1 }}>
+            <Typography
+              variant="subtitle2"
+              textAlign="center"
+              sx={InputLabelStyles()}
+            >
+              {t("opponents-predictions")}
+            </Typography>
+
+            {opponentsWithPredictions.map((o) => (
+              <Paper
+                key={o.username}
+                sx={{
+                  p: 2.5,
+                }}
+              >
+                <Typography sx={{ fontSize: "0.9rem", fontWeight: 800 }}>
+                  {o.username}: {o.prediction}
+                </Typography>
+              </Paper>
+            ))}
+          </Stack>
+        )}
       </Stack>
     </Paper>
   );

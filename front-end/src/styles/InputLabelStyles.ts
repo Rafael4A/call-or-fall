@@ -6,6 +6,6 @@ export function InputLabelStyles() {
     fontWeight: 600,
     textTransform: "uppercase",
     letterSpacing: "0.05rem",
-    fontSize: "0.75rem",
+    fontSize: "0.8rem",
   });
 }
