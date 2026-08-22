@@ -19,7 +19,6 @@
 - Enviar reações (somente partidas online) -> Verificar se está no escopo do TCC1
 - Usar form nos inputs de criar sala e entrar na sala, para que o enter funcione
 - Deixar claro quando acaba o jogo ao invés de voltar direto pra home
-- Corrigir gap vertical quando cartas fazem overflow
 
 ## Tasks (extra, caso sobre tempo):
 
@@ -29,7 +28,7 @@
 - Make sections glow when it's time to use them (quando for a sua vez e precisar predizer, paper deve ter um glow, quando for a sua vez de jogar, paper das cartas deve ter glow)
 - Aviso para qualquer erro de backend com toast
 
-## Tasks (Done):
+## Foundation Tasks (Done):
 
 - Criar sala
 - Entrar na sala

@@ -125,6 +125,11 @@ export const theme: Theme = createTheme({
     borderRadius: 12,
   },
   components: {
+    MuiStack: {
+      defaultProps: {
+        useFlexGap: true,
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: ({ theme }) => ({
