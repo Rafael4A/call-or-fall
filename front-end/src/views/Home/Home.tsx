@@ -16,12 +16,12 @@ interface HomeProps {
 export function Home({ setView }: HomeProps) {
   const { t } = useTranslation();
   const { openAlert } = useSnackAlert();
-  const { room } = useRoomContext();
+  const { refetch } = useRoomContext();
 
   const handleNewRoomSuccess = (response: CreateRoomResponse) => {
     sessionStorage.setItem(STORAGE_KEYS.ROOM_ID, response.roomId);
     sessionStorage.setItem(STORAGE_KEYS.PLAYER_ID, response.playerId);
-    room.refetch();
+    refetch();
     setView(VIEWS.WAITING_ROOM);
   };
 

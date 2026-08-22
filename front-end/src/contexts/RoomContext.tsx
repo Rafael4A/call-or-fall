@@ -1,8 +1,4 @@
-import {
-  useQuery,
-  useQueryClient,
-  type UseQueryResult,
-} from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   createContext,
   useContext,
@@ -19,7 +15,7 @@ import {
   type RoomDTO,
 } from "shared-code";
 import { getRoomRequest } from "../api";
-import { STORAGE_KEYS, VIEWS } from "../constants";
+import { ROOM_QUERY_KEY, STORAGE_KEYS, VIEWS } from "../constants";
 import { useWebsocket } from "../hooks";
 import type { APIError } from "../types";
 import { useViewContext } from "./ViewContext";
@@ -27,12 +23,16 @@ import { useSnackAlert } from "./useSnackAlert";
 
 const RoomContext = createContext<{
   clearRoomData: () => void;
-  room: UseQueryResult<RoomDTO, unknown>;
+  room?: RoomDTO;
+  isLoading: boolean;
+  refetch: () => void;
 }>({
   clearRoomData: () => {
     throw new Error("clearRoomData function not implemented");
   },
-  room: {} as UseQueryResult<RoomDTO, unknown>,
+  room: undefined,
+  isLoading: false,
+  refetch: () => {},
 });
 
 //eslint-disable-next-line react-refresh/only-export-components
@@ -51,7 +51,7 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
   const { t } = useTranslation();
 
   const room = useQuery({
-    queryKey: ["room"],
+    queryKey: [ROOM_QUERY_KEY],
     queryFn: () =>
       getRoomRequest(
         sessionStorage.getItem(STORAGE_KEYS.ROOM_ID)!,
@@ -64,9 +64,10 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
   });
 
   const clearRoomData = () => {
-    queryClient.removeQueries({ queryKey: ["room"], exact: true });
+    queryClient.removeQueries({ queryKey: [ROOM_QUERY_KEY], exact: true });
     sessionStorage.removeItem(STORAGE_KEYS.ROOM_ID);
     sessionStorage.removeItem(STORAGE_KEYS.PLAYER_ID);
+    sessionStorage.removeItem(STORAGE_KEYS.OFFLINE_GAME);
     setView(VIEWS.HOME);
   };
 
@@ -130,5 +131,16 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
   });
   useEffect(updateConnection, [updateConnection]);
 
-  return <RoomContext value={{ room, clearRoomData }}>{children}</RoomContext>;
+  return (
+    <RoomContext
+      value={{
+        room: room.data,
+        isLoading: room.isLoading,
+        refetch: room.refetch,
+        clearRoomData,
+      }}
+    >
+      {children}
+    </RoomContext>
+  );
 }

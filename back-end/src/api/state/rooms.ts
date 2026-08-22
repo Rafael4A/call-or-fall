@@ -1,3 +1,4 @@
+import { randomInt } from "node:crypto";
 import {
   createPlayer,
   createRoom,
@@ -5,6 +6,7 @@ import {
   playCard as logicPlayCard,
   predictTurn as logicPredictTurn,
   startGame as logicStartGame,
+  ROOM_ID_CHARS,
   SOCKET_EVENTS,
   type CardCode,
   type Player,
@@ -83,7 +85,13 @@ export async function handleTurnOver(room: Room, io: Server) {
 }
 
 export function addRoom(username: string): Room {
-  const room = createRoom(username);
+  let id = "";
+  while (id === "" || Rooms.has(id)) {
+    id = Array.from({ length: 6 })
+      .map(() => ROOM_ID_CHARS[randomInt(0, ROOM_ID_CHARS.length)])
+      .join("");
+  }
+  const room = createRoom(username, id);
 
   Rooms.set(room.id, room);
   return room;

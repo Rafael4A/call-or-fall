@@ -2,7 +2,7 @@ import { Button, Paper, Stack, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { GAME_STATE } from "shared-code";
-import { sendPredictionRequest } from "../../../../api/sendPredictionRequest";
+import { sendPredictionRequest } from "../../../../api";
 import { useRoomContext } from "../../../../contexts";
 import { InputLabelStyles } from "../../../../styles";
 
@@ -15,29 +15,27 @@ export function Prediction() {
     mutationFn: sendPredictionRequest,
   });
 
-  if (room.data?.gameState !== GAME_STATE.Predicting) return null;
-  const isOpponentTurn =
-    room.data?.currentPlayerName !== room.data?.player.username;
+  if (room?.gameState !== GAME_STATE.Predicting) return null;
+  const isOpponentTurn = room?.currentPlayerName !== room?.player.username;
 
-  const max = room?.data?.player.cards.length ?? -1;
+  const max = room?.player.cards.length ?? -1;
 
   const isOnlyOneMissing =
-    room?.data?.opponents.every((o) => o.prediction != undefined) ?? false;
+    room?.opponents.every((o) => o.prediction != undefined) ?? false;
 
   const prohibited = isOnlyOneMissing
-    ? max -
-      room?.data?.opponents.reduce((acc, o) => acc + (o.prediction ?? 0), 0)
+    ? max - room?.opponents.reduce((acc, o) => acc + (o.prediction ?? 0), 0)
     : -1;
 
   const handleClick = (prediction: number) => {
     sendPredictionMutation.mutate({
-      roomId: room.data?.id as string,
-      userId: room.data?.player.id as string,
+      roomId: room?.id as string,
+      userId: room?.player.id as string,
       prediction,
     });
   };
 
-  const opponentsWithPredictions = room.data?.opponents?.filter(
+  const opponentsWithPredictions = room?.opponents?.filter(
     (o) => o.prediction != undefined,
   );
 

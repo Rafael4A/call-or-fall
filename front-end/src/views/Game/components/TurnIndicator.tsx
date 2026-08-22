@@ -22,11 +22,11 @@ export function TurnIndicator() {
   const { room } = useRoomContext();
 
   const isCurrentPlayer =
-    room.data?.currentPlayerName === room.data?.player.username;
+    room?.currentPlayerName === room?.player.username;
 
   const stateTranslationKey = getTranslationKey(
     isCurrentPlayer,
-    room.data?.gameState,
+    room?.gameState,
   );
 
   return (

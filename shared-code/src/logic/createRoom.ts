@@ -1,15 +1,10 @@
-import crypto from "node:crypto";
-import { GAME_STATE, INITIAL_ROOM_OPTIONS, ROOM_ID_CHARS } from "../constants";
+import { GAME_STATE, INITIAL_ROOM_OPTIONS } from "../constants";
 import type { Room } from "../types";
 import { createPlayer } from "./createPlayer";
 
-export function createRoom(username: string) {
-  const randomRoomId = Array.from({ length: 6 })
-    .map(() => ROOM_ID_CHARS[crypto.randomInt(0, ROOM_ID_CHARS.length)])
-    .join("");
-
+export function createRoom(username: string, id: string) {
   const room: Room = {
-    id: randomRoomId,
+    id,
     players: [createPlayer(username)],
     options: structuredClone(INITIAL_ROOM_OPTIONS),
     deck: [],

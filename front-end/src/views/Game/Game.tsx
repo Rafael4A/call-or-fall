@@ -14,7 +14,7 @@ export function Game() {
 
   const { room } = useRoomContext();
 
-  const currentGameState = room.data?.gameState;
+  const currentGameState = room?.gameState;
   const [showScoreModal, setShowScoreModal] = useState(false);
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export function Game() {
 
       <ResultsModal
         isVisible={showScoreModal}
-        room={room.data}
+        room={room} //TODO CORRIGIR
         onCloseClick={() => {
           setShowScoreModal(false);
         }}

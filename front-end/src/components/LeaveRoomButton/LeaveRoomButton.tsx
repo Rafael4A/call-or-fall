@@ -7,7 +7,7 @@ import { ButtonStyles } from "./LeaveRoomButtonStyles";
 
 export function LeaveRoomButton() {
   const { t } = useTranslation();
-  const { room, clearRoomData } = useRoomContext();
+  const { room, clearRoomData, isLoading } = useRoomContext();
 
   const leaveRoomMutation = useMutation({
     mutationFn: leaveRoomRequest,
@@ -22,11 +22,11 @@ export function LeaveRoomButton() {
       size="small"
       onClick={() =>
         leaveRoomMutation.mutate({
-          roomId: room.data?.id ?? "",
-          userId: room.data?.player.id ?? "",
+          roomId: room?.id ?? "",
+          userId: room?.player.id ?? "",
         })
       }
-      disabled={!room.data || leaveRoomMutation.isPending}
+      disabled={!room || isLoading || leaveRoomMutation.isPending}
       sx={ButtonStyles()}
     >
       {t("leave-room")}

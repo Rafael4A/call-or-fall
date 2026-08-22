@@ -13,8 +13,8 @@ export function PlayerHand() {
   const { room } = useRoomContext();
 
   const isCurrentPlayer =
-    room.data?.currentPlayerName === room.data?.player.username;
-  const playerCards = room.data?.player.cards ?? [];
+    room?.currentPlayerName === room?.player.username;
+  const playerCards = room?.player.cards ?? [];
 
   const playCardMutation = useMutation({
     mutationFn: playCardRequest,
@@ -22,8 +22,8 @@ export function PlayerHand() {
 
   const handlePlayCard = (card: CardCode) => {
     playCardMutation.mutate({
-      roomId: room.data?.id ?? "",
-      userId: room.data?.player.id ?? "",
+      roomId: room?.id ?? "",
+      userId: room?.player.id ?? "",
       card,
     });
   };
@@ -57,7 +57,7 @@ export function PlayerHand() {
             disabled={
               !isCurrentPlayer ||
               playCardMutation.isPending ||
-              room.data?.gameState !== GAME_STATE.Playing
+              room?.gameState !== GAME_STATE.Playing
             }
             sx={CardButtonStyles()}
           >

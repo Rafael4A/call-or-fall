@@ -26,10 +26,10 @@ export function WaitingRoom() {
   const { t } = useTranslation();
   const { openAlert } = useSnackAlert();
 
-  const { room } = useRoomContext();
+  const { room, isLoading } = useRoomContext();
 
-  const opponents = room.data?.opponents ?? [];
-  const playerCount = room.data ? 1 + opponents.length : 0;
+  const opponents = room?.opponents ?? [];
+  const playerCount = room ? 1 + opponents.length : 0;
 
   const [showRoomOptionsModal, setShowRoomOptionsModal] = useState(false);
   const [roomOptionsToBeSet, setRoomOptionsToBeSet] =
@@ -41,8 +41,8 @@ export function WaitingRoom() {
 
   const handleStartGame = () => {
     startGameMutation.mutate({
-      roomId: room.data?.id ?? "",
-      userId: room.data?.player.id ?? "",
+      roomId: room?.id ?? "",
+      userId: room?.player.id ?? "",
       roomOptions: roomOptionsToBeSet,
     });
   };
@@ -57,7 +57,7 @@ export function WaitingRoom() {
           justifyContent="space-between"
         >
           <LeaveRoomButton />
-          {room?.data?.isHost && (
+          {room?.isHost && (
             <Button
               variant="contained"
               onClick={() => setShowRoomOptionsModal(true)}
@@ -83,9 +83,9 @@ export function WaitingRoom() {
               <Button
                 variant="contained"
                 sx={ShareRoomButtonStyles()}
-                onClick={() => shareRoom(room.data?.id ?? "", openAlert, t)}
+                onClick={() => shareRoom(room?.id ?? "", openAlert, t)}
               >
-                {room.data?.id} <IosShareIcon />
+                {room?.id} <IosShareIcon />
               </Button>
             </Stack>
 
@@ -98,7 +98,7 @@ export function WaitingRoom() {
                 {t("players-label")} ({playerCount})
               </Typography>
 
-              {room.isLoading ? (
+              {isLoading ? (
                 <LinearProgress
                   sx={(theme) => ({
                     borderRadius: 2,
@@ -110,7 +110,7 @@ export function WaitingRoom() {
                 />
               ) : (
                 <Stack spacing={1}>
-                  {room.data?.player && (
+                  {room?.player && (
                     <Paper elevation={1} sx={{ px: 2.5, py: 1.5 }}>
                       <Typography
                         sx={(theme) => ({
@@ -118,7 +118,7 @@ export function WaitingRoom() {
                           fontWeight: 600,
                         })}
                       >
-                        {room.data.player.username}
+                        {room?.player.username}
                       </Typography>
                     </Paper>
                   )}
@@ -152,7 +152,7 @@ export function WaitingRoom() {
               )}
             </Stack>
 
-            {room?.data?.isHost && room.data?.opponents?.length > 0 && (
+            {room?.isHost && room?.opponents?.length > 0 && (
               <Button
                 fullWidth
                 size="large"

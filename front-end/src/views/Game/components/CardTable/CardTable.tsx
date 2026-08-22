@@ -7,17 +7,17 @@ import { ContainerStyles } from "./TableStyles";
 
 export function CardTable() {
   const { t } = useTranslation();
-  const { room } = useRoomContext();
+  const { room, isLoading } = useRoomContext();
 
-  const tableCards = room.data?.table ?? [];
+  const tableCards = room?.table ?? [];
 
-  const shouldHighlightCard = room.data?.options.showWinningCard;
+  const shouldHighlightCard = room?.options.showWinningCard;
 
-  const highestCard = getBestTableCard(room.data?.table ?? []);
+  const highestCard = getBestTableCard(room?.table ?? []);
 
   return (
     <Paper elevation={3} sx={ContainerStyles()}>
-      {room.isLoading ? (
+      {isLoading ? (
         <LinearProgress
           sx={(theme) => ({
             width: "60%",
