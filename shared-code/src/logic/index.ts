@@ -3,6 +3,7 @@ export * from "./createPlayer";
 export * from "./createRoom";
 export * from "./dealCards";
 export * from "./getBestTableCard";
+export * from "./getCardValue";
 export * from "./getNextPlayerName";
 export * from "./playCard";
 export * from "./predictTurn";

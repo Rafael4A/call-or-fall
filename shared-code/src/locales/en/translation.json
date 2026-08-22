@@ -41,7 +41,6 @@
   "unexpected-view-error": "UNEXPECTED ERROR - (UNKNOWN VIEW)",
   "waiting-for-opponent-to-predict": "Waiting for opponent to predict",
   "make-your-prediction": "Make your prediction",
-  "card-alt": "Card",
   "round-over": "Round over",
   "game-over": "Game over",
   "turn-over": "Turn over",
@@ -54,5 +53,30 @@
   "opponents-predictions": "Opponents' Predictions",
   "failed-to-share-room": "Failed to share room",
   "link-copied-to-clipboard": "Link copied to clipboard!",
-  "share-room-text": "Come play Call or Fall with me!"
+  "share-room-text": "Come play Call or Fall with me!",
+  "card-names": {
+    "values": {
+      "1": "Ace",
+      "2": "Two",
+      "3": "Three",
+      "4": "Four",
+      "5": "Five",
+      "6": "Six",
+      "7": "Seven",
+      "8": "Eight",
+      "9": "Nine",
+      "10": "Ten",
+      "11": "Jack",
+      "12": "Queen",
+      "13": "King"
+    },
+    "suits": {
+      "hearts": "Hearts",
+      "diamonds": "Diamonds",
+      "clubs": "Clubs",
+      "spades": "Spades"
+    },
+    "hidden": "Hidden Card",
+    "alt": "Card {{value}} of {{suit}}"
+  }
 }

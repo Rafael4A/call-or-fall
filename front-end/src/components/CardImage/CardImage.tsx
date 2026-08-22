@@ -2,6 +2,7 @@ import { Box } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { CardCode } from "shared-code";
+import { getCardName } from "../../utils";
 import { ContainerStyles, ImageStyles } from "./CardImageStyles";
 
 interface CardImageProps {
@@ -26,7 +27,7 @@ export function CardImage({ cardCode, highlight }: CardImageProps) {
         height={140}
         src={isHidden ? fallbackImage : cardImageUrl}
         onLoad={() => setUseDefault(false)}
-        alt={t("card-alt")}
+        alt={getCardName(cardCode, t)}
         draggable={false}
         style={ImageStyles()}
       />

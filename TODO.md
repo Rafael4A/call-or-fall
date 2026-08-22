@@ -13,7 +13,6 @@
 
 - Bots (partida offline)
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
-- Corrigir alt das cards
 - Usar form nos inputs de criar sala e entrar na sala, para que o enter funcione
 - Deixar claro quando acaba o jogo ao invés de voltar direto pra home
 

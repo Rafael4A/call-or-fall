@@ -13,7 +13,6 @@ import {
 } from "./endpoints";
 import { leaveRoomEndpoint } from "./endpoints/room/[id]/leave/post";
 import { playerInRoomMiddleware } from "./middlewares";
-import { Rooms } from "./state";
 
 export const apiRouter = express.Router();
 
@@ -23,11 +22,6 @@ const reqLog = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 apiRouter.use(reqLog);
-
-// TODO REMOVE
-apiRouter.get("/", (req, res) => {
-  res.send(Array.from(Rooms.values()));
-});
 
 apiRouter.post("/room", createRoomEndpoint);
 apiRouter.post("/room/:id/join", joinRoomEndpoint);

@@ -21,12 +21,5 @@ export function socketHandler(io: Server) {
     socket.on("disconnect", () => {
       console.log("user disconnected");
     });
-
-    //TODO REMOVER
-    socket.onAny((eventName, ...args) => {
-      console.log("# event received:");
-      console.log(eventName); // 'hello'
-      console.log(args); // [ 1, '2', { 3: '4', 5: ArrayBuffer (1) [ 6 ] } ]
-    });
   });
 }
