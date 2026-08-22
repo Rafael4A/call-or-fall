@@ -1,7 +1,7 @@
 import type { CardCode } from "../types/index.js";
 
 export function getCardValue(card: CardCode): number {
-  if (card === "HIDDEN") throw new Error("Cannot get value of HIDDEN card");
+  if (card === "HIDDEN") return -1;
 
   const rank = card.slice(0, -1);
 

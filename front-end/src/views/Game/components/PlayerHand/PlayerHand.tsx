@@ -1,7 +1,7 @@
 import { Button, Stack, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-import { GAME_STATE, type CardCode } from "shared-code";
+import { cardSortFunc, GAME_STATE, type CardCode } from "shared-code";
 import { playCardRequest } from "../../../../api";
 import { CardImage } from "../../../../components";
 import { useRoomContext } from "../../../../contexts";
@@ -49,7 +49,7 @@ export function PlayerHand() {
         justifyContent="center"
         flexWrap="wrap"
       >
-        {playerCards.map((card) => (
+        {playerCards.toSorted(cardSortFunc).map((card) => (
           <Button
             key={card}
             variant="contained"

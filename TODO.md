@@ -19,9 +19,7 @@
 - Enviar reações (somente partidas online) -> Verificar se está no escopo do TCC1
 - Usar form nos inputs de criar sala e entrar na sala, para que o enter funcione
 - Deixar claro quando acaba o jogo ao invés de voltar direto pra home
-- TOUPPER CASE NO CHECK DE ID DA SALA
 - MOSTRAR CARTAS DO OPONENTE NA PRIMEIRA RODADA
-- SORT DAS CARTAS DA MÃO SOMENTE FRONT
 - EXIBIR PREVISOES DOS OUTROS PLAYERS ENQUANTO ATUAL PREDIZ
 - Corrigir gap vertical quando cartas fazem overflow
 

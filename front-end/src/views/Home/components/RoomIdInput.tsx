@@ -15,7 +15,7 @@ export function RoomIdInput() {
   const [roomId, setRoomId] = useState(sessionStorageRoomId);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRoomId(event.target.value);
+    setRoomId(event.target.value.toUpperCase());
     sessionStorage.setItem(STORAGE_KEYS.ROOM_ID, event.target.value);
   };
 
