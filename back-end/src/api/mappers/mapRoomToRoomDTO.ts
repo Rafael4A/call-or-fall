@@ -1,4 +1,9 @@
-import type { Room, RoomDTO } from "shared-code";
+import {
+  GAME_STATE,
+  type Room,
+  type RoomDTO,
+  type TableCard,
+} from "shared-code";
 
 export function mapRoomToRoomDTO(room: Room, userId: string): RoomDTO {
   const { players, deck, ...roomWithoutPlayersAndDeck } = room;
@@ -7,25 +12,36 @@ export function mapRoomToRoomDTO(room: Room, userId: string): RoomDTO {
   if (!player)
     throw new Error(`Player with id ${userId} not found in room ${room.id}`);
 
-  const opponents = players
-    .filter(({ id }) => id !== userId)
-    .map(({ username, score, isBot, prediction, currentRoundScore }) => ({
+  const opponents = players.filter(({ id }) => id !== userId);
+
+  const mappedOpponents = opponents.map(
+    ({ username, score, isBot, prediction, currentRoundScore }) => ({
       username,
       score,
       isBot,
       prediction,
       currentRoundScore,
-    }));
+    }),
+  );
 
   const censoredPlayer = structuredClone(player);
   if (censoredPlayer.cards.length > 0 && room.currentRound === 1) {
     censoredPlayer.cards = ["HIDDEN"];
   }
 
+  const shouldShowOpponentCardsOnTable =
+    room.currentRound === 1 && room.gameState === GAME_STATE.Predicting;
+  const opponentsTableCards: TableCard[] =
+    opponents.map((opponent) => ({
+      card: opponent.cards?.[0] || "HIDDEN", // Should never show HIDDEN here, fallback for type safety
+      owner: opponent.username,
+    })) ?? [];
+
   return {
     ...roomWithoutPlayersAndDeck,
     player: censoredPlayer,
-    opponents,
+    opponents: mappedOpponents,
     isHost: players[0]?.id === userId,
+    table: shouldShowOpponentCardsOnTable ? opponentsTableCards : room.table,
   };
 }
