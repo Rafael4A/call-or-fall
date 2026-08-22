@@ -1,5 +1,5 @@
 import { type Request, type Response } from "express";
-import { GAME_STATE, SOCKET_EVENTS } from "shared-code";
+import { GAME_STATE, SOCKET_EVENTS, type RoomOptions } from "shared-code";
 import { getRoomByIdWithUser, startGame } from "../../../../state/index.js";
 import { getSocketio } from "../../../../utils/index.js";
 
@@ -19,7 +19,9 @@ export function startGameEndpoint(req: Request, res: Response) {
     return res.status(403).send({ error: "Only the host can start the game" });
   }
 
-  startGame(room);
+  const roomOptions = req.body as RoomOptions;
+
+  startGame(room, roomOptions);
 
   const io = getSocketio(req.app);
 

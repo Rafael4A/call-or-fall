@@ -1,0 +1,6 @@
+export const GAME_LIMITS = {
+  MIN_DECK_COUNT: 1,
+  MAX_DECK_COUNT: 5,
+  MIN_SCORE_LIMIT: 1,
+  MAX_SCORE_LIMIT: 25,
+} as const;

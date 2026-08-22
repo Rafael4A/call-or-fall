@@ -1,6 +1,5 @@
 import express from "express";
 import path from "node:path";
-import { HELLO } from "shared-code";
 import { Server } from "socket.io";
 import { apiRouter } from "./api/api.js";
 import { SOCKETIO_STRING } from "./api/constants/SOCKETIO_STRING.js";
@@ -18,10 +17,6 @@ app.use(
 );
 
 app.use(express.static(path.join(process.cwd(), "../front-end/dist")));
-
-app.get("/", (req, res) => {
-  res.send(HELLO);
-});
 
 app.get("/{*any}", (req, res) => {
   // Don't serve index.html for API routes or locale files

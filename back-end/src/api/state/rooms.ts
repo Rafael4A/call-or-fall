@@ -9,6 +9,7 @@ import {
   type CardCode,
   type Player,
   type Room,
+  type RoomOptions,
 } from "shared-code";
 import type { Server } from "socket.io";
 
@@ -36,8 +37,8 @@ export function addPlayerToRoom(
   return newPlayer;
 }
 
-export function startGame(room: Room): Room {
-  const newRoom = logicStartGame(room);
+export function startGame(room: Room, roomOptions?: RoomOptions): Room {
+  const newRoom = logicStartGame(room, roomOptions);
 
   Rooms.set(newRoom.id, newRoom);
   return newRoom;
@@ -70,22 +71,6 @@ export function playCard(room: Room, playerId: string, card: CardCode): Room {
 export async function handleTurnOver(room: Room, io: Server) {
   // Wait for 7 seconds before starting the next round
   await new Promise((resolve) => setTimeout(resolve, 7000));
-
-  // If score limit has been reached, end the game
-  if (room.gameState === GAME_STATE.RoundOver) {
-    const highstedScore = Math.max(
-      ...room.players.map((player) => player.score),
-    );
-    if (highstedScore >= room.options.scoreLimit) {
-      const newRoom = { ...room, gameState: GAME_STATE.GameOver };
-
-      Rooms.set(room.id, newRoom);
-
-      io.to(room.id).emit(SOCKET_EVENTS.ROOM_UPDATE);
-
-      return newRoom;
-    }
-  }
 
   // Start the next round
   const newRoom = startGame(room);

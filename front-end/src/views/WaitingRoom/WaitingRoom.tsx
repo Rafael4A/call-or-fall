@@ -7,16 +7,26 @@ import {
   Typography,
 } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { INITIAL_ROOM_OPTIONS, type RoomOptions } from "shared-code";
 import { startGameRequest } from "../../api";
 import { LeaveRoomButton } from "../../components";
 import { useRoomContext } from "../../contexts";
+import { RoomOptionsModal } from "./components";
 import { ContainerStyles, SubtitleStyles } from "./WaitingRoomStyles";
 
 export function WaitingRoom() {
   const { t } = useTranslation();
 
   const { room } = useRoomContext();
+
+  const opponents = room.data?.opponents ?? [];
+  const playerCount = room.data ? 1 + opponents.length : 0;
+
+  const [showRoomOptionsModal, setShowRoomOptionsModal] = useState(false);
+  const [roomOptionsToBeSet, setRoomOptionsToBeSet] =
+    useState<RoomOptions>(INITIAL_ROOM_OPTIONS);
 
   const startGameMutation = useMutation({
     mutationFn: startGameRequest,
@@ -26,16 +36,30 @@ export function WaitingRoom() {
     startGameMutation.mutate({
       roomId: room.data?.id ?? "",
       userId: room.data?.player.id ?? "",
+      roomOptions: roomOptionsToBeSet,
     });
   };
-
-  const opponents = room.data?.opponents ?? [];
-  const playerCount = room.data ? 1 + opponents.length : 0;
 
   return (
     <Container maxWidth="sm" sx={ContainerStyles()}>
       <Stack spacing={3} sx={{ width: "100%" }}>
-        <LeaveRoomButton />
+        <Stack
+          spacing={3}
+          sx={{ width: "100%" }}
+          direction="row"
+          justifyContent="space-between"
+        >
+          <LeaveRoomButton />
+          {room?.data?.isHost && (
+            <Button
+              variant="contained"
+              onClick={() => setShowRoomOptionsModal(true)}
+            >
+              {t("room-options-button")}
+            </Button>
+          )}
+        </Stack>
+
         <Paper elevation={4} sx={{ p: { xs: 3, sm: 4 }, width: "100%" }}>
           <Stack spacing={3}>
             <Stack spacing={1} alignItems="center">
@@ -145,6 +169,12 @@ export function WaitingRoom() {
           </Stack>
         </Paper>
       </Stack>
+      <RoomOptionsModal
+        roomOptions={roomOptionsToBeSet}
+        setRoomOptions={setRoomOptionsToBeSet}
+        isVisible={showRoomOptionsModal}
+        onCloseClick={() => setShowRoomOptionsModal(false)}
+      />
     </Container>
   );
 }

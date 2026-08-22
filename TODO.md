@@ -12,14 +12,19 @@
 ## Tasks (TODO):
 
 - Investigar bug de quando uma sala é criada, a view não é trocada automaticamente E quando é trocada, fica carregando infinitamente, mesmo quando a request ja terminou
-- Opção de escolher limite de pontos -> Mod escolhe ao criar partida
-- Opção de mostrar borda dourada na carta ganhando -> Mod escolhe ao criar partida
 - Compartilhar link de convite para a sala
 - Bots (partida offline)
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
 - corrigir alt das cards
 - Enviar reações (somente partidas online) -> Verificar se está no escopo do TCC1
 - Usar form nos inputs de criar sala e entrar na sala, para que o enter funcione
+- Deixar claro quando acaba o jogo ao invés de voltar direto pra home
+- TOUPPER CASE NO CHECK DE ID DA SALA
+- MOSTRAR CARTAS DO OPONENTE NA PRIMEIRA RODADA
+- SORT DAS CARTAS DA MÃO SOMENTE FRONT
+- EXIBIR PREVISOES DOS OUTROS PLAYERS ENQUANTO ATUAL PREDIZ
+- MANTER MESMO JOGADOR ANTERIOR EM CASO DE EMPATE DE CARTAS
+- Corrigir gap vertical quando cartas fazem overflow
 
 ## Tasks (extra, caso sobre tempo):
 
@@ -44,6 +49,9 @@
 - Clear room id when leaving room, game ends, or new room is created
 - Mostrar ranking
 - Opção de desistir durante a partida.
+- Opção de escolher limite de pontos -> Mod escolhe ao criar partida
+- Opção de mostrar borda dourada na carta ganhando -> Mod escolhe ao criar partida
+- Implementar fim de jogo quando acabar cartas
 
 ## API endpoints (Mostly Done):
 

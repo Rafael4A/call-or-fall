@@ -3,6 +3,7 @@ import { Stack, TextField, Typography } from "@mui/material";
 import { useId, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { STORAGE_KEYS } from "../../../constants";
+import { InputLabelStyles } from "../../../styles";
 
 export function RoomIdInput() {
   const { t } = useTranslation();
@@ -24,13 +25,7 @@ export function RoomIdInput() {
         component="label"
         htmlFor={componentId}
         variant="subtitle2"
-        sx={(theme) => ({
-          color: theme.palette.text.secondary,
-          fontWeight: 600,
-          textTransform: "uppercase",
-          letterSpacing: "0.05rem",
-          fontSize: "0.75rem",
-        })}
+        sx={InputLabelStyles()}
       >
         {t("room-code")}
       </Typography>

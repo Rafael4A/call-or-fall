@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import { MAX_USERNAME_SIZE } from "shared-code";
 import { generateUsername } from "unique-username-generator";
 import { STORAGE_KEYS } from "../../../constants";
+import { InputLabelStyles } from "../../../styles";
 
 export function UsernameInput() {
   const { t } = useTranslation();
@@ -38,13 +39,7 @@ export function UsernameInput() {
         component="label"
         htmlFor={componentId}
         variant="subtitle2"
-        sx={(theme) => ({
-          color: theme.palette.text.secondary,
-          fontWeight: 600,
-          textTransform: "uppercase",
-          letterSpacing: "0.05rem",
-          fontSize: "0.75rem",
-        })}
+        sx={InputLabelStyles()}
       >
         {t("username-field")}
       </Typography>

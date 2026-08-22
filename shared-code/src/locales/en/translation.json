@@ -44,5 +44,11 @@
   "card-alt": "Card",
   "round-over": "Round over",
   "game-over": "Game over",
-  "turn-over": "Turn over"
+  "turn-over": "Turn over",
+  "room-options-button": "Set Room Options",
+  "room-options-modal-title": "Room Options",
+  "deck-count-label": "Deck Count:",
+  "score-limit-label": "Score Limit:",
+  "show-winning-card-label": "Show Winning Card:",
+  "minimum-values-disclaimer": "Fields set to 0 will be replaced with the minimum allowed values."
 }
