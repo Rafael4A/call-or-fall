@@ -1,3 +1,4 @@
+import { STORAGE_KEYS } from "../constants";
 import type { APIError } from "../types";
 
 interface LeaveRoomRequestParams {
@@ -5,7 +6,21 @@ interface LeaveRoomRequestParams {
   userId: string;
 }
 
-export async function leaveRoomRequest({
+export async function leaveRoomRequest(args: LeaveRoomRequestParams) {
+  if (sessionStorage.getItem(STORAGE_KEYS.OFFLINE_GAME)) {
+    return leaveOfflineRoomRequest();
+  } else {
+    return leaveOnlineRoomRequest(args);
+  }
+}
+
+export async function leaveOfflineRoomRequest() {
+  sessionStorage.removeItem(STORAGE_KEYS.OFFLINE_GAME);
+
+  return true;
+}
+
+export async function leaveOnlineRoomRequest({
   roomId,
   userId,
 }: LeaveRoomRequestParams) {

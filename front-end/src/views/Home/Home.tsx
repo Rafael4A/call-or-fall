@@ -72,6 +72,12 @@ export function Home({ setView }: HomeProps) {
     });
   };
 
+  const handleCreateOfflineGame = () => {
+    if (!handleNoUsername()) return;
+    sessionStorage.setItem(STORAGE_KEYS.OFFLINE_GAME, "start");
+    handleCreateOnlineGame();
+  };
+
   const isAnythingLoading = createRoomMutation.isPending;
 
   return (
@@ -150,6 +156,7 @@ export function Home({ setView }: HomeProps) {
               size="large"
               variant="contained"
               disabled={isAnythingLoading}
+              onClick={handleCreateOfflineGame}
               sx={(theme) =>
                 MenuButtonStyles(theme.palette.background.playOfflineButton)
               }

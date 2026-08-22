@@ -29,12 +29,8 @@ export function getRoomByIdWithUser(
   return found?.players.find((p) => p.id === userId) ? found : undefined;
 }
 
-export function addPlayerToRoom(
-  room: Room,
-  username: string,
-  isBot = false,
-): Player {
-  const newPlayer = createPlayer(username, isBot);
+export function addPlayerToRoom(room: Room, username: string): Player {
+  const newPlayer = createPlayer(username);
   room.players.push(newPlayer);
   return newPlayer;
 }

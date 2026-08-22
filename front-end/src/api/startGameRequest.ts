@@ -1,4 +1,10 @@
-import type { RoomOptions } from "shared-code";
+import { SOCKET_EVENTS, startGame, type RoomOptions } from "shared-code";
+import { STORAGE_KEYS } from "../constants";
+import {
+  getLocalRoom,
+  OfflineBridge,
+  updateLocalRoom,
+} from "../local-game-helpers";
 import type { APIError } from "../types";
 
 interface StartGameRequestParams {
@@ -7,7 +13,31 @@ interface StartGameRequestParams {
   roomOptions: RoomOptions;
 }
 
-export async function startGameRequest({
+export async function startGameRequest(args: StartGameRequestParams) {
+  if (sessionStorage.getItem(STORAGE_KEYS.OFFLINE_GAME)) {
+    return startOfflineGameRequest(args);
+  } else {
+    return startOnlineGameRequest(args);
+  }
+}
+
+export async function startOfflineGameRequest({
+  roomId,
+  userId,
+  roomOptions,
+}: StartGameRequestParams) {
+  const room = getLocalRoom(roomId, userId);
+  const newRoom = startGame(room, roomOptions);
+
+  updateLocalRoom(newRoom);
+  OfflineBridge.emitToClient(SOCKET_EVENTS.ROOM_UPDATE);
+
+  //haveBotsPredict(newRoom);
+
+  return true;
+}
+
+export async function startOnlineGameRequest({
   roomId,
   userId,
   roomOptions,

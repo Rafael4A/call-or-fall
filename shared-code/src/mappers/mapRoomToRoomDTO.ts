@@ -1,9 +1,5 @@
-import {
-  GAME_STATE,
-  type Room,
-  type RoomDTO,
-  type TableCard,
-} from "shared-code";
+import { GAME_STATE } from "../constants";
+import type { Room, RoomDTO, TableCard } from "../types";
 
 export function mapRoomToRoomDTO(room: Room, userId: string): RoomDTO {
   const { players, deck, ...roomWithoutPlayersAndDeck } = room;

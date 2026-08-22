@@ -27,11 +27,11 @@ export function startGame(room: Room, roomOptions?: RoomOptions): Room {
     _room.options.showWinningCard = !!roomOptions.showWinningCard;
   }
 
-  const possibleStatesToStartGame = [
+  const possibleStatesToStartGame: GameState[] = [
     GAME_STATE.WaitingForPlayers,
     GAME_STATE.TurnOver,
     GAME_STATE.RoundOver,
-  ] as GameState[];
+  ];
   if (!possibleStatesToStartGame.includes(_room.gameState)) {
     throw new Error("Game cannot be started at this time");
   }
@@ -64,10 +64,10 @@ export function startGame(room: Room, roomOptions?: RoomOptions): Room {
     }
   }
 
-  const statesToDealCards = [
+  const statesToDealCards: GameState[] = [
     GAME_STATE.WaitingForPlayers,
     GAME_STATE.RoundOver,
-  ] as GameState[];
+  ];
 
   _room.table = [];
 

@@ -129,6 +129,7 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
       setView(VIEWS.HOME);
     }
   });
+
   useEffect(updateConnection, [updateConnection]);
 
   return (

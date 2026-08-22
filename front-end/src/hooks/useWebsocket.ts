@@ -1,5 +1,7 @@
-import io from "socket.io-client";
+import io, { type Socket } from "socket.io-client";
+import { STORAGE_KEYS } from "../constants";
 import { useSocketContext } from "../contexts";
+import { OfflineSocketMock } from "../local-game-helpers";
 
 export function useWebsocket() {
   const socketRef = useSocketContext();
@@ -10,15 +12,26 @@ export function useWebsocket() {
       socketRef.current.disconnect();
     }
 
-    socketRef.current = io(location.origin, {
-      query: {
-        roomId,
-        playerId,
-      },
-      path: "/api/socket.io",
-    });
-    socketRef.current.onAny((event, ...args) => {
-      console.log("event received:", event, "args:", args);
+    const isOffline = sessionStorage.getItem(STORAGE_KEYS.OFFLINE_GAME);
+
+    if (isOffline) {
+      // Initialize our local event bus to run the offline match
+      socketRef.current = new OfflineSocketMock() as unknown as Socket;
+    } else {
+      // Connect to the real server
+      socketRef.current = io(location.origin, {
+        query: { roomId, playerId },
+        path: "/api/socket.io",
+      });
+    }
+
+    socketRef.current.onAny((event: string, ...args: unknown[]) => {
+      console.log(
+        `[${isOffline ? "OFFLINE" : "ONLINE"}] event received:`,
+        event,
+        "args:",
+        args,
+      );
     });
   };
 
@@ -30,5 +43,10 @@ export function useWebsocket() {
     socketRef.current?.on(event, callback);
   };
 
-  return { connectSocket, registerEvent, socketRef };
+  // TODO: DELETE IF UNUSED, AGNOSTIC EMITTER
+  const emitEvent = (event: string, ...args: unknown[]) => {
+    socketRef.current?.emit(event, ...args);
+  };
+
+  return { connectSocket, registerEvent, emitEvent, socketRef };
 }

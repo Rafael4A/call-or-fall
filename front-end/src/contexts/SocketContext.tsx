@@ -64,7 +64,7 @@ export function SocketProvider({ children }: Readonly<PropsWithChildren>) {
       socketRef.current?.disconnect();
       hasLostConnection.current = false;
     };
-  }, [socketRef, hasLostConnection, intentionalDisconnection, openAlert]);
+  }, [socketRef, hasLostConnection, intentionalDisconnection, openAlert, t]);
 
   return <SocketContext value={socketRef}>{children}</SocketContext>;
 }

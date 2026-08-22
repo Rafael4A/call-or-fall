@@ -1,4 +1,10 @@
-import type { CardCode } from "shared-code";
+import { playCard, SOCKET_EVENTS, type CardCode } from "shared-code";
+import { STORAGE_KEYS } from "../constants";
+import {
+  getLocalRoom,
+  OfflineBridge,
+  updateLocalRoom,
+} from "../local-game-helpers";
 import type { APIError } from "../types";
 
 interface PlayCardRequestParams {
@@ -7,7 +13,30 @@ interface PlayCardRequestParams {
   card: CardCode;
 }
 
-export async function playCardRequest({
+export async function playCardRequest(args: PlayCardRequestParams) {
+  if (sessionStorage.getItem(STORAGE_KEYS.OFFLINE_GAME)) {
+    return playOfflineCardRequest(args);
+  } else {
+    return playOnlineCardRequest(args);
+  }
+}
+
+export async function playOfflineCardRequest({
+  card,
+  roomId,
+  userId,
+}: PlayCardRequestParams) {
+  const room = getLocalRoom(roomId, userId);
+  const newRoom = playCard(room, userId, card);
+  updateLocalRoom(newRoom);
+
+  OfflineBridge.emitToClient(SOCKET_EVENTS.ROOM_UPDATE);
+  // haveBotsPlayCard(newRoom);
+
+  return true;
+}
+
+export async function playOnlineCardRequest({
   card,
   roomId,
   userId,

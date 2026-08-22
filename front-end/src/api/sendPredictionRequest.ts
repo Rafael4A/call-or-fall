@@ -1,3 +1,10 @@
+import { predictTurn, SOCKET_EVENTS } from "shared-code";
+import { STORAGE_KEYS } from "../constants";
+import {
+  getLocalRoom,
+  OfflineBridge,
+  updateLocalRoom,
+} from "../local-game-helpers";
 import type { APIError } from "../types";
 
 interface SendPredictionRequestParams {
@@ -6,7 +13,29 @@ interface SendPredictionRequestParams {
   prediction: number;
 }
 
-export async function sendPredictionRequest({
+export async function sendPredictionRequest(args: SendPredictionRequestParams) {
+  if (sessionStorage.getItem(STORAGE_KEYS.OFFLINE_GAME)) {
+    return sendOfflinePredictionRequest(args);
+  } else {
+    return sendOnlinePredictionRequest(args);
+  }
+}
+
+export async function sendOfflinePredictionRequest({
+  prediction,
+  roomId,
+  userId,
+}: SendPredictionRequestParams) {
+  const room = getLocalRoom(roomId, userId);
+  const newRoom = predictTurn(room, userId, prediction);
+  updateLocalRoom(newRoom);
+  OfflineBridge.emitToClient(SOCKET_EVENTS.ROOM_UPDATE);
+  //haveBotsPredict(newRoom);
+
+  return true;
+}
+
+export async function sendOnlinePredictionRequest({
   prediction,
   roomId,
   userId,

@@ -1,6 +1,5 @@
 import { type Request, type Response } from "express";
-import type { RoomDTO } from "shared-code";
-import { mapRoomToRoomDTO } from "../../mappers";
+import { mapRoomToRoomDTO, type RoomDTO } from "shared-code";
 import { getRoomByIdWithUser } from "../../state";
 
 export function getRoomEndpoint(req: Request, res: Response) {

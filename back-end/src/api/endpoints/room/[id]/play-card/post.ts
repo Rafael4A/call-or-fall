@@ -46,10 +46,11 @@ export function playCardEndpoint(req: Request, res: Response) {
 
   io.to(roomId).emit(SOCKET_EVENTS.ROOM_UPDATE);
 
-  const gameStatesForNextTurn = [
+  const gameStatesForNextTurn: GameState[] = [
     GAME_STATE.TurnOver,
     GAME_STATE.RoundOver,
-  ] as GameState[];
+  ];
+
   if (gameStatesForNextTurn.includes(newRoom.gameState)) {
     handleTurnOver(newRoom, io);
   }

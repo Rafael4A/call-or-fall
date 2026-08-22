@@ -12,9 +12,10 @@
 ## Tasks (TODO):
 
 - Bots (partida offline):
-  - Adaptar requests para quando online, redirecionar para instancia local e desligar websocket
+  - Logica de adicionar e remover bots
   - Criar lógica do bot
   - Fazer PWA
+
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
 - Usar form nos inputs de criar sala e entrar na sala, para que o enter funcione
 - Deixar claro quando acaba o jogo ao invés de voltar direto pra home
