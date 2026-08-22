@@ -11,7 +11,6 @@
 
 ## Tasks (TODO):
 
-- Investigar bug de quando uma sala é criada, a view não é trocada automaticamente E quando é trocada, fica carregando infinitamente, mesmo quando a request ja terminou
 - Bots (partida offline)
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
 - Corrigir alt das cards

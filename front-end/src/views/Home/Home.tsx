@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import type { CreateRoomResponse } from "shared-code";
 import { createRoomRequest, joinRoomRequest } from "../../api";
 import { STORAGE_KEYS, VIEWS } from "../../constants";
-import { useSnackAlert } from "../../contexts";
+import { useRoomContext, useSnackAlert } from "../../contexts";
 import { RoomIdInput, UsernameInput } from "./components";
 import { MenuButtonStyles } from "./HomeStyles";
 
@@ -16,10 +16,12 @@ interface HomeProps {
 export function Home({ setView }: HomeProps) {
   const { t } = useTranslation();
   const { openAlert } = useSnackAlert();
+  const { room } = useRoomContext();
 
   const handleNewRoomSuccess = (response: CreateRoomResponse) => {
     sessionStorage.setItem(STORAGE_KEYS.ROOM_ID, response.roomId);
     sessionStorage.setItem(STORAGE_KEYS.PLAYER_ID, response.playerId);
+    room.refetch();
     setView(VIEWS.WAITING_ROOM);
   };
 
