@@ -12,7 +12,6 @@
 ## Tasks (TODO):
 
 - Bots (partida offline):
-  - Impedir update de acontecer caso tenha saído da sala, ou caso o jogo tenha acabado
   - Fazer PWA
   - Remover aviso de perda de conexão com o servidor, caso seja partida offline e caso saia de propósito. Também remover aviso de reconexão com o servidor, na primeira conexão
 - Definir um ícone
