@@ -74,5 +74,7 @@ export async function haveBotsPredict(room: Room) {
 
     updateLocalRoom(newRoom);
     OfflineBridge.emitToClient(SOCKET_EVENTS.ROOM_UPDATE);
+    return true;
   }
+  return false;
 }

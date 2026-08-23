@@ -15,7 +15,6 @@ export async function haveBotsPlayCard(room: Room) {
   );
 
   if (currentPlayer?.isBot) {
-    // TODO make it smarter, for now just random card
     await new Promise((resolve) => setTimeout(resolve, 1000));
     if (room.gameState !== GAME_STATE.Playing) return;
 
@@ -25,7 +24,9 @@ export async function haveBotsPlayCard(room: Room) {
 
     updateLocalRoom(newRoom);
     OfflineBridge.emitToClient(SOCKET_EVENTS.ROOM_UPDATE);
+    return true;
   }
+  return false;
 }
 
 function pickBestCardToPlay(room: Room) {

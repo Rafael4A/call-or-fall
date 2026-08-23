@@ -11,8 +11,12 @@ import { OfflineBridge } from "./OfflineBridge";
 import { updateLocalRoom } from "./updateLocalRoom";
 
 export async function continueGame(room: Room) {
-  await haveBotsPredict(room);
-  await haveBotsPlayCard(room);
+  const botsPredicted = await haveBotsPredict(room);
+  if (botsPredicted) return;
+
+  const botsPlayed = await haveBotsPlayCard(room);
+  if (botsPlayed) return;
+
   const possibleGameStates: GameState[] = [
     GAME_STATE.RoundOver,
     GAME_STATE.TurnOver,
