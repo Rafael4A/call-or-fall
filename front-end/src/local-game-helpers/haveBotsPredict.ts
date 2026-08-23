@@ -8,6 +8,7 @@ import {
   SOCKET_EVENTS,
   type Room,
 } from "shared-code";
+import { BOT_DELAY } from "../constants";
 import { OfflineBridge } from "./OfflineBridge";
 import { updateLocalRoom } from "./updateLocalRoom";
 
@@ -17,7 +18,7 @@ export async function haveBotsPredict(room: Room) {
   );
 
   if (currentPlayer?.isBot) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, BOT_DELAY));
 
     if (room.gameState !== GAME_STATE.Predicting) return;
 

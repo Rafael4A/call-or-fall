@@ -6,6 +6,7 @@ import {
   SOCKET_EVENTS,
   type Room,
 } from "shared-code";
+import { BOT_DELAY } from "../constants";
 import { OfflineBridge } from "./OfflineBridge";
 import { updateLocalRoom } from "./updateLocalRoom";
 
@@ -15,7 +16,7 @@ export async function haveBotsPlayCard(room: Room) {
   );
 
   if (currentPlayer?.isBot) {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, BOT_DELAY));
     if (room.gameState !== GAME_STATE.Playing) return;
 
     const chosenCard = pickBestCardToPlay(room);
@@ -39,8 +40,7 @@ function pickBestCardToPlay(room: Room) {
   }
 
   // Assess the Goal State
-  const tricksWon = currentPlayer.score;
-  const wantsToWin = tricksWon < (currentPlayer.prediction ?? 0);
+  const wantsToWin = (currentPlayer.prediction ?? 0) > 0;
 
   // Assess the Board State
   const tableCards = room.table;
