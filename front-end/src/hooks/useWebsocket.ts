@@ -1,39 +1,42 @@
+import { useCallback } from "react";
 import io, { type Socket } from "socket.io-client";
 import { STORAGE_KEYS } from "../constants";
 import { useSocketContext } from "../contexts";
 import { OfflineSocketMock } from "../local-game-helpers";
 
 export function useWebsocket() {
-  const socketRef = useSocketContext();
+  const { socketRef, initGlobalListeners } = useSocketContext();
 
-  const connectSocket = (roomId: string, playerId: string) => {
-    //console.log("called", socketRef.current);
-    if (socketRef.current) {
-      socketRef.current.disconnect();
-    }
+  const connectSocket = useCallback(
+    (roomId: string, playerId: string) => {
+      if (socketRef.current) {
+        socketRef.current.disconnect();
+      }
 
-    const isOffline = sessionStorage.getItem(STORAGE_KEYS.OFFLINE_GAME);
+      const isOffline = sessionStorage.getItem(STORAGE_KEYS.OFFLINE_GAME);
 
-    if (isOffline) {
-      // Initialize our local event bus to run the offline match
-      socketRef.current = new OfflineSocketMock() as unknown as Socket;
-    } else {
-      // Connect to the real server
-      socketRef.current = io(location.origin, {
-        query: { roomId, playerId },
-        path: "/api/socket.io",
+      if (isOffline) {
+        socketRef.current = new OfflineSocketMock() as unknown as Socket;
+      } else {
+        socketRef.current = io(location.origin, {
+          query: { roomId, playerId },
+          path: "/api/socket.io",
+        });
+      }
+
+      initGlobalListeners();
+
+      socketRef.current.onAny((event: string, ...args: unknown[]) => {
+        console.log(
+          `[${isOffline ? "OFFLINE" : "ONLINE"}] event received:`,
+          event,
+          "args:",
+          args,
+        );
       });
-    }
-
-    socketRef.current.onAny((event: string, ...args: unknown[]) => {
-      console.log(
-        `[${isOffline ? "OFFLINE" : "ONLINE"}] event received:`,
-        event,
-        "args:",
-        args,
-      );
-    });
-  };
+    },
+    [socketRef, initGlobalListeners],
+  );
 
   const registerEvent = (
     event: string,
