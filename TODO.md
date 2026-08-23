@@ -12,9 +12,9 @@
 ## Tasks (TODO):
 
 - Bots (partida offline):
-  - Criar lógica do bot
   - Impedir update de acontecer caso tenha saído da sala, ou caso o jogo tenha acabado
   - Fazer PWA
+  - Remover aviso de perda de conexão com o servidor, caso seja partida offline e caso saia de propósito. Também remover aviso de reconexão com o servidor, na primeira conexão
 
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
 - Usar form nos inputs de criar sala e entrar na sala, para que o enter funcione
