@@ -39,7 +39,8 @@
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": { "shared-code": ["../shared-code/src/index.ts"] }
   },
   "exclude": ["dist", "node_modules"],
   "include": ["src/**/*"]
