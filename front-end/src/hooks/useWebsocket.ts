@@ -38,6 +38,12 @@ export function useWebsocket() {
     [socketRef, initGlobalListeners],
   );
 
+  const disconnectSocket = useCallback(() => {
+    if (socketRef.current) {
+      socketRef.current.disconnect();
+    }
+  }, [socketRef]);
+
   const registerEvent = (
     event: string,
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -46,10 +52,15 @@ export function useWebsocket() {
     socketRef.current?.on(event, callback);
   };
 
-  // TODO: DELETE IF UNUSED, AGNOSTIC EMITTER
   const emitEvent = (event: string, ...args: unknown[]) => {
     socketRef.current?.emit(event, ...args);
   };
 
-  return { connectSocket, registerEvent, emitEvent, socketRef };
+  return {
+    connectSocket,
+    disconnectSocket,
+    registerEvent,
+    emitEvent,
+    socketRef,
+  };
 }

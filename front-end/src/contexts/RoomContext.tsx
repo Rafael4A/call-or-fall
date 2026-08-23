@@ -42,10 +42,9 @@ export function useRoomContext() {
 
 export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
   const { view, setView } = useViewContext();
-
   const queryClient = useQueryClient();
 
-  const { connectSocket, registerEvent } = useWebsocket();
+  const { connectSocket, disconnectSocket, registerEvent } = useWebsocket();
 
   const { openAlert } = useSnackAlert();
   const { t } = useTranslation();
@@ -68,12 +67,14 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
     sessionStorage.removeItem(STORAGE_KEYS.ROOM_ID);
     sessionStorage.removeItem(STORAGE_KEYS.PLAYER_ID);
     sessionStorage.removeItem(STORAGE_KEYS.OFFLINE_GAME);
+
+    disconnectSocket();
     setView(VIEWS.HOME);
   };
 
   const updateConnection = useEffectEvent(() => {
-    const roomId = sessionStorage.getItem(STORAGE_KEYS.ROOM_ID)!;
-    const userId = sessionStorage.getItem(STORAGE_KEYS.PLAYER_ID)!;
+    const roomId = sessionStorage.getItem(STORAGE_KEYS.ROOM_ID);
+    const userId = sessionStorage.getItem(STORAGE_KEYS.PLAYER_ID);
 
     if (
       (view !== VIEWS.HOME && !roomId) ||
@@ -105,21 +106,25 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
       setView(VIEWS.WAITING_ROOM);
     }
 
-    connectSocket(roomId, userId);
-    registerEvent(SOCKET_EVENTS.ROOM_UPDATE, () => {
-      console.log("Socket update received");
-      room.refetch();
-    });
-    registerEvent(
-      SOCKET_EVENTS.PLAYER_LEFT,
-      ({ username }: PlayerLeftEventParams) => {
-        openAlert({
-          content: t("player-left-room", { username }),
-          severity: "warning",
-        });
+    if (roomId && userId) {
+      connectSocket(roomId, userId);
+
+      registerEvent(SOCKET_EVENTS.ROOM_UPDATE, () => {
+        console.log("Socket update received");
         room.refetch();
-      },
-    );
+      });
+
+      registerEvent(
+        SOCKET_EVENTS.PLAYER_LEFT,
+        ({ username }: PlayerLeftEventParams) => {
+          openAlert({
+            content: t("player-left-room", { username }),
+            severity: "warning",
+          });
+          room.refetch();
+        },
+      );
+    }
 
     if (room.isError) {
       console.log("#!!$", room.error);

@@ -99,13 +99,15 @@ export function WaitingRoom() {
                 {t("waiting-for-players")}
               </Typography>
 
-              <Button
-                variant="contained"
-                sx={ShareRoomButtonStyles()}
-                onClick={() => shareRoom(room?.id ?? "", openAlert, t)}
-              >
-                {room?.id} <IosShareIcon />
-              </Button>
+              {!isLocalGame && (
+                <Button
+                  variant="contained"
+                  sx={ShareRoomButtonStyles()}
+                  onClick={() => shareRoom(room?.id ?? "", openAlert, t)}
+                >
+                  {room?.id} <IosShareIcon />
+                </Button>
+              )}
             </Stack>
 
             <Stack spacing={1.5}>
