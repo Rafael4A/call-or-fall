@@ -7,6 +7,7 @@ export interface Player {
   score: number;
   isBot: boolean;
   prediction?: number;
+  originalPrediction?: number;
   currentRoundScore: number;
 }
 

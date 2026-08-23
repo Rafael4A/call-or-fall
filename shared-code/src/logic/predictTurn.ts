@@ -36,7 +36,7 @@ export function predictTurn(
     }
   }
 
-  const newPlayer = { ...player, prediction };
+  const newPlayer = { ...player, prediction, originalPrediction: prediction };
 
   const roomWithNewPlayer = {
     ..._room,

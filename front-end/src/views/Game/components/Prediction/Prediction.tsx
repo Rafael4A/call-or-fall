@@ -35,9 +35,11 @@ export function Prediction() {
     });
   };
 
-  const hasPlayerPrediction = room.player.prediction !== undefined;
+  const hasPlayerPrediction =
+    room.player.prediction !== undefined &&
+    room.player.originalPrediction !== null;
   const opponentsWithPredictions = room.opponents.filter(
-    (o) => o.prediction !== undefined,
+    (o) => o.prediction !== undefined && o.originalPrediction !== null,
   );
 
   const playersWithPredictions = hasPlayerPrediction
@@ -100,11 +102,23 @@ export function Prediction() {
               {t("players-predictions")}
             </Typography>
 
-            <Stack spacing={0.75} alignItems="center" direction="row">
+            <Stack
+              spacing={0.75}
+              alignItems="center"
+              direction="row"
+              flexWrap="wrap"
+              justifyContent="center"
+            >
               {playersWithPredictions.map((o) => (
                 <Paper key={o.username} sx={{ p: 1.5 }}>
-                  <Typography sx={{ fontSize: "0.9rem", fontWeight: 800 }}>
-                    {o.username}: {o.prediction}
+                  <Typography
+                    sx={{
+                      fontSize: "0.9rem",
+                      fontWeight: 800,
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    {o.username}: {o.originalPrediction}
                   </Typography>
                 </Paper>
               ))}

@@ -28,9 +28,9 @@ export async function sendOfflinePredictionRequest({
 }: SendPredictionRequestParams) {
   const room = getLocalRoom(roomId, userId);
   const newRoom = predictTurn(room, userId, prediction);
+
   updateLocalRoom(newRoom);
   OfflineBridge.emitToClient(SOCKET_EVENTS.ROOM_UPDATE);
-  //haveBotsPredict(newRoom);
 
   return true;
 }

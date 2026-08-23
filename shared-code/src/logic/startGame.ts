@@ -85,6 +85,7 @@ export function startGame(room: Room, roomOptions?: RoomOptions): Room {
 
     for (const player of _room.players) {
       player.prediction = undefined;
+      player.originalPrediction = undefined;
       player.currentRoundScore = 0;
     }
 

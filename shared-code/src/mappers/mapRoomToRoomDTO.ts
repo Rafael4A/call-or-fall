@@ -11,11 +11,19 @@ export function mapRoomToRoomDTO(room: Room, userId: string): RoomDTO {
   const opponents = players.filter(({ id }) => id !== userId);
 
   const mappedOpponents = opponents.map(
-    ({ username, score, isBot, prediction, currentRoundScore }) => ({
+    ({
       username,
       score,
       isBot,
       prediction,
+      originalPrediction,
+      currentRoundScore,
+    }) => ({
+      username,
+      score,
+      isBot,
+      prediction,
+      originalPrediction,
       currentRoundScore,
     }),
   );

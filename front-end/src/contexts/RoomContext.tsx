@@ -76,11 +76,7 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
     const roomId = sessionStorage.getItem(STORAGE_KEYS.ROOM_ID);
     const userId = sessionStorage.getItem(STORAGE_KEYS.PLAYER_ID);
 
-    if (
-      (view !== VIEWS.HOME && !roomId) ||
-      !userId ||
-      room.data?.gameState === GAME_STATE.GameOver
-    ) {
+    if ((view !== VIEWS.HOME && !roomId) || !userId) {
       setView(VIEWS.HOME);
     }
 
