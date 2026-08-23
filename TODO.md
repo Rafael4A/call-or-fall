@@ -45,18 +45,6 @@
 - Opção de mostrar borda dourada na carta ganhando -> Mod escolhe ao criar partida
 - Implementar fim de jogo quando acabar cartas
 
-## API endpoints (Mostly Done):
-
-- POST /room
-  - recebe: username
-  - retorna: roomId, userId
-- PATCH /room (NOT DONE)
-  - recebe: userId do criador, configuração: limite de pontos, exibir carta ganhadora...
-  - retorna: 200 OK
-- GET /room/:id
-  - recebe: id por path, userId por header(ou query param)
-  - retorna: users[{name,hasCurrentTurn,score}], limite de pontos, estado do jogo, cartas jogadas
-
 ## Verificar antes de concluir:
 
 - adicionar evento no socket de oponente desconectado

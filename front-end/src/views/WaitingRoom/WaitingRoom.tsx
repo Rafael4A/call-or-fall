@@ -173,7 +173,7 @@ export function WaitingRoom() {
                   size="large"
                   variant="contained"
                   onClick={handleRemoveBot}
-                  disabled={startGameMutation.isPending}
+                  disabled={startGameMutation.isPending || playerCount <= 2}
                   sx={(theme) => LargeButtonStyles(theme.palette.error.main)}
                 >
                   {t("remove-bot-button")}
@@ -183,7 +183,7 @@ export function WaitingRoom() {
                   size="large"
                   variant="contained"
                   onClick={handleAddBot}
-                  disabled={startGameMutation.isPending}
+                  disabled={startGameMutation.isPending || playerCount >= 8}
                   sx={(theme) => LargeButtonStyles(theme.palette.success.main)}
                 >
                   {t("add-bot-button")}

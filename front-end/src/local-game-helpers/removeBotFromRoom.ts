@@ -5,6 +5,10 @@ import { updateLocalRoom } from "./updateLocalRoom";
 export function removeBotFromRoom(room: Room, silent?: boolean): Room {
   const _room = structuredClone(room);
 
+  if (_room.players.length <= 2) {
+    throw new Error("Cannot remove bot from room with less than 2 players");
+  }
+
   const lastBotId = _room.players.filter((p) => p.isBot).pop();
 
   if (!lastBotId) {
