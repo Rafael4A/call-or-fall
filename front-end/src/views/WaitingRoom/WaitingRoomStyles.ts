@@ -36,3 +36,12 @@ export function ShareRoomButtonStyles() {
     gap: 1,
   });
 }
+
+export function LargeButtonStyles(background: string) {
+  return {
+    py: 1.5,
+    fontSize: "1rem",
+    background,
+    boxShadow: 3,
+  };
+}

@@ -5,4 +5,5 @@ export * from "./haveBotsPlayCard";
 export * from "./haveBotsPredict";
 export * from "./OfflineBridge";
 export * from "./OfflineSocketMock";
+export * from "./removeBotFromRoom";
 export * from "./updateLocalRoom";

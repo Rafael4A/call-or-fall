@@ -12,8 +12,8 @@
 ## Tasks (TODO):
 
 - Bots (partida offline):
-  - Logica de adicionar e remover bots
   - Criar lógica do bot
+  - Impedir update de acontecer caso tenha saído da sala, ou caso o jogo tenha acabado
   - Fazer PWA
 
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares

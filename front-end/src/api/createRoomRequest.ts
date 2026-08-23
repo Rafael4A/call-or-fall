@@ -30,10 +30,8 @@ async function createOfflineRoomRequest({
   }
 
   const bottedRoom = Array.from({ length: 3 }).reduce<Room>((acc) => {
-    return addBotToRoom(acc);
+    return addBotToRoom(acc, true);
   }, room);
-
-  sessionStorage.setItem(STORAGE_KEYS.OFFLINE_GAME, JSON.stringify(bottedRoom));
 
   return {
     roomId: bottedRoom.id,

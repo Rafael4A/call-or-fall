@@ -13,11 +13,18 @@ import { useTranslation } from "react-i18next";
 import { INITIAL_ROOM_OPTIONS, type RoomOptions } from "shared-code";
 import { startGameRequest } from "../../api";
 import { LeaveRoomButton } from "../../components";
+import { STORAGE_KEYS } from "../../constants";
 import { useRoomContext, useSnackAlert } from "../../contexts";
+import {
+  addBotToRoom,
+  getLocalRoom,
+  removeBotFromRoom,
+} from "../../local-game-helpers";
 import { shareRoom } from "../../utils";
 import { RoomOptionsModal } from "./components";
 import {
   ContainerStyles,
+  LargeButtonStyles,
   ShareRoomButtonStyles,
   SubtitleStyles,
 } from "./WaitingRoomStyles";
@@ -27,6 +34,8 @@ export function WaitingRoom() {
   const { openAlert } = useSnackAlert();
 
   const { room, isLoading } = useRoomContext();
+
+  const isLocalGame = !!sessionStorage.getItem(STORAGE_KEYS.OFFLINE_GAME);
 
   const opponents = room?.opponents ?? [];
   const playerCount = room ? 1 + opponents.length : 0;
@@ -45,6 +54,15 @@ export function WaitingRoom() {
       userId: room?.player.id ?? "",
       roomOptions: roomOptionsToBeSet,
     });
+  };
+
+  const handleAddBot = () => {
+    const _room = getLocalRoom(room?.id ?? "", room?.player.id ?? "");
+    addBotToRoom(_room);
+  };
+  const handleRemoveBot = () => {
+    const _room = getLocalRoom(room?.id ?? "", room?.player.id ?? "");
+    removeBotFromRoom(_room);
   };
 
   return (
@@ -152,6 +170,30 @@ export function WaitingRoom() {
               )}
             </Stack>
 
+            {isLocalGame && (
+              <Stack direction="row" spacing={2}>
+                <Button
+                  fullWidth
+                  size="large"
+                  variant="contained"
+                  onClick={handleRemoveBot}
+                  disabled={startGameMutation.isPending}
+                  sx={(theme) => LargeButtonStyles(theme.palette.error.main)}
+                >
+                  {t("remove-bot-button")}
+                </Button>
+                <Button
+                  fullWidth
+                  size="large"
+                  variant="contained"
+                  onClick={handleAddBot}
+                  disabled={startGameMutation.isPending}
+                  sx={(theme) => LargeButtonStyles(theme.palette.success.main)}
+                >
+                  {t("add-bot-button")}
+                </Button>
+              </Stack>
+            )}
             {room?.isHost && room?.opponents?.length > 0 && (
               <Button
                 fullWidth
@@ -159,12 +201,9 @@ export function WaitingRoom() {
                 variant="contained"
                 onClick={handleStartGame}
                 disabled={startGameMutation.isPending}
-                sx={(theme) => ({
-                  py: 1.5,
-                  fontSize: "1rem",
-                  background: theme.palette.background.startGameButton,
-                  boxShadow: 3,
-                })}
+                sx={(theme) =>
+                  LargeButtonStyles(theme.palette.background.startGameButton)
+                }
               >
                 {t("start-game")}
               </Button>

@@ -78,5 +78,7 @@
     },
     "hidden": "Hidden Card",
     "alt": "Card {{value}} of {{suit}}"
-  }
+  },
+  "add-bot-button": "Add Bot",
+  "remove-bot-button": "Remove Bot"
 }
