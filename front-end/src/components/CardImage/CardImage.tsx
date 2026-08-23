@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import type { CardCode } from "shared-code";
+import { HIDDEN_CARD, type CardCode } from "shared-code";
 import { getCardName } from "../../utils";
 import { ContainerStyles, ImageStyles } from "./CardImageStyles";
 
@@ -18,7 +18,7 @@ export function CardImage({ cardCode, highlight }: CardImageProps) {
 
   const cardImageUrl = `/resources/cards/default_webp/${cardCode}.webp`;
 
-  const isHidden = useDefault || cardCode === "HIDDEN";
+  const isHidden = useDefault || cardCode === HIDDEN_CARD;
 
   return (
     <Box sx={ContainerStyles(highlight)}>

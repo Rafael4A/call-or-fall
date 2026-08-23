@@ -2,6 +2,7 @@ import { type Request, type Response } from "express";
 import {
   CARDS_CODES,
   GAME_STATE,
+  HIDDEN_CARD,
   SOCKET_EVENTS,
   type CardCode,
   type GameState,
@@ -35,7 +36,7 @@ export function playCardEndpoint(req: Request, res: Response) {
   if (
     card == null ||
     typeof card !== "string" ||
-    [...CARDS_CODES, "HIDDEN"].includes(card) === false
+    [...CARDS_CODES, HIDDEN_CARD].includes(card) === false
   ) {
     return res.status(400).send({ error: "Invalid card" });
   }

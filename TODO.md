@@ -11,16 +11,15 @@
 
 ## Tasks (TODO):
 
-- Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
 - Deixar claro quando acaba o jogo ao invés de voltar direto pra home
-- Passar string HIDDEN para constante
 - Criar adicionar mais locales
+- Adicionar tutorial
 - Refactor nas funções de lógica para simplificar e deixar mais legível
 - Refactor na lógica de state do backend
+- Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
 
 ## Tasks (extra, caso sobre tempo):
 
-- Atençao para textos de wins over prediction (atentar ao plural/singular)
 - Handler de erros de API
 - Lógica de aviso de player desconectado? -> modal imperativa? primeiro usar alert
 - Make sections glow when it's time to use them (quando for a sua vez e precisar predizer, paper deve ter um glow, quando for a sua vez de jogar, paper das cartas deve ter glow)

@@ -26,6 +26,16 @@ export function ResultsModal({
 
   const allPlayers = [room.player, ...room.opponents] as PlayerOpponentDTO[];
 
+  const getPlayerPredictionText = (prediction: number) => {
+    const absPrediction = Math.abs(prediction);
+    if (prediction === 0) return t("on-track-with-prediction");
+    if (prediction === 1) return t("still-needs-win", { count: absPrediction });
+    if (prediction > 0) return t("still-needs-wins", { count: absPrediction });
+    if (prediction === -1)
+      return t("win-over-prediction", { count: absPrediction });
+    return t("wins-over-prediction", { count: absPrediction });
+  };
+
   return (
     <Modal
       open={isVisible}
@@ -54,7 +64,8 @@ export function ResultsModal({
                   color: theme.palette.text.secondary,
                 })}
               >
-                {allPlayers.length} {t("player-label", { count: allPlayers.length })}
+                {allPlayers.length}{" "}
+                {t("player-label", { count: allPlayers.length })}
               </Typography>
             </Stack>
 
@@ -160,11 +171,7 @@ export function ResultsModal({
                               fontWeight: isThemselves ? 700 : 400,
                             })}
                           >
-                            {player.prediction === 0
-                              ? t("on-track-with-prediction")
-                              : player.prediction > 0
-                                ? t("still-needs-wins", { count: player.prediction })
-                                : t("wins-over-prediction", { count: Math.abs(player.prediction) })}
+                            {getPlayerPredictionText(player.prediction)}
                           </Typography>
                         </Stack>
                       </Stack>

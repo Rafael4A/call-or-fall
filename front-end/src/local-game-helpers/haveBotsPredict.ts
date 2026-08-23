@@ -2,6 +2,7 @@ import {
   GAME_STATE,
   getBestTableCard,
   getCardValue,
+  HIDDEN_CARD,
   mapRoomToRoomDTO,
   predictTurn,
   SOCKET_EVENTS,
@@ -25,7 +26,7 @@ export async function haveBotsPredict(room: Room) {
       const roomDTO = mapRoomToRoomDTO(room, currentPlayer.id);
       const bestOpponentsCard = getBestTableCard(roomDTO.table);
       const bestOpponentsCardValue = getCardValue(
-        bestOpponentsCard?.card ?? "HIDDEN",
+        bestOpponentsCard?.card ?? HIDDEN_CARD,
       );
 
       const chanceOfLosing =

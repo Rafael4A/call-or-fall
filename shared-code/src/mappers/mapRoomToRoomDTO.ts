@@ -1,4 +1,4 @@
-import { GAME_STATE } from "../constants";
+import { GAME_STATE, HIDDEN_CARD } from "../constants";
 import type { Room, RoomDTO, TableCard } from "../types";
 
 export function mapRoomToRoomDTO(room: Room, userId: string): RoomDTO {
@@ -22,14 +22,14 @@ export function mapRoomToRoomDTO(room: Room, userId: string): RoomDTO {
 
   const censoredPlayer = structuredClone(player);
   if (censoredPlayer.cards.length > 0 && room.currentRound === 1) {
-    censoredPlayer.cards = ["HIDDEN"];
+    censoredPlayer.cards = [HIDDEN_CARD];
   }
 
   const shouldShowOpponentCardsOnTable =
     room.currentRound === 1 && room.gameState === GAME_STATE.Predicting;
   const opponentsTableCards: TableCard[] =
     opponents.map((opponent) => ({
-      card: opponent.cards?.[0] || "HIDDEN", // Should never show HIDDEN here, fallback for type safety
+      card: opponent.cards?.[0] || HIDDEN_CARD, // Should never show HIDDEN here, fallback for type safety
       owner: opponent.username,
     })) ?? [];
 

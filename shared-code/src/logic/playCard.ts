@@ -1,4 +1,4 @@
-import { GAME_STATE } from "../constants";
+import { GAME_STATE, HIDDEN_CARD } from "../constants";
 import type { CardCode, Player, Room } from "../types";
 import { getBestTableCard } from "./getBestTableCard";
 import { getNextPlayerName } from "./getNextPlayerName";
@@ -18,7 +18,7 @@ export function playCard(room: Room, playerId: string, card: CardCode): Room {
   }
 
   const actuallyPlayedCard =
-    card === "HIDDEN" && _room.currentRound <= 1 ? player.cards[0]! : card;
+    card === HIDDEN_CARD && _room.currentRound <= 1 ? player.cards[0]! : card;
 
   if (!player.cards.includes(actuallyPlayedCard)) {
     throw new Error("Player does not have the specified card");

@@ -1,7 +1,8 @@
+import { HIDDEN_CARD } from "../constants";
 import type { CardCode } from "../types";
 
 export function getCardValue(card: CardCode): number {
-  if (card === "HIDDEN") return -1;
+  if (card === HIDDEN_CARD) return -1;
 
   const rank = card.slice(0, -1);
 
