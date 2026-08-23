@@ -11,9 +11,8 @@
 
 ## Tasks (TODO):
 
-- Deixar claro quando acaba o jogo ao invés de voltar direto pra home
-- Criar adicionar mais locales
 - Adicionar tutorial
+- Criar adicionar mais locales
 - Refactor nas funções de lógica para simplificar e deixar mais legível
 - Refactor na lógica de state do backend
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares

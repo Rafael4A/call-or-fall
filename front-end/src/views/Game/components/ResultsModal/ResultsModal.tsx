@@ -24,6 +24,8 @@ export function ResultsModal({
 
   if (!room) return null;
 
+  const gameIsOver = room.gameState === GAME_STATE.GameOver;
+
   const allPlayers = [room.player, ...room.opponents] as PlayerOpponentDTO[];
 
   const getPlayerPredictionText = (prediction: number) => {
@@ -51,11 +53,13 @@ export function ResultsModal({
                 id={`${baseId}-modal-title`}
                 variant="h4"
                 sx={(theme) => ({
-                  color: theme.palette.primary.main,
+                  color: gameIsOver
+                    ? theme.palette.error.main
+                    : theme.palette.primary.main,
                   fontWeight: 700,
                 })}
               >
-                {t("results-modal-title")}
+                {gameIsOver ? t("game-over") : t("results-modal-title")}
               </Typography>
               <Typography
                 id={`${baseId}-modal-description`}
