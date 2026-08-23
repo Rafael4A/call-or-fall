@@ -4,10 +4,15 @@ import { useTranslation } from "react-i18next";
 import { GAME_STATE, type GameState } from "shared-code";
 import { LeaveRoomButton } from "../../components";
 import { useRoomContext } from "../../contexts";
-import { CardTable, PlayerHand, Prediction, ResultsModal } from "./components";
+import {
+  CardTable,
+  PlayerHand,
+  Prediction,
+  ResultsModal,
+  TurnIndicator,
+} from "./components";
 
 import { PrimaryContainerStyles, ShowScoreButtonStyles } from "./GameStyles";
-import { TurnIndicator } from "./components/TurnIndicator";
 
 export function Game() {
   const { t } = useTranslation();
@@ -19,7 +24,7 @@ export function Game() {
 
   useEffect(() => {
     const showScoreModalGameState = (
-      [GAME_STATE.TurnOver, GAME_STATE.GameOver, GAME_STATE.RoundOver] as (
+      [GAME_STATE.TrickOver, GAME_STATE.GameOver, GAME_STATE.RoundOver] as (
         | GameState
         | undefined
       )[]

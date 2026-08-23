@@ -1,4 +1,4 @@
-import { predictTurn, SOCKET_EVENTS } from "shared-code";
+import { predictRound, SOCKET_EVENTS } from "shared-code";
 import { STORAGE_KEYS } from "../constants";
 import {
   getLocalRoom,
@@ -27,7 +27,7 @@ export async function sendOfflinePredictionRequest({
   userId,
 }: SendPredictionRequestParams) {
   const room = getLocalRoom(roomId, userId);
-  const newRoom = predictTurn(room, userId, prediction);
+  const newRoom = predictRound(room, userId, prediction);
 
   updateLocalRoom(newRoom);
   OfflineBridge.emitToClient(SOCKET_EVENTS.ROOM_UPDATE);

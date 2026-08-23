@@ -19,7 +19,7 @@ export async function continueGame(room: Room) {
 
   const possibleGameStates: GameState[] = [
     GAME_STATE.RoundOver,
-    GAME_STATE.TurnOver,
+    GAME_STATE.TrickOver,
   ];
   if (possibleGameStates.includes(room.gameState)) {
     await new Promise((resolve) => setTimeout(resolve, 5000));

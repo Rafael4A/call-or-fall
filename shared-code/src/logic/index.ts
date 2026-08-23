@@ -6,6 +6,6 @@ export * from "./getBestTableCard";
 export * from "./getCardValue";
 export * from "./getNextPlayerName";
 export * from "./playCard";
-export * from "./predictTurn";
+export * from "./predictRound";
 export * from "./shuffleDeck";
 export * from "./startGame";

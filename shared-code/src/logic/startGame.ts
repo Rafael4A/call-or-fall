@@ -29,7 +29,7 @@ export function startGame(room: Room, roomOptions?: RoomOptions): Room {
 
   const possibleStatesToStartGame: GameState[] = [
     GAME_STATE.WaitingForPlayers,
-    GAME_STATE.TurnOver,
+    GAME_STATE.TrickOver,
     GAME_STATE.RoundOver,
   ];
   if (!possibleStatesToStartGame.includes(_room.gameState)) {

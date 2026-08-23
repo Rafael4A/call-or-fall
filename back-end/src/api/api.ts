@@ -8,7 +8,7 @@ import {
   getRoomEndpoint,
   joinRoomEndpoint,
   playCardEndpoint,
-  predictTurnEndpoint,
+  predictRoundEndpoint,
   startGameEndpoint,
 } from "./endpoints";
 import { leaveRoomEndpoint } from "./endpoints/room/[id]/leave/post";
@@ -31,6 +31,6 @@ apiRouter.post("/room/:id/start", playerInRoomMiddleware, startGameEndpoint);
 apiRouter.post(
   "/room/:id/predict",
   playerInRoomMiddleware,
-  predictTurnEndpoint,
+  predictRoundEndpoint,
 );
 apiRouter.post("/room/:id/play-card", playerInRoomMiddleware, playCardEndpoint);

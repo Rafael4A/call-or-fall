@@ -9,8 +9,8 @@ function getTranslationKey(isCurrentPlayer: boolean, gameState?: GameState) {
       return "round-over";
     case GAME_STATE.GameOver:
       return "game-over";
-    case GAME_STATE.TurnOver:
-      return "turn-over";
+    case GAME_STATE.TrickOver:
+      return "trick-over";
     default:
       return isCurrentPlayer ? "your-turn" : "opponent-turn";
   }
@@ -21,8 +21,7 @@ export function TurnIndicator() {
 
   const { room } = useRoomContext();
 
-  const isCurrentPlayer =
-    room?.currentPlayerName === room?.player.username;
+  const isCurrentPlayer = room?.currentPlayerName === room?.player.username;
 
   const stateTranslationKey = getTranslationKey(
     isCurrentPlayer,

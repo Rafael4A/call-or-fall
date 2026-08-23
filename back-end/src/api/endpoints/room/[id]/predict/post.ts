@@ -1,9 +1,9 @@
 import { type Request, type Response } from "express";
 import { GAME_STATE, SOCKET_EVENTS } from "shared-code";
-import { getRoomByIdWithUser, predictTurn } from "../../../../state";
+import { getRoomByIdWithUser, predictRound } from "../../../../state";
 import { getSocketio } from "../../../../utils";
 
-export function predictTurnEndpoint(req: Request, res: Response) {
+export function predictRoundEndpoint(req: Request, res: Response) {
   const roomId = req.params?.id as string;
   const userId = req.query?.userId as string;
 
@@ -25,7 +25,7 @@ export function predictTurnEndpoint(req: Request, res: Response) {
     return res.status(400).send({ error: "Invalid prediction" });
   }
 
-  predictTurn(room, userId, prediction);
+  predictRound(room, userId, prediction);
 
   const io = getSocketio(req.app);
 

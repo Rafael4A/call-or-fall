@@ -4,7 +4,7 @@ import {
   getCardValue,
   HIDDEN_CARD,
   mapRoomToRoomDTO,
-  predictTurn,
+  predictRound,
   SOCKET_EVENTS,
   type Room,
 } from "shared-code";
@@ -72,7 +72,7 @@ export async function haveBotsPredict(room: Room) {
       }
     }
 
-    const newRoom = predictTurn(room, currentPlayer.id, prediction);
+    const newRoom = predictRound(room, currentPlayer.id, prediction);
 
     updateLocalRoom(newRoom);
     OfflineBridge.emitToClient(SOCKET_EVENTS.ROOM_UPDATE);

@@ -86,7 +86,7 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
         [
           GAME_STATE.Playing,
           GAME_STATE.Predicting,
-          GAME_STATE.TurnOver,
+          GAME_STATE.TrickOver,
           GAME_STATE.RoundOver,
         ] as (GameState | undefined)[]
       ).includes(room.data?.gameState)

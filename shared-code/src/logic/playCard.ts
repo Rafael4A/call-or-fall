@@ -30,32 +30,24 @@ export function playCard(room: Room, playerId: string, card: CardCode): Room {
 
   // Check if all players have played their turns
   const allPlayersPlayed = _room.table.length === _room.players.length;
-  console.log("#\n#", "allplayersPlayed", allPlayersPlayed);
 
   if (!allPlayersPlayed) {
     _room.currentPlayerName = getNextPlayerName(_room);
     return _room;
   }
 
-  // Handle Turn Over
-  _room.gameState = GAME_STATE.TurnOver;
-  const roundWinningTableCard = getBestTableCard(_room.table);
-  console.log("#", "roundWinningTableCard", roundWinningTableCard);
+  // Handle Trick Over
+  _room.gameState = GAME_STATE.TrickOver;
+  const trickWinningTableCard = getBestTableCard(_room.table);
 
-  if (roundWinningTableCard) {
-    console.log({
-      roundWinningCard: roundWinningTableCard.card,
-      cardOwner: JSON.stringify(roundWinningTableCard.owner),
-    });
-
+  if (trickWinningTableCard) {
     const cardOwner = _room.players.find(
-      (p) => p.username === roundWinningTableCard.owner,
+      (p) => p.username === trickWinningTableCard.owner,
     ) as Player;
 
     if (cardOwner.prediction == null)
       throw new Error("Card owner prediction is undefined");
 
-    console.log("#", "cardOwner", cardOwner);
     cardOwner.prediction -= 1;
     cardOwner.currentRoundScore += 1;
     _room.currentPlayerName = cardOwner.username;
@@ -65,7 +57,6 @@ export function playCard(room: Room, playerId: string, card: CardCode): Room {
 
   // Handle Round Over
   if (_room.players.every((p) => p.cards.length === 0)) {
-    console.log("#", "roundOver");
     for (const p of _room.players) {
       p.score += Math.abs(p.prediction ?? 0);
     }

@@ -4,7 +4,7 @@ import {
   createRoom,
   GAME_STATE,
   playCard as logicPlayCard,
-  predictTurn as logicPredictTurn,
+  predictRound as logicPredictRound,
   startGame as logicStartGame,
   ROOM_ID_CHARS,
   SOCKET_EVENTS,
@@ -42,7 +42,7 @@ export function startGame(room: Room, roomOptions?: RoomOptions): Room {
   return newRoom;
 }
 
-export function predictTurn(
+export function predictRound(
   room: Room,
   playerId: string,
   prediction: number,
@@ -50,7 +50,7 @@ export function predictTurn(
   const player = room.players.find((p) => p.id === playerId);
   if (!player) throw new Error("Player not found");
 
-  const newRoom = logicPredictTurn(room, playerId, prediction);
+  const newRoom = logicPredictRound(room, playerId, prediction);
 
   Rooms.set(room.id, newRoom);
   return newRoom;
@@ -66,7 +66,7 @@ export function playCard(room: Room, playerId: string, card: CardCode): Room {
   return newRoom;
 }
 
-export async function handleTurnOver(room: Room, io: Server) {
+export async function handleTrickOver(room: Room, io: Server) {
   // Wait for 7 seconds before starting the next round
   await new Promise((resolve) => setTimeout(resolve, 7000));
 

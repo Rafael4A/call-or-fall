@@ -1,7 +1,7 @@
 import { GAME_STATE } from "../constants";
 import type { Room } from "../types";
 
-export function predictTurn(
+export function predictRound(
   room: Room,
   playerId: string,
   prediction: number,

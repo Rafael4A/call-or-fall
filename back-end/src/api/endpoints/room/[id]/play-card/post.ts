@@ -9,7 +9,7 @@ import {
 } from "shared-code";
 import {
   getRoomByIdWithUser,
-  handleTurnOver,
+  handleTrickOver,
   playCard,
 } from "../../../../state";
 import { getSocketio } from "../../../../utils";
@@ -47,13 +47,13 @@ export function playCardEndpoint(req: Request, res: Response) {
 
   io.to(roomId).emit(SOCKET_EVENTS.ROOM_UPDATE);
 
-  const gameStatesForNextTurn: GameState[] = [
-    GAME_STATE.TurnOver,
+  const gameStatesForNextTrick: GameState[] = [
+    GAME_STATE.TrickOver,
     GAME_STATE.RoundOver,
   ];
 
-  if (gameStatesForNextTurn.includes(newRoom.gameState)) {
-    handleTurnOver(newRoom, io);
+  if (gameStatesForNextTrick.includes(newRoom.gameState)) {
+    handleTrickOver(newRoom, io);
   }
 
   res.status(200).send();
