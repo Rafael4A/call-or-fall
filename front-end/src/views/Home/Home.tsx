@@ -1,22 +1,18 @@
 import { Button, Container, Paper, Stack, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
-import type { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import type { CreateRoomResponse } from "shared-code";
 import { createRoomRequest, joinRoomRequest } from "../../api";
 import { STORAGE_KEYS, VIEWS } from "../../constants";
-import { useRoomContext, useSnackAlert } from "../../contexts";
+import { useRoomContext, useSnackAlert, useViewContext } from "../../contexts";
 import { RoomIdInput, UsernameInput } from "./components";
 import { MenuButtonStyles } from "./HomeStyles";
 
-interface HomeProps {
-  setView: Dispatch<SetStateAction<(typeof VIEWS)[keyof typeof VIEWS]>>;
-}
-
-export function Home({ setView }: HomeProps) {
+export function Home() {
   const { t } = useTranslation();
   const { openAlert } = useSnackAlert();
   const { refetch } = useRoomContext();
+  const { setView } = useViewContext();
 
   const handleNewRoomSuccess = (response: CreateRoomResponse) => {
     sessionStorage.setItem(STORAGE_KEYS.ROOM_ID, response.roomId);
@@ -94,24 +90,14 @@ export function Home({ setView }: HomeProps) {
       <Paper elevation={4} sx={{ p: { xs: 3, sm: 5 }, width: "100%" }}>
         <Stack spacing={3} alignItems="center">
           <Stack spacing={1} alignItems="center">
-            <Typography
-              component="h1"
-              variant="h1"
-              textAlign="center"
-              sx={(theme) => ({
-                color: theme.palette.primary.main,
-                fontSize: { xs: "2.25rem", sm: "3rem" },
-                letterSpacing: "-0.02em",
-              })}
-            >
-              {t("title")}
-            </Typography>
+            <img src="CallOrFall-Logo.webp" alt={t("title")} />
             <Typography
               textAlign="center"
               variant="body1"
               sx={(theme) => ({
                 color: theme.palette.text.secondary,
                 maxWidth: 400,
+                fontWeight: 500,
               })}
             >
               {t("game-description")}

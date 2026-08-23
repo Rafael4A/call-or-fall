@@ -1,4 +1,5 @@
 import IosShareIcon from "@mui/icons-material/IosShare";
+import PsychologyIcon from "@mui/icons-material/Psychology";
 import {
   Button,
   Container,
@@ -146,24 +147,17 @@ export function WaitingRoom() {
                       elevation={1}
                       sx={{ px: 2.5, py: 1.5 }}
                     >
-                      <Typography
-                        sx={(theme) => ({
-                          color: theme.palette.text.primary,
-                          fontWeight: 500,
-                        })}
-                      >
-                        {player.username}
-                      </Typography>
-                      {player.isBot && (
+                      <Stack direction="row" spacing={1} alignItems="center">
                         <Typography
                           sx={(theme) => ({
-                            color: theme.palette.text.secondary,
-                            fontSize: "0.875rem",
+                            color: theme.palette.text.primary,
+                            fontWeight: 500,
                           })}
                         >
-                          {t("bot-label")}
+                          {player.username}
                         </Typography>
-                      )}
+                        {player.isBot && <PsychologyIcon />}
+                      </Stack>
                     </Paper>
                   ))}
                 </Stack>
