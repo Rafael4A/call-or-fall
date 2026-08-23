@@ -51,28 +51,6 @@ export default defineConfig({
         "web-app-manifest-512x512.png",
         "CallOrFall-Logo.webp",
       ],
-
-      workbox: {
-        //Temporary while translations are in the backend
-        runtimeCaching: [
-          {
-            urlPattern: ({ url, sameOrigin }) => {
-              return sameOrigin && url.pathname.startsWith("/locales/");
-            },
-            handler: "StaleWhileRevalidate",
-            options: {
-              cacheName: "backend-locales-cache",
-              expiration: {
-                maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
-              },
-              cacheableResponse: {
-                statuses: [0, 200],
-              },
-            },
-          },
-        ],
-      },
     }),
   ],
   server: {
@@ -83,7 +61,6 @@ export default defineConfig({
         secure: false,
         ws: true,
       },
-      "/locales": "http://localhost:3001",
     },
   },
 });

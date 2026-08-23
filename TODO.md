@@ -11,9 +11,7 @@
 
 ## Tasks (TODO):
 
-- Bots (partida offline):
-  - Mover traduções para o front-end
-  - Remover aviso de perda de conexão com o servidor, caso seja partida offline e caso saia de propósito. Também remover aviso de reconexão com o servidor, na primeira conexão
+- Remover aviso de perda de conexão com o servidor, caso seja partida offline e caso saia de propósito. Também remover aviso de reconexão com o servidor, na primeira conexão
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
 - Usar form nos inputs de criar sala e entrar na sala, para que o enter funcione
 - Deixar claro quando acaba o jogo ao invés de voltar direto pra home

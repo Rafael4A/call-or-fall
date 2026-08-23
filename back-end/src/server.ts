@@ -11,11 +11,6 @@ app.use(express.json());
 
 app.use("/api", apiRouter);
 
-app.use(
-  "/locales",
-  express.static(path.join(process.cwd(), "../shared-code/src/locales")),
-);
-
 app.use(express.static(path.join(process.cwd(), "../front-end/dist")));
 
 app.get("/{*any}", (req, res) => {
