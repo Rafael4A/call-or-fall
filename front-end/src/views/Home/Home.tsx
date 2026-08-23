@@ -106,7 +106,14 @@ export function Home() {
 
           <Stack spacing={2} sx={{ width: "100%" }}>
             <UsernameInput />
-            <RoomIdInput />
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleJoinOnlineGame();
+              }}
+            >
+              <RoomIdInput />
+            </form>
           </Stack>
 
           <Stack spacing={2} sx={{ width: "100%" }}>
