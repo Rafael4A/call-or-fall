@@ -1,11 +1,12 @@
 import { Button, Container, Paper, Stack, Typography } from "@mui/material";
 import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import type { CreateRoomResponse } from "shared-code";
 import { createRoomRequest, joinRoomRequest } from "../../api";
 import { STORAGE_KEYS, VIEWS } from "../../constants";
 import { useRoomContext, useSnackAlert, useViewContext } from "../../contexts";
-import { RoomIdInput, UsernameInput } from "./components";
+import { RoomIdInput, Tutorial, UsernameInput } from "./components";
 import { MenuButtonStyles } from "./HomeStyles";
 
 export function Home() {
@@ -20,6 +21,8 @@ export function Home() {
     refetch();
     setView(VIEWS.WAITING_ROOM);
   };
+
+  const [showTutorial, setShowTutorial] = useState(false);
 
   const createRoomMutation = useMutation({
     mutationFn: createRoomRequest,
@@ -161,6 +164,7 @@ export function Home() {
               size="large"
               variant="contained"
               disabled={isAnythingLoading}
+              onClick={() => setShowTutorial(true)}
               sx={(theme) =>
                 MenuButtonStyles(theme.palette.background.tutorialButton)
               }
@@ -169,6 +173,10 @@ export function Home() {
             </Button>
           </Stack>
         </Stack>
+        <Tutorial
+          isVisible={showTutorial}
+          onCloseClick={() => setShowTutorial(false)}
+        />
       </Paper>
     </Container>
   );

@@ -18,16 +18,7 @@ export function CardTable() {
   return (
     <Paper elevation={3} sx={ContainerStyles()}>
       {isLoading ? (
-        <LinearProgress
-          sx={(theme) => ({
-            width: "60%",
-            borderRadius: 2,
-            backgroundColor: theme.palette.progressBar.dark,
-            "& .MuiLinearProgress-bar": {
-              backgroundColor: theme.palette.progressBar.main,
-            },
-          })}
-        />
+        <LinearProgress sx={{ width: "60%" }} />
       ) : tableCards.length === 0 ? (
         <Typography
           variant="body1"

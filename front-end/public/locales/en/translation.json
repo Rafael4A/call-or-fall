@@ -3,7 +3,7 @@
   "join-online-game": "Join online game",
   "create-online-game": "Create online game",
   "play-offline-game": "Play offline game",
-  "tutorial": "Tutorial",
+  "tutorial": "How to play",
   "submit-username": "Save",
   "username-field": "Username",
   "random-username": "Use random username",
@@ -82,5 +82,30 @@
     "alt": "Card {{value}} of {{suit}}"
   },
   "add-bot-button": "Add Bot",
-  "remove-bot-button": "Remove Bot"
+  "remove-bot-button": "Remove Bot",
+  "next": "Next",
+  "previous": "Previous",
+  "close": "Close",
+  "tutorial-text": {
+    "title": {
+      "1": "Escalating Rounds",
+      "2": "The Blind Round Twist",
+      "3": "Card Values",
+      "4": "Make Your Prediction",
+      "5": "The Dealer's Trap",
+      "6": "Playing a Trick",
+      "7": "The Tie-Cancellation Rule",
+      "8": "Scoring (Points are Bad!)"
+    },
+    "body": {
+      "1": "The game is played in escalating rounds. In Round 1, everyone receives one card. In Round 2, everyone gets two cards, and so on. The game continues until a player hits the room's score limit, or the deck runs out of cards!",
+      "2": "Round 1 has a special rule: you cannot look at your own card! You will only see your opponents' cards displayed on the table. You must make your decisions completely blind to your own hand.",
+      "3": "Before predicting, you need to know your strength! The highest card wins the trick, and they are ranked as follows: Numbers (2-10) are worth their face value, Jack (J) is 11, Queen (Q) is 12, King (K) is 13 (the strongest card), and Ace (A) is 1 (the weakest card).",
+      "4": "Before any cards are played, look at your hand (or the table, in Round 1) and predict exactly how many tricks you will win. To win a trick, you must play the highest valid card on the table.",
+      "5": "The total sum of everyone's predictions cannot equal the total number of cards dealt in that round. If you are the last player to predict, you might be forced to change your guess!",
+      "6": "The round leader plays the first card. Whoever plays the highest card wins the trick and gets to play first in the next one. Watch the turn indicator to see whose move it is!",
+      "7": "The highest card wins—unless it ties. If two or more identical cards are played, they cancel each other out completely. If every card in a trick cancels out, nobody wins, and the player who led the tied trick plays first in the next one.",
+      "8": "Hitting your prediction exactly keeps your score at zero. If you miss, you take penalty points for every trick you were off by (e.g., predicting 2 but winning 0 gives you 2 penalty points). The player with the lowest score wins!"
+    }
+  }
 }

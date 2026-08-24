@@ -10,8 +10,7 @@ import {
 import { useId, type Dispatch, type SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { GAME_LIMITS, safeClamp, type RoomOptions } from "shared-code";
-import { InputLabelStyles } from "../../../styles";
-import { ContainerStyles } from "./RoomOptionsStyles";
+import { InputLabelStyles, ModalBoxStyles } from "../../../styles";
 
 interface ResultsModalProps {
   roomOptions?: RoomOptions;
@@ -69,7 +68,7 @@ export function RoomOptionsModal({
       aria-labelledby={`${baseId}-modal-title`}
       onClose={onCloseClick}
     >
-      <Box sx={ContainerStyles()}>
+      <Box sx={ModalBoxStyles()}>
         <Paper elevation={8} sx={{ p: { xs: 2.5, sm: 4 } }}>
           <Stack spacing={3} alignItems="center">
             <Stack spacing={0.5} alignItems="center">

@@ -120,15 +120,7 @@ export function WaitingRoom() {
               </Typography>
 
               {isLoading ? (
-                <LinearProgress
-                  sx={(theme) => ({
-                    borderRadius: 2,
-                    backgroundColor: theme.palette.progressBar.dark,
-                    "& .MuiLinearProgress-bar": {
-                      backgroundColor: theme.palette.progressBar.main,
-                    },
-                  })}
-                />
+                <LinearProgress />
               ) : (
                 <Stack spacing={1}>
                   {room?.player && (

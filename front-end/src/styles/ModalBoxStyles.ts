@@ -1,4 +1,4 @@
-export function ContainerStyles() {
+export function ModalBoxStyles() {
   return {
     position: "absolute",
     top: "50%",

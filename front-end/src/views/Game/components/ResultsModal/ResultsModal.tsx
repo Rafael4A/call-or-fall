@@ -2,11 +2,8 @@ import { Box, Modal, Paper, Stack, Typography } from "@mui/material";
 import { useId } from "react";
 import { useTranslation } from "react-i18next";
 import { GAME_STATE, type PlayerOpponentDTO, type RoomDTO } from "shared-code";
-import {
-  ContainerStyles,
-  ItemPaperStyles,
-  SubtitleStyles,
-} from "./ResultsModalStyles";
+import { ModalBoxStyles } from "../../../../styles";
+import { ItemPaperStyles, SubtitleStyles } from "./ResultsModalStyles";
 
 interface ResultsModalProps {
   room?: RoomDTO;
@@ -45,7 +42,7 @@ export function ResultsModal({
       aria-describedby={`${baseId}-modal-description`}
       onClose={onCloseClick}
     >
-      <Box sx={ContainerStyles()}>
+      <Box sx={ModalBoxStyles()}>
         <Paper elevation={8} sx={{ p: { xs: 2.5, sm: 4 } }}>
           <Stack spacing={3}>
             <Stack spacing={0.5} alignItems="center">

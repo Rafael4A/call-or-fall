@@ -184,5 +184,16 @@ export const theme: Theme = createTheme({
         },
       },
     },
+    MuiLinearProgress: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          borderRadius: (theme.shape.borderRadius as number) * 2,
+          backgroundColor: theme.palette.progressBar.dark,
+        }),
+        bar: ({ theme }) => ({
+          backgroundColor: theme.palette.progressBar.main,
+        }),
+      },
+    },
   },
 });
