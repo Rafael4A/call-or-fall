@@ -1,4 +1,5 @@
 import {
+  cardSortFunc,
   GAME_STATE,
   getBestTableCard,
   getCardValue,
@@ -40,9 +41,10 @@ function pickBestCardToPlay(room: Room) {
   }
 
   // Assess the Goal State
-  const wantsToWin = (currentPlayer.prediction ?? 0) > 0;
+  const tricksNeeded = Math.max(0, currentPlayer.prediction ?? 0);
+  const wantsToWin = tricksNeeded > 0;
 
-  // Assess the Board State
+  // Assess the Table State
   const tableCards = room.table;
   const isFirstToPlay = tableCards.length === 0;
 
@@ -54,34 +56,34 @@ function pickBestCardToPlay(room: Room) {
   // Track values already on the table to handle the Tie-Cancellation mechanic
   const tableValues = new Set(tableCards.map((c) => getCardValue(c.card)));
 
-  // Sort hand from Lowest to Highest for easier filtering
-  const hand = [...currentPlayer.cards].sort(
-    (a, b) => getCardValue(a) - getCardValue(b),
-  );
+  // Sort hand from Lowest to Highest
+  const hand = currentPlayer.cards.toSorted(cardSortFunc);
 
-  // Bot wants to win
+  const winningPoolSize = Math.min(tricksNeeded, hand.length);
+  const dodgingPoolSize = hand.length - winningPoolSize;
+
+  const winningPool = hand.slice(dodgingPoolSize); // The highest 'N' cards
+
   if (wantsToWin) {
     if (isFirstToPlay) {
-      // Lead with the absolute highest card to secure the trick
-      return hand[hand.length - 1];
+      // Lead with the highest card overall to confidently secure the trick
+      return winningPool[winningPool.length - 1];
     }
 
-    // Find cards that beat the current winner AND won't cancel out due to a tie
-    const winningCards = hand.filter((card) => {
+    // Try to win using only the designated winning cards
+    const validWinningCards = winningPool.filter((card) => {
       const val = getCardValue(card);
       return val > currentBestValue && !tableValues.has(val);
     });
 
-    if (winningCards.length > 0) {
-      // EFFICIENCY: Play the LOWEST possible winning card to save high cards for later
-      return winningCards[0];
+    if (validWinningCards.length > 0) {
+      // Play the lowest of the designated winning cards
+      return validWinningCards[0];
     } else {
-      // SURRENDER: We can't beat the table.
-      // Dump the absolute LOWEST card so we don't waste good cards on a lost trick.
+      // Dump the absolute lowest card from the whole hand to save resources
       return hand[0];
     }
   }
-
   // Bot wants to lose
   else {
     if (isFirstToPlay) {
@@ -93,7 +95,7 @@ function pickBestCardToPlay(room: Room) {
     const tieCards = hand.filter((c) => tableValues.has(getCardValue(c)));
     if (tieCards.length > 0) {
       console.log(`${currentPlayer.username} executing offensive Kamikaze!`);
-      // Play the HIGHEST tie card to dump maximum liability
+      // Play the highest tie card to dump maximum liability
       return tieCards[tieCards.length - 1];
     }
 

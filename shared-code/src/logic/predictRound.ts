@@ -10,10 +10,11 @@ export function predictRound(
   if (_room.gameState !== GAME_STATE.Predicting)
     throw new Error("Game not in predicting state");
 
-  const player = _room.players.find((p) => p.id === playerId);
-  if (!player) throw new Error("Player not found");
+  const currentPlayerIndex = _room.players.findIndex((p) => p.id === playerId);
+  const player = _room.players[currentPlayerIndex];
 
-  if (room.currentPlayerName !== player.username) {
+  if (!player) throw new Error("Player not found");
+  if (_room.currentPlayerName !== player.username) {
     throw new Error("It's not the player's turn to predict");
   }
 
@@ -29,36 +30,24 @@ export function predictRound(
       (acc, player) => acc + (player.prediction ?? 0),
       0,
     );
-    if (predictionsSum + prediction === _room.deck.length) {
+
+    if (predictionsSum + prediction === _room.currentRound) {
+      console.log(predictionsSum, prediction, _room.currentRound);
       throw new Error(
-        "Prediction not allowed. The sum of predictions cannot equal the number of cards in the deck.",
+        "Prediction not allowed. The sum of predictions cannot equal the number of cards dealt.",
       );
     }
   }
 
-  const newPlayer = { ...player, prediction, originalPrediction: prediction };
+  player.prediction = prediction;
+  player.originalPrediction = prediction;
 
-  const roomWithNewPlayer = {
-    ..._room,
-    players: _room.players.map((p) => (p.id === playerId ? newPlayer : p)),
-  };
-
-  // check if all players have predicted
-  if (
-    roomWithNewPlayer.players.every((player) => player.prediction != undefined)
-  ) {
-    roomWithNewPlayer.gameState = GAME_STATE.Playing;
+  if (remainingPredictionsAvailable === 1) {
+    _room.gameState = GAME_STATE.Playing;
   }
 
-  // move to next player's turn regardless of whether all players have predicted or not
-  const currentPlayerIndex = roomWithNewPlayer.players.findIndex(
-    (player) => player.id === playerId,
-  );
-  const nextPlayerIndex =
-    (currentPlayerIndex + 1) % roomWithNewPlayer.players.length;
+  const nextPlayerIndex = (currentPlayerIndex + 1) % _room.players.length;
+  _room.currentPlayerName = _room.players[nextPlayerIndex]?.username;
 
-  roomWithNewPlayer.currentPlayerName =
-    roomWithNewPlayer.players[nextPlayerIndex]?.username;
-
-  return roomWithNewPlayer;
+  return _room;
 }

@@ -67,7 +67,8 @@ export async function haveBotsPredict(room: Room) {
         (acc, player) => acc + (player.prediction ?? 0),
         0,
       );
-      if (predictionsSum + prediction === room.deck.length) {
+
+      if (predictionsSum + prediction === room.currentRound) {
         prediction = prediction > 0 ? prediction - 1 : prediction + 1;
       }
     }

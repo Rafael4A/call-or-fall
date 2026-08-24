@@ -15,6 +15,7 @@
 - Refactor nas funções de lógica para simplificar e deixar mais legível
 - Refactor na lógica de state do backend
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
+- Deployar no VPS (Docker ou Kubernetes?)
 
 ## Tasks (extra, caso sobre tempo):
 
