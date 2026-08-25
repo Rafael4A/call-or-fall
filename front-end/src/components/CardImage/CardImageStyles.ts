@@ -1,10 +1,9 @@
-import type { Theme } from "@mui/material";
+import type { SxProps, Theme } from "@mui/material";
 import type { CSSProperties } from "react";
 
-export function ContainerStyles(highlight?: boolean) {
+export function ContainerStyles(highlight?: boolean): SxProps<Theme> {
   return (theme: Theme) => ({
-    width: 120,
-    height: 168,
+    width: 130,
     borderRadius: 0.5,
     border: highlight ? "3px solid" : "none",
     borderColor: highlight ? theme.palette.cardHighlight.main : "transparent",
@@ -13,6 +12,21 @@ export function ContainerStyles(highlight?: boolean) {
     justifyContent: "center",
     transition: "all 0.2s ease-in-out",
     position: "relative",
+    [theme.breakpoints.up("xl")]: {
+      width: 165,
+    },
+    [theme.breakpoints.down("xl")]: {
+      width: 155,
+    },
+    [theme.breakpoints.down("lg")]: {
+      width: 140,
+    },
+    [theme.breakpoints.down("md")]: {
+      width: 130,
+    },
+    [theme.breakpoints.down("sm")]: {
+      width: 115,
+    },
 
     "&::after": {
       content: '""',

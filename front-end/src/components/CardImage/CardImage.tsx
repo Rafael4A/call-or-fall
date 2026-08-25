@@ -23,8 +23,6 @@ export function CardImage({ cardCode, highlight }: CardImageProps) {
   return (
     <Box sx={ContainerStyles(highlight)}>
       <img
-        width={100}
-        height={140}
         src={isHidden ? fallbackImage : cardImageUrl}
         onLoad={() => setUseDefault(false)}
         alt={getCardName(cardCode, t)}
