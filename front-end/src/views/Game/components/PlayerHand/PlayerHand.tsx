@@ -12,8 +12,7 @@ export function PlayerHand() {
 
   const { room } = useRoomContext();
 
-  const isCurrentPlayer =
-    room?.currentPlayerName === room?.player.username;
+  const isCurrentPlayer = room?.currentPlayerName === room?.player.username;
   const playerCards = room?.player.cards ?? [];
 
   const playCardMutation = useMutation({
@@ -49,9 +48,9 @@ export function PlayerHand() {
         justifyContent="center"
         flexWrap="wrap"
       >
-        {playerCards.toSorted(cardSortFunc).map((card) => (
+        {playerCards.toSorted(cardSortFunc).map((card, index) => (
           <Button
-            key={card}
+            key={index}
             variant="contained"
             onClick={() => handlePlayCard(card)}
             disabled={

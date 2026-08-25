@@ -1,4 +1,4 @@
-import { Box, ThemeProvider } from "@mui/material";
+import { Box, GlobalStyles, ThemeProvider, useTheme } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { VIEWS } from "./constants";
@@ -47,6 +47,7 @@ function App() {
 }
 
 function ViewSwitcher() {
+  const theme = useTheme();
   const { view } = useViewContext();
   const { t } = useTranslation();
   const renderView = () => {
@@ -62,7 +63,20 @@ function ViewSwitcher() {
     }
   };
 
-  return <>{renderView()}</>;
+  return (
+    <>
+      <meta name="theme-color" content={theme.palette.background.default} />
+      <GlobalStyles
+        // iOS 26 stopped supporting the "theme-color" meta tag
+        styles={{
+          "html, body": {
+            backgroundColor: theme.palette.background.default,
+          },
+        }}
+      />
+      {renderView()}
+    </>
+  );
 }
 
 export default App;
