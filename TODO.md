@@ -11,7 +11,6 @@
 
 ## Tasks (TODO):
 
-- Criar adicionar mais locales
 - Verificar se todos imports estão vindo do barrel, ou se não estão causando dependências circulares
 - Deployar no VPS (Docker ou Kubernetes?)
 

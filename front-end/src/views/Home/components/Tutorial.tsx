@@ -51,7 +51,7 @@ export function Tutorial({ isVisible, onCloseClick }: TutorialProps) {
       <Box sx={ModalBoxStyles()}>
         <Paper elevation={8} sx={{ p: { xs: 2.5, sm: 4 } }}>
           <Stack spacing={3} alignItems="center">
-            <Typography variant="h2">
+            <Typography variant="h2" textAlign="center">
               {t(`tutorial-text.title.${currentStep}`)}
             </Typography>
             <Typography sx={{ fontSize: "1.25rem", textAlign: "center" }}>

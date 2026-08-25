@@ -66,7 +66,7 @@ export function ResultsModal({
                 })}
               >
                 {allPlayers.length}{" "}
-                {t("player-label", { count: allPlayers.length })}
+                {t("players-label", { count: allPlayers.length })}
               </Typography>
             </Stack>
 

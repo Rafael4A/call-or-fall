@@ -18,13 +18,13 @@ export const shareRoom = async (
     } else {
       navigator.clipboard.writeText(`${window.location.origin}?roomId=${id}`);
       openAlert({
-        content: "Link copied to clipboard!",
+        content: t("link-copied-to-clipboard"),
         severity: "success",
       });
     }
   } catch (_error) {
     openAlert({
-      content: "Failed to share room",
+      content: t("failed-to-share-room"),
       severity: "error",
     });
   }
