@@ -1,0 +1,24 @@
+name: AutoDeploy
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  Deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Repository checkout
+        uses: actions/checkout@v4
+
+      - name: Deploy to VPS
+        uses: easingthemes/ssh-deploy@v5.0.1
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: '-rlgoDzvc -i --delete --exclude ".env"'
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          TARGET: ./call-or-fall
+          SCRIPT_AFTER: |
+            node simple-deploy-script.mjs "call-or-fall"

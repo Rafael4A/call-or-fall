@@ -1,0 +1,15 @@
+services:
+  call-or-fall:
+    build: .
+    container_name: call-or-fall
+    restart: unless-stopped
+    ports:
+      - "3003:3001"
+    environment:
+      - NODE_ENV=production
+    networks:
+      - shared-bridge
+
+networks:
+  shared-bridge:
+    external: true

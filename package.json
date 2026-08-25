@@ -19,5 +19,8 @@
   "devDependencies": {
     "concurrently": "^9.2.1",
     "madge": "^8.0.0"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-musl": "4.62.5"
   }
 }
