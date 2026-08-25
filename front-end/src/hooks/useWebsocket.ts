@@ -1,7 +1,7 @@
 import { useCallback } from "react";
 import io, { type Socket } from "socket.io-client";
 import { STORAGE_KEYS } from "../constants";
-import { useSocketContext } from "../contexts";
+import { useSocketContext } from "../contexts/SocketContext";
 import { OfflineSocketMock } from "../local-game-helpers";
 
 export function useWebsocket() {

@@ -1,4 +1,4 @@
-import { type CardCode } from "../types";
+import type { CardCode } from "../types/CardCode";
 
 export const CARDS_CODES: CardCode[] = [
   "AS",
