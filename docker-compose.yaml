@@ -3,8 +3,6 @@ services:
     build: .
     container_name: call-or-fall
     restart: unless-stopped
-    ports:
-      - "3003:3001"
     environment:
       - NODE_ENV=production
     networks:
