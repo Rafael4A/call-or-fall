@@ -11,6 +11,7 @@ import { shuffleDeck } from "./shuffleDeck";
 
 export function startGame(room: Room, roomOptions?: RoomOptions): Room {
   const _room = structuredClone(room);
+
   if (roomOptions) {
     _room.options.deckCount = safeClamp(
       roomOptions.deckCount || INITIAL_ROOM_OPTIONS.deckCount,
@@ -32,12 +33,14 @@ export function startGame(room: Room, roomOptions?: RoomOptions): Room {
     GAME_STATE.TrickOver,
     GAME_STATE.RoundOver,
   ];
+
   if (!possibleStatesToStartGame.includes(_room.gameState)) {
     throw new Error("Game cannot be started at this time");
   }
 
-  if (_room.players.length < 2)
+  if (_room.players.length < 2) {
     throw new Error("Not enough players to start the game");
+  }
 
   if (_room.gameState === GAME_STATE.WaitingForPlayers) {
     const randomIndex = Math.floor(Math.random() * _room.players.length);
@@ -52,15 +55,16 @@ export function startGame(room: Room, roomOptions?: RoomOptions): Room {
       (_room.currentRound + 1) * _room.players.length;
     const amountOfCardsInDeck = _room.options.deckCount * CARDS_CODES.length;
 
-    const highstedScore = Math.max(
+    const highestScore = Math.max(
       ..._room.players.map((player) => player.score),
     );
 
     if (
       amountOfCardsForNextRound > amountOfCardsInDeck ||
-      highstedScore >= _room.options.scoreLimit
+      highestScore >= _room.options.scoreLimit
     ) {
-      return { ..._room, gameState: GAME_STATE.GameOver };
+      _room.gameState = GAME_STATE.GameOver;
+      return _room;
     }
   }
 
@@ -75,6 +79,7 @@ export function startGame(room: Room, roomOptions?: RoomOptions): Room {
     const currentStartingPlayerIndex = _room.players.findIndex(
       (player) => player.username === _room.roundFirstPlayerName,
     );
+
     const nextPlayerIndex =
       (currentStartingPlayerIndex + 1) % _room.players.length;
 
@@ -101,5 +106,5 @@ export function startGame(room: Room, roomOptions?: RoomOptions): Room {
     _room.gameState = GAME_STATE.Playing;
   }
 
-  return structuredClone(_room);
+  return _room;
 }

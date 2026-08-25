@@ -53,7 +53,7 @@ export function playCardEndpoint(req: Request, res: Response) {
   ];
 
   if (gameStatesForNextTrick.includes(newRoom.gameState)) {
-    handleTrickOver(newRoom, io);
+    handleTrickOver(newRoom.id, io);
   }
 
   res.status(200).send();

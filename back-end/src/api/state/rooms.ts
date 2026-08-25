@@ -20,12 +20,12 @@ export const Rooms = new Map<string, Room>();
 export function getRoomById(roomId: string): Room | undefined {
   return Rooms.get(roomId);
 }
+
 export function getRoomByIdWithUser(
   roomId: string,
   userId: string,
 ): Room | undefined {
   const found = Rooms.get(roomId);
-  console.log(roomId, userId, found);
   return found?.players.find((p) => p.id === userId) ? found : undefined;
 }
 
@@ -37,7 +37,6 @@ export function addPlayerToRoom(room: Room, username: string): Player {
 
 export function startGame(room: Room, roomOptions?: RoomOptions): Room {
   const newRoom = logicStartGame(room, roomOptions);
-
   Rooms.set(newRoom.id, newRoom);
   return newRoom;
 }
@@ -47,36 +46,30 @@ export function predictRound(
   playerId: string,
   prediction: number,
 ): Room {
-  const player = room.players.find((p) => p.id === playerId);
-  if (!player) throw new Error("Player not found");
-
   const newRoom = logicPredictRound(room, playerId, prediction);
-
   Rooms.set(room.id, newRoom);
   return newRoom;
 }
 
 export function playCard(room: Room, playerId: string, card: CardCode): Room {
-  const player = room.players.find((p) => p.id === playerId);
-  if (!player) throw new Error("Player not found");
-
   const newRoom = logicPlayCard(room, playerId, card);
-
   Rooms.set(room.id, newRoom);
   return newRoom;
 }
 
-export async function handleTrickOver(room: Room, io: Server) {
+export async function handleTrickOver(roomId: string, io: Server) {
   // Wait for 7 seconds before starting the next round
   await new Promise((resolve) => setTimeout(resolve, 7000));
 
-  // Start the next round
-  const newRoom = startGame(room);
-  Rooms.set(room.id, newRoom);
+  // Re-fetch the room to ensure we have the most up-to-date state in case someone disconnected during those 7 seconds
+  const freshRoom = Rooms.get(roomId);
 
-  // Emit an event to notify clients that the round has ended and a new round has started
-  io.to(room.id).emit(SOCKET_EVENTS.ROOM_UPDATE);
+  if (!freshRoom) return;
 
+  const newRoom = startGame(freshRoom);
+  Rooms.set(roomId, newRoom);
+
+  io.to(roomId).emit(SOCKET_EVENTS.ROOM_UPDATE);
   return newRoom;
 }
 
@@ -98,19 +91,13 @@ export function removePlayerFromRoom(roomId: string, playerId: string) {
   if (!room) return false;
 
   const playerIndex = room.players.findIndex((p) => p.id === playerId);
-  console.log(
-    "!!!",
-    room.currentPlayerName,
-    room.players[playerIndex]?.username,
-  );
-  if (room.currentPlayerName === room.players[playerIndex]?.username) {
-    const nextPlayerIndex = playerIndex % room.players.length;
+  if (playerIndex === -1) return false;
 
-    console.log("!-!", room.players[nextPlayerIndex]?.username);
+  if (room.currentPlayerName === room.players[playerIndex]?.username) {
+    const nextPlayerIndex = (playerIndex + 1) % room.players.length;
     room.currentPlayerName = room.players[nextPlayerIndex]?.username;
   }
 
-  if (playerIndex === -1) return false;
   room.players.splice(playerIndex, 1);
 
   if (
