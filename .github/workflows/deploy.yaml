@@ -21,4 +21,6 @@ jobs:
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           TARGET: ./call-or-fall
           SCRIPT_AFTER: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             node simple-deploy-script.mjs "call-or-fall"
