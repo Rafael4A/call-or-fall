@@ -84,7 +84,6 @@ export function Game() {
 
       <ResultsModal
         isVisible={showScoreModal}
-        room={room} //TODO CORRIGIR
         onCloseClick={() => {
           setShowScoreModal(false);
         }}

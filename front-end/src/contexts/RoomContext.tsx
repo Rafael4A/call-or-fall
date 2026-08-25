@@ -91,14 +91,12 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
         ] as (GameState | undefined)[]
       ).includes(room.data?.gameState)
     ) {
-      console.log("switched to game view by context");
       setView(VIEWS.GAME);
     }
     if (
       view !== VIEWS.WAITING_ROOM &&
       room.data?.gameState === GAME_STATE.WaitingForPlayers
     ) {
-      console.log("switched to waiting room view by context");
       setView(VIEWS.WAITING_ROOM);
     }
 
@@ -106,7 +104,6 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
       connectSocket(roomId, userId);
 
       registerEvent(SOCKET_EVENTS.ROOM_UPDATE, () => {
-        console.log("Socket update received");
         room.refetch();
       });
 
@@ -123,7 +120,6 @@ export function RoomProvider({ children }: Readonly<PropsWithChildren>) {
     }
 
     if (room.isError) {
-      console.log("#!!$", room.error);
       if ((room.error as APIError)?.status === 404) {
         clearRoomData();
       }

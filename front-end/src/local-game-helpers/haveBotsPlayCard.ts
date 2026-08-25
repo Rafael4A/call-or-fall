@@ -94,7 +94,6 @@ function pickBestCardToPlay(room: Room) {
     // Screw other players over if we can, otherwise play the safest card possible.
     const tieCards = hand.filter((c) => tableValues.has(getCardValue(c)));
     if (tieCards.length > 0) {
-      console.log(`${currentPlayer.username} executing offensive Kamikaze!`);
       // Play the highest tie card to dump maximum liability
       return tieCards[tieCards.length - 1];
     }

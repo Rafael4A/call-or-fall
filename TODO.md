@@ -40,14 +40,8 @@
 - Opção de mostrar borda dourada na carta ganhando -> Mod escolhe ao criar partida
 - Implementar fim de jogo quando acabar cartas
 
-## Verificar antes de concluir:
-
-- Terminar TODOs
-- tirar console.logs
-
 ## Features:
 
 - Partidas online com até 8 jogadores simultâneos
-- Partidas com jogadores reais e bots misturados
 - Funcionamento offline através de PWA com cache para jogar contra bots
 - Comunicação em tempo real usando WebSockets

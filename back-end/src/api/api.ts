@@ -1,8 +1,4 @@
-import express, {
-  type NextFunction,
-  type Request,
-  type Response,
-} from "express";
+import express from "express";
 import {
   createRoomEndpoint,
   getRoomEndpoint,
@@ -15,13 +11,6 @@ import { leaveRoomEndpoint } from "./endpoints/room/[id]/leave/post";
 import { playerInRoomMiddleware } from "./middlewares";
 
 export const apiRouter = express.Router();
-
-// TODO REMOVE middleware that is specific to this router
-const reqLog = (req: Request, res: Response, next: NextFunction) => {
-  console.log("Requested: ", req.originalUrl, req.params, req.path, req.body);
-  next();
-};
-apiRouter.use(reqLog);
 
 apiRouter.post("/room", createRoomEndpoint);
 apiRouter.post("/room/:id/join", joinRoomEndpoint);

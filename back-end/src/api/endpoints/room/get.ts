@@ -3,8 +3,6 @@ import { mapRoomToRoomDTO, type RoomDTO } from "shared-code";
 import { getRoomByIdWithUser } from "../../state";
 
 export function getRoomEndpoint(req: Request, res: Response) {
-  console.log(req.params, req.query);
-
   const roomId = req.params?.id;
   const userId = req.query?.userId;
 
@@ -25,8 +23,6 @@ export function getRoomEndpoint(req: Request, res: Response) {
   }
 
   const room = getRoomByIdWithUser(roomId, userId);
-
-  console.log(room);
 
   if (!room) {
     return res.status(404).send({ error: "Room with player not found" });

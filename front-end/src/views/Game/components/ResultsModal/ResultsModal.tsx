@@ -1,23 +1,20 @@
 import { Box, Modal, Paper, Stack, Typography } from "@mui/material";
 import { useId } from "react";
 import { useTranslation } from "react-i18next";
-import { GAME_STATE, type PlayerOpponentDTO, type RoomDTO } from "shared-code";
+import { GAME_STATE, type PlayerOpponentDTO } from "shared-code";
+import { useRoomContext } from "../../../../contexts";
 import { ModalBoxStyles } from "../../../../styles";
 import { ItemPaperStyles, SubtitleStyles } from "./ResultsModalStyles";
 
 interface ResultsModalProps {
-  room?: RoomDTO;
   isVisible: boolean;
   onCloseClick: () => void;
 }
 
-export function ResultsModal({
-  room,
-  isVisible,
-  onCloseClick,
-}: ResultsModalProps) {
+export function ResultsModal({ isVisible, onCloseClick }: ResultsModalProps) {
   const { t } = useTranslation();
   const baseId = useId();
+  const { room } = useRoomContext();
 
   if (!room) return null;
 

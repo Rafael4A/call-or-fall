@@ -4,7 +4,6 @@ import { getRoomByIdWithUser } from "../state/rooms";
 
 export function socketHandler(io: Server) {
   io.on(SOCKET_EVENTS.CONNECTION, (socket: Socket) => {
-    console.log("a user connected", socket.handshake.query);
     const query = socket.handshake.query as unknown as SocketQuery;
     const { roomId, playerId } = query;
 
@@ -18,8 +17,6 @@ export function socketHandler(io: Server) {
     socket.join(roomId);
     socket.to(roomId).emit(SOCKET_EVENTS.ROOM_UPDATE);
 
-    socket.on("disconnect", () => {
-      console.log("user disconnected");
-    });
+    socket.on("disconnect", () => {});
   });
 }

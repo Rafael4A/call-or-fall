@@ -25,15 +25,6 @@ export function useWebsocket() {
       }
 
       initGlobalListeners();
-
-      socketRef.current.onAny((event: string, ...args: unknown[]) => {
-        console.log(
-          `[${isOffline ? "OFFLINE" : "ONLINE"}] event received:`,
-          event,
-          "args:",
-          args,
-        );
-      });
     },
     [socketRef, initGlobalListeners],
   );

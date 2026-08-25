@@ -32,7 +32,6 @@ export function predictRound(
     );
 
     if (predictionsSum + prediction === _room.currentRound) {
-      console.log(predictionsSum, prediction, _room.currentRound);
       throw new Error(
         "Prediction not allowed. The sum of predictions cannot equal the number of cards dealt.",
       );
