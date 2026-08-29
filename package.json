@@ -13,12 +13,13 @@
     "dev": "npm run -w=shared-code build && concurrently --names \"SHARED,FRONT,BACK\" --prefix-colors \"auto\" --timestamped false \"npm run -w=shared-code dev\" \"npm run -w=front-end dev\" \"npm run -w=back-end dev\"",
     "build": "npm run -w=shared-code build && concurrently --names \"FRONT,BACK\" --prefix-colors \"auto\" --timestamped false \"npm run -w=front-end build\" \"npm run -w=back-end build\"",
     "prod": "npm run build && npm run -w=back-end start",
-    "test": "npm run -w=shared-code build && concurrently --names \"SHARED,FRONT,BACK\" \"npm run -w=shared-code test\" \"npm run -w=front-end test\" \"npm run -w=back-end test\"",
+    "test": "npm run -w=shared-code build && npm run -w=shared-code test && npm run -w=front-end test && npm run -w=back-end test",
     "check-deps": "madge --circular --extensions ts,tsx --exclude \"node_modules|dist\" ./"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
-    "madge": "^8.0.0"
+    "madge": "^8.0.0",
+    "vitest": "^4.1.11"
   },
   "optionalDependencies": {
     "@rollup/rollup-linux-x64-musl": "4.62.5"

@@ -31,7 +31,7 @@ export async function haveBotsPlayCard(room: Room) {
   return false;
 }
 
-function pickBestCardToPlay(room: Room) {
+export function pickBestCardToPlay(room: Room) {
   const currentPlayer = room.players.find(
     (p) => p.username === room.currentPlayerName,
   )!;

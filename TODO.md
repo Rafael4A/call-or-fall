@@ -9,10 +9,6 @@
 - A somada das previsões não pode ser igual ao número de cartas nas mãos. Ex.: Na terceira rodada Alice diz que vai ganhar duas, Bob diz que vai ganhar zero, Carol não pode dizer que vai ganhar uma pois somaria 3 (2 de Alice, 0 de Bob e 1 de Carol) ela precisa dizer zero, dois ou três
 - Caso duas(ou mais) cartas de mesmo valor sejam jogadas, elas se anulam, e não valem nada.
 
-## Tasks (TODO):
-
-- Deployar no VPS (Docker ou Kubernetes?)
-
 ## Tasks (extra, caso sobre tempo):
 
 - Handler de erros de API
