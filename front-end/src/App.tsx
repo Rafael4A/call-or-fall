@@ -70,7 +70,7 @@ function ViewSwitcher() {
         // iOS 26 stopped supporting the "theme-color" meta tag
         styles={{
           "html, body": {
-            backgroundColor: theme.palette.background.default,
+            backgroundColor: `${theme.palette.background.default} !important`,
           },
         }}
       />
