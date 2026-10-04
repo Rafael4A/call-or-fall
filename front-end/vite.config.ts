@@ -51,6 +51,27 @@ export default defineConfig({
         "web-app-manifest-512x512.png",
         "CallOrFall-Logo.webp",
       ],
+      workbox: {
+        clientsClaim: true,
+        skipWaiting: true,
+        navigateFallback: "/",
+        runtimeCaching: [
+          {
+            urlPattern: /^https?:\/\/.*\.(js|css|png|jpg|svg|webp|woff2?)$/i,
+            handler: "CacheFirst",
+            options: {
+              cacheName: "static-resources",
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+        ],
+      },
     }),
   ],
   server: {
